@@ -1,0 +1,186 @@
+Domain,ConceptA,ConceptB,ContextType,ContextDiff,TargetDiff,Context1,Context2,Target1,Target2
+social-properties,boastful,humble,direct,antonym,concept swap,Ali brags about about past accomplishments.,Ali downplays about past accomplishments.,Ali is boastful.,Ali is humble.
+social-properties,boastful,humble,direct,antonym,concept swap,Ali talks a lot about past accomplishments.,Ali talks little about past accomplishments.,Ali is boastful.,Ali is humble.
+social-properties,boastful,humble,direct,antonym,concept swap,Chao brags about about past accomplishments.,Chao downplays about past accomplishments.,Chao is boastful.,Chao is humble.
+social-properties,boastful,humble,direct,antonym,concept swap,Chao talks a lot about past accomplishments.,Chao talks little about past accomplishments.,Chao is boastful.,Chao is humble.
+social-properties,boastful,humble,direct,antonym,concept swap,Jesse brags about about past accomplishments.,Jesse downplays about past accomplishments.,Jesse is boastful.,Jesse is humble.
+social-properties,boastful,humble,direct,antonym,concept swap,Jesse talks a lot about past accomplishments.,Jesse talks little about past accomplishments.,Jesse is boastful.,Jesse is humble.
+social-properties,boastful,humble,direct,antonym,concept swap,Li brags about about past accomplishments.,Li downplays about past accomplishments.,Li is boastful.,Li is humble.
+social-properties,boastful,humble,direct,antonym,concept swap,Li talks a lot about past accomplishments.,Li talks little about past accomplishments.,Li is boastful.,Li is humble.
+social-properties,boastful,humble,direct,antonym,concept swap,Mohammed brags about about past accomplishments.,Mohammed downplays about past accomplishments.,Mohammed is boastful.,Mohammed is humble.
+social-properties,boastful,humble,direct,antonym,concept swap,Mohammed talks a lot about past accomplishments.,Mohammed talks little about past accomplishments.,Mohammed is boastful.,Mohammed is humble.
+social-properties,boastful,humble,direct,negation,concept swap,Ali talks about past accomplishments.,Ali doesn't talk about past accomplishments.,Ali is boastful.,Ali is humble.
+social-properties,boastful,humble,direct,negation,concept swap,Chao talks about past accomplishments.,Chao doesn't talk about past accomplishments.,Chao is boastful.,Chao is humble.
+social-properties,boastful,humble,direct,negation,concept swap,Jesse talks about past accomplishments.,Jesse doesn't talk about past accomplishments.,Jesse is boastful.,Jesse is humble.
+social-properties,boastful,humble,direct,negation,concept swap,Li talks about past accomplishments.,Li doesn't talk about past accomplishments.,Li is boastful.,Li is humble.
+social-properties,boastful,humble,direct,negation,concept swap,Mohammed talks about past accomplishments.,Mohammed doesn't talk about past accomplishments.,Mohammed is boastful.,Mohammed is humble.
+social-properties,boastful,humble,indirect,other,concept swap,Ali spent the whole conversation talking about his successes.,Ali spent the whole conversation talking about his friend's successes.,Ali is boastful.,Ali is humble.
+social-properties,boastful,humble,indirect,other,concept swap,Ali spent the whole conversation talking about his successes.,Ali spent the whole conversation talking about his friend's successes.,Ali is boastful.,Ali is humble.
+social-properties,boastful,humble,indirect,other,concept swap,Andrea spent the whole conversation talking about their successes.,Andrea spent the whole conversation talking about their friend's successes.,Andrea is boastful.,Andrea is humble.
+social-properties,boastful,humble,indirect,other,concept swap,Chao spent the whole conversation talking about their successes.,Chao spent the whole conversation talking about their friend's successes.,Chao is boastful.,Chao is humble.
+social-properties,boastful,humble,indirect,other,concept swap,David spent the whole conversation talking about his successes.,David spent the whole conversation talking about his friend's successes.,David is boastful.,David is humble.
+social-properties,boastful,humble,indirect,other,concept swap,Elena spent the whole conversation talking about her successes.,Elena spent the whole conversation talking about her friend's successes.,Elena is boastful.,Elena is humble.
+social-properties,boastful,humble,indirect,other,concept swap,Fatima spent the whole conversation talking about her successes.,Fatima spent the whole conversation talking about her friend's successes.,Fatima is boastful.,Fatima is humble.
+social-properties,boastful,humble,indirect,other,concept swap,Jesse spent the whole conversation talking about their successes.,Jesse spent the whole conversation talking about their friend's successes.,Jesse is boastful.,Jesse is humble.
+social-properties,boastful,humble,indirect,other,concept swap,Jesse spent the whole conversation talking about their successes.,Jesse spent the whole conversation talking about their friend's successes.,Jesse is boastful.,Jesse is humble.
+social-properties,boastful,humble,indirect,other,concept swap,Li spent the whole conversation talking about their successes.,Li spent the whole conversation talking about their friend's successes.,Li is boastful.,Li is humble.
+social-properties,boastful,humble,indirect,other,concept swap,Maria spent the whole conversation talking about her successes.,Maria spent the whole conversation talking about her friend's successes.,Maria is boastful.,Maria is humble.
+social-properties,boastful,humble,indirect,other,concept swap,Mary spent the whole conversation talking about her successes.,Mary spent the whole conversation talking about her friend's successes.,Mary is boastful.,Mary is humble.
+social-properties,boastful,humble,indirect,other,concept swap,Mohammed spent the whole conversation talking about his successes.,Mohammed spent the whole conversation talking about his friend's successes.,Mohammed is boastful.,Mohammed is humble.
+social-properties,boastful,humble,indirect,other,concept swap,Nushi spent the whole conversation talking about her successes.,Nushi spent the whole conversation talking about her friend's successes.,Nushi is boastful.,Nushi is humble.
+social-properties,boastful,humble,indirect,other,concept swap,Robert spent the whole conversation talking about his successes.,Robert spent the whole conversation talking about his friend's successes.,Robert is boastful.,Robert is humble.
+social-properties,dominant,submissive,direct,antonym,concept swap,Ali often gives instructions.,Ali often follows instructions.,Ali is dominant.,Ali is submissive.
+social-properties,dominant,submissive,direct,antonym,concept swap,Ali often tells others what to do.,Ali rarely tells others what to do.,Ali is dominant.,Ali is submissive.
+social-properties,dominant,submissive,direct,antonym,concept swap,Ali usually makes decisions.,Ali usually obeys decisions.,Ali is dominant.,Ali is submissive.
+social-properties,dominant,submissive,direct,antonym,concept swap,Chao often gives instructions.,Chao often follows instructions.,Chao is dominant.,Chao is submissive.
+social-properties,dominant,submissive,direct,antonym,concept swap,Chao often tells others what to do.,Chao rarely tells others what to do.,Chao is dominant.,Chao is submissive.
+social-properties,dominant,submissive,direct,antonym,concept swap,Chao usually makes decisions.,Chao usually obeys decisions.,Chao is dominant.,Chao is submissive.
+social-properties,dominant,submissive,direct,antonym,concept swap,Jesse often gives instructions.,Jesse often follows instructions.,Jesse is dominant.,Jesse is submissive.
+social-properties,dominant,submissive,direct,antonym,concept swap,Jesse often tells others what to do.,Jesse rarely tells others what to do.,Jesse is dominant.,Jesse is submissive.
+social-properties,dominant,submissive,direct,antonym,concept swap,Jesse usually makes decisions.,Jesse usually obeys decisions.,Jesse is dominant.,Jesse is submissive.
+social-properties,dominant,submissive,direct,antonym,concept swap,Li often gives instructions.,Li often follows instructions.,Li is dominant.,Li is submissive.
+social-properties,dominant,submissive,direct,antonym,concept swap,Li often tells others what to do.,Li rarely tells others what to do.,Li is dominant.,Li is submissive.
+social-properties,dominant,submissive,direct,antonym,concept swap,Li usually makes decisions.,Li usually obeys decisions.,Li is dominant.,Li is submissive.
+social-properties,dominant,submissive,direct,antonym,concept swap,Mohammed often gives instructions.,Mohammed often follows instructions.,Mohammed is dominant.,Mohammed is submissive.
+social-properties,dominant,submissive,direct,antonym,concept swap,Mohammed often tells others what to do.,Mohammed rarely tells others what to do.,Mohammed is dominant.,Mohammed is submissive.
+social-properties,dominant,submissive,direct,antonym,concept swap,Mohammed usually makes decisions.,Mohammed usually obeys decisions.,Mohammed is dominant.,Mohammed is submissive.
+social-properties,dominant,submissive,indirect,other,concept swap,"Ali has a large family. Each weekend, Ali decides what the family should do for fun.","Ali has a large family. Each weekend, Ali's partner decides what the family should do for fun.",Ali is dominant.,Ali is submissive.
+social-properties,dominant,submissive,indirect,other,concept swap,"Ali went backpacking with a friend. Every day, Ali decided where they should camp.","Ali went backpacking with a friend. Every day, Ali's friend decided where they should camp.",Ali is dominant.,Ali is submissive.
+social-properties,dominant,submissive,indirect,other,concept swap,"Chao has a large family. Each weekend, Chao decides what the family should do for fun.","Chao has a large family. Each weekend, Chao's partner decides what the family should do for fun.",Chao is dominant.,Chao is submissive.
+social-properties,dominant,submissive,indirect,other,concept swap,"Chao went backpacking with a friend. Every day, Chao decided where they should camp.","Chao went backpacking with a friend. Every day, Chao's friend decided where they should camp.",Chao is dominant.,Chao is submissive.
+social-properties,dominant,submissive,indirect,other,concept swap,"Jesse has a large family. Each weekend, Jesse decides what the family should do for fun.","Jesse has a large family. Each weekend, Jesse's partner decides what the family should do for fun.",Jesse is dominant.,Jesse is submissive.
+social-properties,dominant,submissive,indirect,other,concept swap,"Jesse went backpacking with a friend. Every day, Jesse decided where they should camp.","Jesse went backpacking with a friend. Every day, Jesse's friend decided where they should camp.",Jesse is dominant.,Jesse is submissive.
+social-properties,dominant,submissive,indirect,other,concept swap,"Li has a large family. Each weekend, Li decides what the family should do for fun.","Li has a large family. Each weekend, Li's partner decides what the family should do for fun.",Li is dominant.,Li is submissive.
+social-properties,dominant,submissive,indirect,other,concept swap,"Li went backpacking with a friend. Every day, Li decided where they should camp.","Li went backpacking with a friend. Every day, Li's friend decided where they should camp.",Li is dominant.,Li is submissive.
+social-properties,dominant,submissive,indirect,other,concept swap,"Mohammed has a large family. Each weekend, Mohammed decides what the family should do for fun.","Mohammed has a large family. Each weekend, Mohammed's partner decides what the family should do for fun.",Mohammed is dominant.,Mohammed is submissive.
+social-properties,dominant,submissive,indirect,other,concept swap,"Mohammed went backpacking with a friend. Every day, Mohammed decided where they should camp.","Mohammed went backpacking with a friend. Every day, Mohammed's friend decided where they should camp.",Mohammed is dominant.,Mohammed is submissive.
+social-properties,extroverted,introverted,direct,antonym,concept swap,Ali is quick to engage in social interactions.,Ali is hesitant to engage in social interactions.,Ali is extroverted.,Ali is introverted.
+social-properties,extroverted,introverted,direct,antonym,concept swap,Chao is quick to engage in social interactions.,Chao is hesitant to engage in social interactions.,Chao is extroverted.,Chao is introverted.
+social-properties,extroverted,introverted,direct,antonym,concept swap,Jesse is quick to engage in social interactions.,Jesse is hesitant to engage in social interactions.,Jesse is extroverted.,Jesse is introverted.
+social-properties,extroverted,introverted,direct,antonym,concept swap,Li is quick to engage in social interactions.,Li is hesitant to engage in social interactions.,Li is extroverted.,Li is introverted.
+social-properties,extroverted,introverted,direct,antonym,concept swap,Mohammed is quick to engage in social interactions.,Mohammed is hesitant to engage in social interactions.,Mohammed is extroverted.,Mohammed is introverted.
+social-properties,extroverted,introverted,indirect,antonym,concept swap,Ali enjoys large gatherings.,Ali enjoys intimate gatherings.,Ali is extroverted.,Ali is introverted.
+social-properties,extroverted,introverted,indirect,antonym,concept swap,Ali enjoys spending time with other people.,Ali enjoys spending time alone.,Ali is extroverted.,Ali is introverted.
+social-properties,extroverted,introverted,indirect,antonym,concept swap,Chao enjoys large gatherings.,Chao enjoys intimate gatherings.,Chao is extroverted.,Chao is introverted.
+social-properties,extroverted,introverted,indirect,antonym,concept swap,Chao enjoys spending time with other people.,Chao enjoys spending time alone.,Chao is extroverted.,Chao is introverted.
+social-properties,extroverted,introverted,indirect,antonym,concept swap,Jesse enjoys large gatherings.,Jesse enjoys intimate gatherings.,Jesse is extroverted.,Jesse is introverted.
+social-properties,extroverted,introverted,indirect,antonym,concept swap,Jesse enjoys spending time with other people.,Jesse enjoys spending time alone.,Jesse is extroverted.,Jesse is introverted.
+social-properties,extroverted,introverted,indirect,antonym,concept swap,Li enjoys large gatherings.,Li enjoys intimate gatherings.,Li is extroverted.,Li is introverted.
+social-properties,extroverted,introverted,indirect,antonym,concept swap,Li enjoys spending time with other people.,Li enjoys spending time alone.,Li is extroverted.,Li is introverted.
+social-properties,extroverted,introverted,indirect,antonym,concept swap,Mohammed enjoys large gatherings.,Mohammed enjoys intimate gatherings.,Mohammed is extroverted.,Mohammed is introverted.
+social-properties,extroverted,introverted,indirect,antonym,concept swap,Mohammed enjoys spending time with other people.,Mohammed enjoys spending time alone.,Mohammed is extroverted.,Mohammed is introverted.
+social-properties,friendly,hostile,direct,antonym,concept swap,Ali greeted Wei.,Ali insulted Wei.,Ali is friendly.,Ali is hostile.
+social-properties,friendly,hostile,direct,antonym,concept swap,Ali treats people kindly.,Ali treats people coldly.,Ali is friendly.,Ali is hostile.
+social-properties,friendly,hostile,direct,antonym,concept swap,Chao greeted Yan.,Chao insulted Yan.,Chao is friendly.,Chao is hostile.
+social-properties,friendly,hostile,direct,antonym,concept swap,Chao treats people kindly.,Chao treats people coldly.,Chao is friendly.,Chao is hostile.
+social-properties,friendly,hostile,direct,antonym,concept swap,Jesse greeted Alex.,Jesse insulted Alex.,Jesse is friendly.,Jesse is hostile.
+social-properties,friendly,hostile,direct,antonym,concept swap,Jesse treats people kindly.,Jesse treats people coldly.,Jesse is friendly.,Jesse is hostile.
+social-properties,friendly,hostile,direct,antonym,concept swap,Li greeted Maria.,Li insulted Maria.,Li is friendly.,Li is hostile.
+social-properties,friendly,hostile,direct,antonym,concept swap,Li treats people kindly.,Li treats people coldly.,Li is friendly.,Li is hostile.
+social-properties,friendly,hostile,direct,antonym,concept swap,Mohammed greeted Carmen.,Mohammed insulted Carmen.,Mohammed is friendly.,Mohammed is hostile.
+social-properties,friendly,hostile,direct,antonym,concept swap,Mohammed treats people kindly.,Mohammed treats people coldly.,Mohammed is friendly.,Mohammed is hostile.
+social-properties,friendly,hostile,indirect,antonym,concept swap,Ali enjoys meeting new people.,Ali avoids meeting new people.,Ali is friendly.,Ali is hostile.
+social-properties,friendly,hostile,indirect,antonym,concept swap,Chao enjoys meeting new people.,Chao avoids meeting new people.,Chao is friendly.,Chao is hostile.
+social-properties,friendly,hostile,indirect,antonym,concept swap,Jesse enjoys meeting new people.,Jesse avoids meeting new people.,Jesse is friendly.,Jesse is hostile.
+social-properties,friendly,hostile,indirect,antonym,concept swap,Li enjoys meeting new people.,Li avoids meeting new people.,Li is friendly.,Li is hostile.
+social-properties,friendly,hostile,indirect,antonym,concept swap,Mohammed enjoys meeting new people.,Mohammed avoids meeting new people.,Mohammed is friendly.,Mohammed is hostile.
+social-properties,friendly,hostile,indirect,other,concept swap,Ali gave Wei a gift.,Ali gave Wei a glare.,Ali is friendly.,Ali is hostile.
+social-properties,friendly,hostile,indirect,other,concept swap,Chao gave Yan a gift.,Chao gave Yan a glare.,Chao is friendly.,Chao is hostile.
+social-properties,friendly,hostile,indirect,other,concept swap,Jesse gave Alex a gift.,Jesse gave Alex a glare.,Jesse is friendly.,Jesse is hostile.
+social-properties,friendly,hostile,indirect,other,concept swap,Li gave Maria a gift.,Li gave Maria a glare.,Li is friendly.,Li is hostile.
+social-properties,friendly,hostile,indirect,other,concept swap,Mohammed gave Carmen a gift.,Mohammed gave Carmen a glare.,Mohammed is friendly.,Mohammed is hostile.
+social-properties,shy,confident,direct,antonym,concept swap,Ali is hesitant to meet new people.,Ali is quick to meet new people.,Ali is shy.,Ali is confident.
+social-properties,shy,confident,direct,antonym,concept swap,Ali is hesitant to share their opinion.,Ali is quick to share their opinion.,Ali is shy.,Ali is confident.
+social-properties,shy,confident,direct,antonym,concept swap,Chao is hesitant to meet new people.,Chao is quick to meet new people.,Chao is shy.,Chao is confident.
+social-properties,shy,confident,direct,antonym,concept swap,Chao is hesitant to share their opinion.,Chao is quick to share their opinion.,Chao is shy.,Chao is confident.
+social-properties,shy,confident,direct,antonym,concept swap,Jesse is hesitant to meet new people.,Jesse is quick to meet new people.,Jesse is shy.,Jesse is confident.
+social-properties,shy,confident,direct,antonym,concept swap,Jesse is hesitant to share their opinion.,Jesse is quick to share their opinion.,Jesse is shy.,Jesse is confident.
+social-properties,shy,confident,direct,antonym,concept swap,Li is hesitant to meet new people.,Li is quick to meet new people.,Li is shy.,Li is confident.
+social-properties,shy,confident,direct,antonym,concept swap,Li is hesitant to share their opinion.,Li is quick to share their opinion.,Li is shy.,Li is confident.
+social-properties,shy,confident,direct,antonym,concept swap,Mohammed is hesitant to meet new people.,Mohammed is quick to meet new people.,Mohammed is shy.,Mohammed is confident.
+social-properties,shy,confident,direct,antonym,concept swap,Mohammed is hesitant to share their opinion.,Mohammed is quick to share their opinion.,Mohammed is shy.,Mohammed is confident.
+social-properties,shy,confident,direct,antonym,concept swap,Speaking up is hard for Ali.,Speaking up is easy for Ali.,Ali is shy.,Ali is confident.
+social-properties,shy,confident,direct,antonym,concept swap,Speaking up is hard for Chao.,Speaking up is easy for Chao.,Chao is shy.,Chao is confident.
+social-properties,shy,confident,direct,antonym,concept swap,Speaking up is hard for Jesse.,Speaking up is easy for Jesse.,Jesse is shy.,Jesse is confident.
+social-properties,shy,confident,direct,antonym,concept swap,Speaking up is hard for Li.,Speaking up is easy for Li.,Li is shy.,Li is confident.
+social-properties,shy,confident,direct,antonym,concept swap,Speaking up is hard for Mohammed.,Speaking up is easy for Mohammed.,Mohammed is shy.,Mohammed is confident.
+social-properties,shy,confident,indirect,antonym,concept swap,Ali speaks quietly.,Ali speaks loudly.,Ali is shy.,Ali is confident.
+social-properties,shy,confident,indirect,antonym,concept swap,Chao speaks quietly.,Chao speaks loudly.,Chao is shy.,Chao is confident.
+social-properties,shy,confident,indirect,antonym,concept swap,Jesse speaks quietly.,Jesse speaks loudly.,Jesse is shy.,Jesse is confident.
+social-properties,shy,confident,indirect,antonym,concept swap,Li speaks quietly.,Li speaks loudly.,Li is shy.,Li is confident.
+social-properties,shy,confident,indirect,antonym,concept swap,Mohammed speaks quietly.,Mohammed speaks loudly.,Mohammed is shy.,Mohammed is confident.
+social-properties,shy,confident,indirect,negation,concept swap,Ali does not like to speak up during meetings.,Ali likes to speak up during meetings.,Ali is shy.,Ali is confident.
+social-properties,shy,confident,indirect,negation,concept swap,Chao does not like to speak up during meetings.,Chao likes to speak up during meetings.,Chao is shy.,Chao is confident.
+social-properties,shy,confident,indirect,negation,concept swap,Jesse does not like to speak up during meetings.,Jesse likes to speak up during meetings.,Jesse is shy.,Jesse is confident.
+social-properties,shy,confident,indirect,negation,concept swap,Li does not like to speak up during meetings.,Li likes to speak up during meetings.,Li is shy.,Li is confident.
+social-properties,shy,confident,indirect,negation,concept swap,Mohammed does not like to speak up during meetings.,Mohammed likes to speak up during meetings.,Mohammed is shy.,Mohammed is confident.
+social-properties,tolerant,bigoted,direct,antonym,concept swap,Ali is respectful towards differences in background and belief.,Ali is disrespectful towards differences in background and belief.,Ali is tolerant.,Ali is bigoted.
+social-properties,tolerant,bigoted,direct,antonym,concept swap,Chao is respectful towards differences in background and belief.,Chao is disrespectful towards differences in background and belief.,Chao is tolerant.,Chao is bigoted.
+social-properties,tolerant,bigoted,direct,antonym,concept swap,Jesse is respectful towards differences in background and belief.,Jesse is disrespectful towards differences in background and belief.,Jesse is tolerant.,Jesse is bigoted.
+social-properties,tolerant,bigoted,direct,antonym,concept swap,Li is respectful towards differences in background and belief.,Li is disrespectful towards differences in background and belief.,Li is tolerant.,Li is bigoted.
+social-properties,tolerant,bigoted,direct,antonym,concept swap,Mohammed is respectful towards differences in background and belief.,Mohammed is disrespectful towards differences in background and belief.,Mohammed is tolerant.,Mohammed is bigoted.
+social-properties,tolerant,bigoted,direct,negation,concept swap,Ali is not prejudiced against differences in background and belief.,Ali is prejudiced against differences in background and belief.,Ali is tolerant.,Ali is bigoted.
+social-properties,tolerant,bigoted,direct,negation,concept swap,Chao is not prejudiced against differences in background and belief.,Chao is prejudiced against differences in background and belief.,Chao is tolerant.,Chao is bigoted.
+social-properties,tolerant,bigoted,direct,negation,concept swap,Jesse is not prejudiced against differences in background and belief.,Jesse is prejudiced against differences in background and belief.,Jesse is tolerant.,Jesse is bigoted.
+social-properties,tolerant,bigoted,direct,negation,concept swap,Li is not prejudiced against differences in background and belief.,Li is prejudiced against differences in background and belief.,Li is tolerant.,Li is bigoted.
+social-properties,tolerant,bigoted,direct,negation,concept swap,Mohammed is not prejudiced against differences in background and belief.,Mohammed is prejudiced against differences in background and belief.,Mohammed is tolerant.,Mohammed is bigoted.
+social-properties,tolerant,bigoted,indirect,antonym,concept swap,Ali thinks having neighbors of a different culture is pleasant.,Ali thinks having neighbors of a different culture is unpleasant.,Ali is tolerant.,Ali is bigoted.
+social-properties,tolerant,bigoted,indirect,antonym,concept swap,Ali thinks having neighbors of a different race is pleasant.,Ali thinks having neighbors of a different race is unpleasant.,Ali is tolerant.,Ali is bigoted.
+social-properties,tolerant,bigoted,indirect,antonym,concept swap,Ali thinks having neighbors of a different religion is pleasant.,Ali thinks having neighbors of a different religion is unpleasant.,Ali is tolerant.,Ali is bigoted.
+social-properties,tolerant,bigoted,indirect,antonym,concept swap,Chao thinks having neighbors of a different culture is pleasant.,Chao thinks having neighbors of a different culture is unpleasant.,Chao is tolerant.,Chao is bigoted.
+social-properties,tolerant,bigoted,indirect,antonym,concept swap,Chao thinks having neighbors of a different race is pleasant.,Chao thinks having neighbors of a different race is unpleasant.,Chao is tolerant.,Chao is bigoted.
+social-properties,tolerant,bigoted,indirect,antonym,concept swap,Chao thinks having neighbors of a different religion is pleasant.,Chao thinks having neighbors of a different religion is unpleasant.,Chao is tolerant.,Chao is bigoted.
+social-properties,tolerant,bigoted,indirect,antonym,concept swap,Jesse thinks having neighbors of a different culture is pleasant.,Jesse thinks having neighbors of a different culture is unpleasant.,Jesse is tolerant.,Jesse is bigoted.
+social-properties,tolerant,bigoted,indirect,antonym,concept swap,Jesse thinks having neighbors of a different race is pleasant.,Jesse thinks having neighbors of a different race is unpleasant.,Jesse is tolerant.,Jesse is bigoted.
+social-properties,tolerant,bigoted,indirect,antonym,concept swap,Jesse thinks having neighbors of a different religion is pleasant.,Jesse thinks having neighbors of a different religion is unpleasant.,Jesse is tolerant.,Jesse is bigoted.
+social-properties,tolerant,bigoted,indirect,antonym,concept swap,Li thinks having neighbors of a different culture is pleasant.,Li thinks having neighbors of a different culture is unpleasant.,Li is tolerant.,Li is bigoted.
+social-properties,tolerant,bigoted,indirect,antonym,concept swap,Li thinks having neighbors of a different race is pleasant.,Li thinks having neighbors of a different race is unpleasant.,Li is tolerant.,Li is bigoted.
+social-properties,tolerant,bigoted,indirect,antonym,concept swap,Li thinks having neighbors of a different religion is pleasant.,Li thinks having neighbors of a different religion is unpleasant.,Li is tolerant.,Li is bigoted.
+social-properties,tolerant,bigoted,indirect,antonym,concept swap,Mohammed thinks having neighbors of a different culture is pleasant.,Mohammed thinks having neighbors of a different culture is unpleasant.,Mohammed is tolerant.,Mohammed is bigoted.
+social-properties,tolerant,bigoted,indirect,antonym,concept swap,Mohammed thinks having neighbors of a different race is pleasant.,Mohammed thinks having neighbors of a different race is unpleasant.,Mohammed is tolerant.,Mohammed is bigoted.
+social-properties,tolerant,bigoted,indirect,antonym,concept swap,Mohammed thinks having neighbors of a different religion is pleasant.,Mohammed thinks having neighbors of a different religion is unpleasant.,Mohammed is tolerant.,Mohammed is bigoted.
+social-properties,trustworthy,untrustworthy,direct,antonym,concept swap,Ali is reliable.,Ali is unreliable.,Ali is trustworthy.,Ali is untrustworthy.
+social-properties,trustworthy,untrustworthy,direct,antonym,concept swap,Chao is reliable.,Chao is unreliable.,Chao is trustworthy.,Chao is untrustworthy.
+social-properties,trustworthy,untrustworthy,direct,antonym,concept swap,Jesse is reliable.,Jesse is unreliable.,Jesse is trustworthy.,Jesse is untrustworthy.
+social-properties,trustworthy,untrustworthy,direct,antonym,concept swap,Li is reliable.,Li is unreliable.,Li is trustworthy.,Li is untrustworthy.
+social-properties,trustworthy,untrustworthy,direct,antonym,concept swap,Mohammed is reliable.,Mohammed is unreliable.,Mohammed is trustworthy.,Mohammed is untrustworthy.
+social-properties,trustworthy,untrustworthy,direct,negation,concept swap,Ali can be depended upon.,Ali cannot be depended upon.,Ali is trustworthy.,Ali is untrustworthy.
+social-properties,trustworthy,untrustworthy,direct,negation,concept swap,Chao can be depended upon.,Chao cannot be depended upon.,Chao is trustworthy.,Chao is untrustworthy.
+social-properties,trustworthy,untrustworthy,direct,negation,concept swap,Jesse can be depended upon.,Jesse cannot be depended upon.,Jesse is trustworthy.,Jesse is untrustworthy.
+social-properties,trustworthy,untrustworthy,direct,negation,concept swap,Li can be depended upon.,Li cannot be depended upon.,Li is trustworthy.,Li is untrustworthy.
+social-properties,trustworthy,untrustworthy,direct,negation,concept swap,Mohammed can be depended upon.,Mohammed cannot be depended upon.,Mohammed is trustworthy.,Mohammed is untrustworthy.
+social-properties,trustworthy,untrustworthy,indirect,antonym,concept swap,"Alex told Jesse a secret. Today, no one else knows the secret.","Alex told Jesse a secret. Today, everyone knows the secret.",Jesse is trustworthy.,Jesse is untrustworthy.
+social-properties,trustworthy,untrustworthy,indirect,antonym,concept swap,Ali is good at completing important tasks.,Ali is bad at completing important tasks.,Ali is trustworthy.,Ali is untrustworthy.
+social-properties,trustworthy,untrustworthy,indirect,antonym,concept swap,Ali usually keeps promises.,Ali usually breaks promises.,Ali is trustworthy.,Ali is untrustworthy.
+social-properties,trustworthy,untrustworthy,indirect,antonym,concept swap,"Carmen told Mohammed a secret. Today, no one else knows the secret.","Carmen told Mohammed a secret. Today, everyone knows the secret.",Mohammed is trustworthy.,Mohammed is untrustworthy.
+social-properties,trustworthy,untrustworthy,indirect,antonym,concept swap,Chao is good at completing important tasks.,Chao is bad at completing important tasks.,Chao is trustworthy.,Chao is untrustworthy.
+social-properties,trustworthy,untrustworthy,indirect,antonym,concept swap,Chao usually keeps promises.,Chao usually breaks promises.,Chao is trustworthy.,Chao is untrustworthy.
+social-properties,trustworthy,untrustworthy,indirect,antonym,concept swap,Jesse is good at completing important tasks.,Jesse is bad at completing important tasks.,Jesse is trustworthy.,Jesse is untrustworthy.
+social-properties,trustworthy,untrustworthy,indirect,antonym,concept swap,Jesse usually keeps promises.,Jesse usually breaks promises.,Jesse is trustworthy.,Jesse is untrustworthy.
+social-properties,trustworthy,untrustworthy,indirect,antonym,concept swap,Li is good at completing important tasks.,Li is bad at completing important tasks.,Li is trustworthy.,Li is untrustworthy.
+social-properties,trustworthy,untrustworthy,indirect,antonym,concept swap,Li usually keeps promises.,Li usually breaks promises.,Li is trustworthy.,Li is untrustworthy.
+social-properties,trustworthy,untrustworthy,indirect,antonym,concept swap,"Maria told Li a secret. Today, no one else knows the secret.","Maria told Li a secret. Today, everyone knows the secret.",Li is trustworthy.,Li is untrustworthy.
+social-properties,trustworthy,untrustworthy,indirect,antonym,concept swap,Mohammed is good at completing important tasks.,Mohammed is bad at completing important tasks.,Mohammed is trustworthy.,Mohammed is untrustworthy.
+social-properties,trustworthy,untrustworthy,indirect,antonym,concept swap,Mohammed usually keeps promises.,Mohammed usually breaks promises.,Mohammed is trustworthy.,Mohammed is untrustworthy.
+social-properties,trustworthy,untrustworthy,indirect,antonym,concept swap,"Wei told Ali a secret. Today, no one else knows the secret.","Wei told Ali a secret. Today, everyone knows the secret.",Ali is trustworthy.,Ali is untrustworthy.
+social-properties,trustworthy,untrustworthy,indirect,antonym,concept swap,"Yan told Chao a secret. Today, no one else knows the secret.","Yan told Chao a secret. Today, everyone knows the secret.",Chao is trustworthy.,Chao is untrustworthy.
+social-properties,warm,cold,direct,antonym,concept swap,Ali has a friendly demeanor.,Ali has a unfriendly demeanor.,Ali is warm.,Ali is cold.
+social-properties,warm,cold,direct,antonym,concept swap,Ali often gets into long conversations.,Ali rarely gets into long conversations.,Ali is warm.,Ali is cold.
+social-properties,warm,cold,direct,antonym,concept swap,Ali often laughs.,Ali rarely laughs.,Ali is warm.,Ali is cold.
+social-properties,warm,cold,direct,antonym,concept swap,Chao has a friendly demeanor.,Chao has a unfriendly demeanor.,Chao is warm.,Chao is cold.
+social-properties,warm,cold,direct,antonym,concept swap,Chao often gets into long conversations.,Chao rarely gets into long conversations.,Chao is warm.,Chao is cold.
+social-properties,warm,cold,direct,antonym,concept swap,Chao often laughs.,Chao rarely laughs.,Chao is warm.,Chao is cold.
+social-properties,warm,cold,direct,antonym,concept swap,Jesse has a friendly demeanor.,Jesse has a unfriendly demeanor.,Jesse is warm.,Jesse is cold.
+social-properties,warm,cold,direct,antonym,concept swap,Jesse often gets into long conversations.,Jesse rarely gets into long conversations.,Jesse is warm.,Jesse is cold.
+social-properties,warm,cold,direct,antonym,concept swap,Jesse often laughs.,Jesse rarely laughs.,Jesse is warm.,Jesse is cold.
+social-properties,warm,cold,direct,antonym,concept swap,Li has a friendly demeanor.,Li has a unfriendly demeanor.,Li is warm.,Li is cold.
+social-properties,warm,cold,direct,antonym,concept swap,Li often gets into long conversations.,Li rarely gets into long conversations.,Li is warm.,Li is cold.
+social-properties,warm,cold,direct,antonym,concept swap,Li often laughs.,Li rarely laughs.,Li is warm.,Li is cold.
+social-properties,warm,cold,direct,antonym,concept swap,Mohammed has a friendly demeanor.,Mohammed has a unfriendly demeanor.,Mohammed is warm.,Mohammed is cold.
+social-properties,warm,cold,direct,antonym,concept swap,Mohammed often gets into long conversations.,Mohammed rarely gets into long conversations.,Mohammed is warm.,Mohammed is cold.
+social-properties,warm,cold,direct,antonym,concept swap,Mohammed often laughs.,Mohammed rarely laughs.,Mohammed is warm.,Mohammed is cold.
+social-properties,warm,cold,indirect,antonym,concept swap,Ali is approachable.,Ali is distant.,Ali is warm.,Ali is cold.
+social-properties,warm,cold,indirect,antonym,concept swap,Chao is approachable.,Chao is distant.,Chao is warm.,Chao is cold.
+social-properties,warm,cold,indirect,antonym,concept swap,Jesse is approachable.,Jesse is distant.,Jesse is warm.,Jesse is cold.
+social-properties,warm,cold,indirect,antonym,concept swap,Li is approachable.,Li is distant.,Li is warm.,Li is cold.
+social-properties,warm,cold,indirect,antonym,concept swap,Mohammed is approachable.,Mohammed is distant.,Mohammed is warm.,Mohammed is cold.

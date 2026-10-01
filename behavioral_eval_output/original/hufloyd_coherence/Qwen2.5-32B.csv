@@ -1,0 +1,41 @@
+item_number,story,prefix,correct,literal,correct_option_mean_logprob,incorrect_option_mean_logprob,model_correct_mean_logprob,correct_option_sum_logprob,incorrect_option_sum_logprob,model_correct_sum_logprob,scored_condition,model
+1,Mary's exam was about to start. Her palms were sweaty. ,The two sentences are ,coherent,incoherent,-8.875,-3.953125,False,-8.875,-11.875,True,hufloyd,Qwen/Qwen2.5-32B
+2,Laura got a lot of mail today. Some of her friends had remembered her birthday.,The two sentences are ,coherent,incoherent,-9.6875,-3.625,False,-9.6875,-10.875,True,hufloyd,Qwen/Qwen2.5-32B
+3,Sometimes a truck drives by the house. The dishes start to rattle.,The two sentences are ,coherent,incoherent,-8.9375,-3.890625,False,-8.9375,-11.6875,True,hufloyd,Qwen/Qwen2.5-32B
+4,The lights have been on since last night. The car doesn't start.,The two sentences are ,coherent,incoherent,-9.6875,-4.34375,False,-9.6875,-13.0,True,hufloyd,Qwen/Qwen2.5-32B
+5,Susan felt her baby's forehead with her palm. She begged her family doctor to come at once.,The two sentences are ,coherent,incoherent,-8.75,-4.15625,False,-8.75,-12.4375,True,hufloyd,Qwen/Qwen2.5-32B
+6,Bob was looking forward to the long holiday. He turned on the TV for a weather report.,The two sentences are ,coherent,incoherent,-9.4375,-4.3125,False,-9.4375,-12.9375,True,hufloyd,Qwen/Qwen2.5-32B
+7,Sharon's car was totally wrecked last week. She went to the bank hoping to get a loan.,The two sentences are ,coherent,incoherent,-9.375,-3.953125,False,-9.375,-11.875,True,hufloyd,Qwen/Qwen2.5-32B
+8,Cathy worked very hard and became exhausted. She was carried unconscious to the hospital. ,The two sentences are ,coherent,incoherent,-9.8125,-4.125,False,-9.8125,-12.375,True,hufloyd,Qwen/Qwen2.5-32B
+9,A dog ran toward a little girl eating ice cream. She was knocked down and shouted for her mother. ,The two sentences are ,coherent,incoherent,-10.375,-3.609375,False,-10.375,-10.8125,True,hufloyd,Qwen/Qwen2.5-32B
+10,Jane skipped her English class every now and then. She began to worry about her final exam.,The two sentences are ,coherent,incoherent,-8.125,-4.21875,False,-8.125,-12.625,True,hufloyd,Qwen/Qwen2.5-32B
+11,Vicky was planning her first trip to Europe. She put her favorite bathing suit in her bag.,The two sentences are ,coherent,incoherent,-9.6875,-3.3125,False,-9.6875,-9.9375,True,hufloyd,Qwen/Qwen2.5-32B
+12,Dick tripped over a chair and hit his head. A mirror fell down and shattered on the floor. ,The two sentences are ,coherent,incoherent,-12.0,-4.125,False,-12.0,-12.375,True,hufloyd,Qwen/Qwen2.5-32B
+13,The Senator wanted to practice corporate law. He decided not to run for re-election.,The two sentences are ,coherent,incoherent,-12.3125,-2.984375,False,-12.3125,-8.9375,False,hufloyd,Qwen/Qwen2.5-32B
+14,Joey got angry at his brother in a game. The next day his body was covered with bruises.,The two sentences are ,coherent,incoherent,-9.375,-3.359375,False,-9.375,-10.0625,True,hufloyd,Qwen/Qwen2.5-32B
+15,The rain storm was approaching the city. The papers on the desk blew off onto the floor.,The two sentences are ,coherent,incoherent,-9.25,-4.0,False,-9.25,-12.0,True,hufloyd,Qwen/Qwen2.5-32B
+16,Greg was working too hard to have enough rest. His driving became more dangerous each day.,The two sentences are ,coherent,incoherent,-9.75,-3.9375,False,-9.75,-11.8125,True,hufloyd,Qwen/Qwen2.5-32B
+17,Lisa commuted to her office an hour each way. She opened the paper to look at the apartment listing.,The two sentences are ,coherent,incoherent,-11.25,-3.3125,False,-11.25,-9.9375,False,hufloyd,Qwen/Qwen2.5-32B
+18,Richard remembered it was a big day for Karen. He spent the whole day shopping for a present.,The two sentences are ,coherent,incoherent,-8.25,-3.953125,False,-8.25,-11.875,True,hufloyd,Qwen/Qwen2.5-32B
+19,Jerry read the copy of his manuscript. The next day he yelled at his secretary.,The two sentences are ,coherent,incoherent,-9.5,-3.453125,False,-9.5,-10.375,True,hufloyd,Qwen/Qwen2.5-32B
+20,Cleo brushed against a table with a vase on it. The water spilled onto the expensive carpet.,The two sentences are ,coherent,incoherent,-9.875,-3.515625,False,-9.875,-10.5625,True,hufloyd,Qwen/Qwen2.5-32B
+21,Mary's exam was about to start. Some friends had remembered her birthday.,The two sentences are ,incoherent,coherent,-4.25,-9.5625,True,-12.75,-9.5625,False,hufloyd,Qwen/Qwen2.5-32B
+22,The lights have been on since last night. He turned on the TV for a weather report.,The two sentences are ,incoherent,coherent,-4.78125,-11.5625,True,-14.375,-11.5625,False,hufloyd,Qwen/Qwen2.5-32B
+23,Bob was looking forward to the long holiday. He begged his family doctor to come at once.,The two sentences are ,incoherent,coherent,-3.9375,-8.0,True,-11.8125,-8.0,False,hufloyd,Qwen/Qwen2.5-32B
+24,Sharon's car was totally wrecked last week. She was knocked down and shouted for her mother,The two sentences are ,incoherent,coherent,-3.25,-9.25,True,-9.75,-9.25,False,hufloyd,Qwen/Qwen2.5-32B
+25,Allen told his mother that he had a car accident. She began to worry about her final exam.,The two sentences are ,incoherent,coherent,-3.5625,-7.8125,True,-10.6875,-7.8125,False,hufloyd,Qwen/Qwen2.5-32B
+26,A dog ran toward a little girl eating ice cream. She went to the bank hoping to get a loan. ,The two sentences are ,incoherent,coherent,-4.375,-15.125,True,-13.125,-15.125,True,hufloyd,Qwen/Qwen2.5-32B
+27,Jane skipped her English class every now and then. She got upset and began to cry suddenly. ,The two sentences are ,incoherent,coherent,-4.09375,-9.5,True,-12.25,-9.5,False,hufloyd,Qwen/Qwen2.5-32B
+28,Bart sat next to a pretty girl in his class. She was carried unconscious to a hospital. ,The two sentences are ,incoherent,coherent,-3.984375,-14.9375,True,-11.9375,-14.9375,True,hufloyd,Qwen/Qwen2.5-32B
+29,Vicky was planning her first trip to Europe. A mirror fell down and shattered on the floor.,The two sentences are ,incoherent,coherent,-4.125,-10.875,True,-12.375,-10.875,False,hufloyd,Qwen/Qwen2.5-32B
+30,Dick tripped over a chair and hit his head. He decided not to run for re-election. ,The two sentences are ,incoherent,coherent,-3.75,-11.5,True,-11.25,-11.5,True,hufloyd,Qwen/Qwen2.5-32B
+31,Tony had a fight with his friend near a pond. His driving became more dangerous each day.,The two sentences are ,incoherent,coherent,-3.765625,-10.0,True,-11.3125,-10.0,False,hufloyd,Qwen/Qwen2.5-32B
+32,The rain storm was approaching the city. The next day the boy's body was covered with bruises.,The two sentences are ,incoherent,coherent,-3.515625,-10.0,True,-10.5625,-10.0,False,hufloyd,Qwen/Qwen2.5-32B
+33,"Bill considered various high-tech careers. He walked home, soaking wet, to change his clothes.",The two sentences are ,incoherent,coherent,-3.75,-9.0,True,-11.25,-9.0,False,hufloyd,Qwen/Qwen2.5-32B
+34,Ed wanted to leave his father's business. He decided not to go out with him any more.,The two sentences are ,incoherent,coherent,-4.03125,-8.9375,True,-12.125,-8.9375,False,hufloyd,Qwen/Qwen2.5-32B
+35,Ann had been absent from school for weeks. The papers on the desk blew off onto the floor.,The two sentences are ,incoherent,coherent,-3.671875,-8.0,True,-11.0,-8.0,False,hufloyd,Qwen/Qwen2.5-32B
+36,Greg was working too hard to have enough rest. He spent the whole day shopping for a present.,The two sentences are ,incoherent,coherent,-4.15625,-9.875,True,-12.4375,-9.875,False,hufloyd,Qwen/Qwen2.5-32B
+37,Ellen was not able to eat breakfast before work. She had a heated discussion until midnight.,The two sentences are ,incoherent,coherent,-3.5,-8.625,True,-10.5,-8.625,False,hufloyd,Qwen/Qwen2.5-32B
+38,Lisa commuted to her office an hour each way. The water spilled onto the expensive carpet.,The two sentences are ,incoherent,coherent,-2.921875,-12.25,True,-8.75,-12.25,True,hufloyd,Qwen/Qwen2.5-32B
+39,"Jerry read the copy of his manuscript. Frantically, he searched through the medicine cabinet.",The two sentences are ,incoherent,coherent,-3.390625,-9.0,True,-10.1875,-9.0,False,hufloyd,Qwen/Qwen2.5-32B
+40,Cleo brushed against a table with a vase on it. She decided to study harder to catch up.,The two sentences are ,incoherent,coherent,-3.25,-11.125,True,-9.75,-11.125,True,hufloyd,Qwen/Qwen2.5-32B

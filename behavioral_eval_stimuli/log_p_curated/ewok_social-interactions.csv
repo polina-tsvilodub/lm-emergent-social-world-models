@@ -1,0 +1,176 @@
+Domain,ConceptA,ConceptB,ContextType,ContextDiff,TargetDiff,Context1,Context2,Target1,Target2
+social-interactions,coerce,help,direct,other,concept swap,Ali is forcing Wei to act in a certain way.,Ali is advising Wei to act in a certain way.,Ali is coercing Wei.,Ali is helping Wei.
+social-interactions,coerce,help,direct,other,concept swap,Chao is forcing Yan to act in a certain way.,Chao is advising Yan to act in a certain way.,Chao is coercing Yan.,Chao is helping Yan.
+social-interactions,coerce,help,direct,other,concept swap,Jesse is forcing Alex to act in a certain way.,Jesse is advising Alex to act in a certain way.,Jesse is coercing Alex.,Jesse is helping Alex.
+social-interactions,coerce,help,direct,other,concept swap,Li is forcing Maria to act in a certain way.,Li is advising Maria to act in a certain way.,Li is coercing Maria.,Li is helping Maria.
+social-interactions,coerce,help,direct,other,concept swap,Mohammed is forcing Carmen to act in a certain way.,Mohammed is advising Carmen to act in a certain way.,Mohammed is coercing Carmen.,Mohammed is helping Carmen.
+social-interactions,coerce,help,indirect,antonym,concept swap,Ali is disempowering Wei.,Ali is empowering Wei.,Ali is coercing Wei.,Ali is helping Wei.
+social-interactions,coerce,help,indirect,antonym,concept swap,Ali is making Wei feel worse.,Ali is making Wei feel better.,Ali is coercing Wei.,Ali is helping Wei.
+social-interactions,coerce,help,indirect,antonym,concept swap,Chao is disempowering Yan.,Chao is empowering Yan.,Chao is coercing Yan.,Chao is helping Yan.
+social-interactions,coerce,help,indirect,antonym,concept swap,Chao is making Yan feel worse.,Chao is making Yan feel better.,Chao is coercing Yan.,Chao is helping Yan.
+social-interactions,coerce,help,indirect,antonym,concept swap,Jesse is disempowering Alex.,Jesse is empowering Alex.,Jesse is coercing Alex.,Jesse is helping Alex.
+social-interactions,coerce,help,indirect,antonym,concept swap,Jesse is making Alex feel worse.,Jesse is making Alex feel better.,Jesse is coercing Alex.,Jesse is helping Alex.
+social-interactions,coerce,help,indirect,antonym,concept swap,Li is disempowering Maria.,Li is empowering Maria.,Li is coercing Maria.,Li is helping Maria.
+social-interactions,coerce,help,indirect,antonym,concept swap,Li is making Maria feel worse.,Li is making Maria feel better.,Li is coercing Maria.,Li is helping Maria.
+social-interactions,coerce,help,indirect,antonym,concept swap,Mohammed is disempowering Carmen.,Mohammed is empowering Carmen.,Mohammed is coercing Carmen.,Mohammed is helping Carmen.
+social-interactions,coerce,help,indirect,antonym,concept swap,Mohammed is making Carmen feel worse.,Mohammed is making Carmen feel better.,Mohammed is coercing Carmen.,Mohammed is helping Carmen.
+social-interactions,coerce,help,indirect,other,concept swap,Alex is upset about Jesse's presence.,Alex is grateful for Jesse's presence.,Jesse is coercing Alex.,Jesse is helping Alex.
+social-interactions,coerce,help,indirect,other,concept swap,Carmen is upset about Mohammed's presence.,Carmen is grateful for Mohammed's presence.,Mohammed is coercing Carmen.,Mohammed is helping Carmen.
+social-interactions,coerce,help,indirect,other,concept swap,Maria is upset about Li's presence.,Maria is grateful for Li's presence.,Li is coercing Maria.,Li is helping Maria.
+social-interactions,coerce,help,indirect,other,concept swap,Wei is upset about Ali's presence.,Wei is grateful for Ali's presence.,Ali is coercing Wei.,Ali is helping Wei.
+social-interactions,coerce,help,indirect,other,concept swap,Yan is upset about Chao's presence.,Yan is grateful for Chao's presence.,Chao is coercing Yan.,Chao is helping Yan.
+social-interactions,cooperate,compete,direct,antonym,concept swap,Ali and Wei are helping each other.,Ali and Wei are hindering each other.,Ali is cooperating with Wei.,Ali is competing with Wei.
+social-interactions,cooperate,compete,direct,antonym,concept swap,Ali and Wei are working with each other.,Ali and Wei are working against each other.,Ali is cooperating with Wei.,Ali is competing with Wei.
+social-interactions,cooperate,compete,direct,antonym,concept swap,Chao and Yan are helping each other.,Chao and Yan are hindering each other.,Chao is cooperating with Yan.,Chao is competing with Yan.
+social-interactions,cooperate,compete,direct,antonym,concept swap,Chao and Yan are working with each other.,Chao and Yan are working against each other.,Chao is cooperating with Yan.,Chao is competing with Yan.
+social-interactions,cooperate,compete,direct,antonym,concept swap,Jesse and Alex are helping each other.,Jesse and Alex are hindering each other.,Jesse is cooperating with Alex.,Jesse is competing with Alex.
+social-interactions,cooperate,compete,direct,antonym,concept swap,Jesse and Alex are working with each other.,Jesse and Alex are working against each other.,Jesse is cooperating with Alex.,Jesse is competing with Alex.
+social-interactions,cooperate,compete,direct,antonym,concept swap,Li and Maria are helping each other.,Li and Maria are hindering each other.,Li is cooperating with Maria.,Li is competing with Maria.
+social-interactions,cooperate,compete,direct,antonym,concept swap,Li and Maria are working with each other.,Li and Maria are working against each other.,Li is cooperating with Maria.,Li is competing with Maria.
+social-interactions,cooperate,compete,direct,antonym,concept swap,Mohammed and Carmen are helping each other.,Mohammed and Carmen are hindering each other.,Mohammed is cooperating with Carmen.,Mohammed is competing with Carmen.
+social-interactions,cooperate,compete,direct,antonym,concept swap,Mohammed and Carmen are working with each other.,Mohammed and Carmen are working against each other.,Mohammed is cooperating with Carmen.,Mohammed is competing with Carmen.
+social-interactions,cooperate,compete,indirect,antonym,concept swap,Ali will be happy if Wei succeeds.,Ali will be happy if Wei fails.,Ali is cooperating with Wei.,Ali is competing with Wei.
+social-interactions,cooperate,compete,indirect,antonym,concept swap,Chao will be happy if Yan succeeds.,Chao will be happy if Yan fails.,Chao is cooperating with Yan.,Chao is competing with Yan.
+social-interactions,cooperate,compete,indirect,antonym,concept swap,Jesse will be happy if Alex succeeds.,Jesse will be happy if Alex fails.,Jesse is cooperating with Alex.,Jesse is competing with Alex.
+social-interactions,cooperate,compete,indirect,antonym,concept swap,Li will be happy if Maria succeeds.,Li will be happy if Maria fails.,Li is cooperating with Maria.,Li is competing with Maria.
+social-interactions,cooperate,compete,indirect,antonym,concept swap,Mohammed will be happy if Carmen succeeds.,Mohammed will be happy if Carmen fails.,Mohammed is cooperating with Carmen.,Mohammed is competing with Carmen.
+social-interactions,deceive,help,direct,antonym,concept swap,Ali is providing Wei with false information.,Ali is providing Wei with accurate information.,Ali is deceiving Wei.,Ali is helping Wei.
+social-interactions,deceive,help,direct,antonym,concept swap,Ali is providing Wei with misleading information.,Ali is providing Wei with useful information.,Ali is deceiving Wei.,Ali is helping Wei.
+social-interactions,deceive,help,direct,antonym,concept swap,Chao is providing Yan with false information.,Chao is providing Yan with accurate information.,Chao is deceiving Yan.,Chao is helping Yan.
+social-interactions,deceive,help,direct,antonym,concept swap,Chao is providing Yan with misleading information.,Chao is providing Yan with useful information.,Chao is deceiving Yan.,Chao is helping Yan.
+social-interactions,deceive,help,direct,antonym,concept swap,Jesse is providing Alex with false information.,Jesse is providing Alex with accurate information.,Jesse is deceiving Alex.,Jesse is helping Alex.
+social-interactions,deceive,help,direct,antonym,concept swap,Jesse is providing Alex with misleading information.,Jesse is providing Alex with useful information.,Jesse is deceiving Alex.,Jesse is helping Alex.
+social-interactions,deceive,help,direct,antonym,concept swap,Li is providing Maria with false information.,Li is providing Maria with accurate information.,Li is deceiving Maria.,Li is helping Maria.
+social-interactions,deceive,help,direct,antonym,concept swap,Li is providing Maria with misleading information.,Li is providing Maria with useful information.,Li is deceiving Maria.,Li is helping Maria.
+social-interactions,deceive,help,direct,antonym,concept swap,Mohammed is providing Carmen with false information.,Mohammed is providing Carmen with accurate information.,Mohammed is deceiving Carmen.,Mohammed is helping Carmen.
+social-interactions,deceive,help,direct,antonym,concept swap,Mohammed is providing Carmen with misleading information.,Mohammed is providing Carmen with useful information.,Mohammed is deceiving Carmen.,Mohammed is helping Carmen.
+social-interactions,deceive,help,indirect,antonym,concept swap,Ali is directing Wei toward the wrong path.,Ali is directing Wei toward the correct path.,Ali is deceiving Wei.,Ali is helping Wei.
+social-interactions,deceive,help,indirect,antonym,concept swap,Chao is directing Yan toward the wrong path.,Chao is directing Yan toward the correct path.,Chao is deceiving Yan.,Chao is helping Yan.
+social-interactions,deceive,help,indirect,antonym,concept swap,Jesse is directing Alex toward the wrong path.,Jesse is directing Alex toward the correct path.,Jesse is deceiving Alex.,Jesse is helping Alex.
+social-interactions,deceive,help,indirect,antonym,concept swap,Li is directing Maria toward the wrong path.,Li is directing Maria toward the correct path.,Li is deceiving Maria.,Li is helping Maria.
+social-interactions,deceive,help,indirect,antonym,concept swap,Mohammed is directing Carmen toward the wrong path.,Mohammed is directing Carmen toward the correct path.,Mohammed is deceiving Carmen.,Mohammed is helping Carmen.
+social-interactions,evade,chase,direct,antonym,concept swap,Ali is avoiding Wei.,Ali is following Wei.,Ali is evading Wei.,Ali is chasing Wei.
+social-interactions,evade,chase,direct,antonym,concept swap,Chao is avoiding Yan.,Chao is following Yan.,Chao is evading Yan.,Chao is chasing Yan.
+social-interactions,evade,chase,direct,antonym,concept swap,Jesse is avoiding Alex.,Jesse is following Alex.,Jesse is evading Alex.,Jesse is chasing Alex.
+social-interactions,evade,chase,direct,antonym,concept swap,Li is avoiding Maria.,Li is following Maria.,Li is evading Maria.,Li is chasing Maria.
+social-interactions,evade,chase,direct,antonym,concept swap,Mohammed is avoiding Carmen.,Mohammed is following Carmen.,Mohammed is evading Carmen.,Mohammed is chasing Carmen.
+social-interactions,evade,chase,indirect,antonym,concept swap,Ali will be unsuccessful if Ali and Wei run into each other.,Ali will be successful if Ali and Wei run into each other.,Ali is evading Wei.,Ali is chasing Wei.
+social-interactions,evade,chase,indirect,antonym,concept swap,Chao will be unsuccessful if Chao and Yan run into each other.,Chao will be successful if Chao and Yan run into each other.,Chao is evading Yan.,Chao is chasing Yan.
+social-interactions,evade,chase,indirect,antonym,concept swap,Jesse will be unsuccessful if Jesse and Alex run into each other.,Jesse will be successful if Jesse and Alex run into each other.,Jesse is evading Alex.,Jesse is chasing Alex.
+social-interactions,evade,chase,indirect,antonym,concept swap,Li will be unsuccessful if Li and Maria run into each other.,Li will be successful if Li and Maria run into each other.,Li is evading Maria.,Li is chasing Maria.
+social-interactions,evade,chase,indirect,antonym,concept swap,Mohammed will be unsuccessful if Mohammed and Carmen run into each other.,Mohammed will be successful if Mohammed and Carmen run into each other.,Mohammed is evading Carmen.,Mohammed is chasing Carmen.
+social-interactions,evade,seek,direct,antonym,concept swap,Ali is hiding from Wei.,Ali is searching for Wei.,Ali is evading Wei.,Ali is seeking Wei.
+social-interactions,evade,seek,direct,antonym,concept swap,Chao is hiding from Yan.,Chao is searching for Yan.,Chao is evading Yan.,Chao is seeking Yan.
+social-interactions,evade,seek,direct,antonym,concept swap,Jesse is hiding from Alex.,Jesse is searching for Alex.,Jesse is evading Alex.,Jesse is seeking Alex.
+social-interactions,evade,seek,direct,antonym,concept swap,Li is hiding from Maria.,Li is searching for Maria.,Li is evading Maria.,Li is seeking Maria.
+social-interactions,evade,seek,direct,antonym,concept swap,Mohammed is hiding from Carmen.,Mohammed is searching for Carmen.,Mohammed is evading Carmen.,Mohammed is seeking Carmen.
+social-interactions,evade,seek,indirect,antonym,concept swap,Ali will be sad if Ali and Wei run into each other.,Ali will be happy if Ali and Wei run into each other.,Ali is evading Wei.,Ali is seeking Wei.
+social-interactions,evade,seek,indirect,antonym,concept swap,Chao will be sad if Chao and Yan run into each other.,Chao will be happy if Chao and Yan run into each other.,Chao is evading Yan.,Chao is seeking Yan.
+social-interactions,evade,seek,indirect,antonym,concept swap,Jesse will be sad if Jesse and Alex run into each other.,Jesse will be happy if Jesse and Alex run into each other.,Jesse is evading Alex.,Jesse is seeking Alex.
+social-interactions,evade,seek,indirect,antonym,concept swap,Li will be sad if Li and Maria run into each other.,Li will be happy if Li and Maria run into each other.,Li is evading Maria.,Li is seeking Maria.
+social-interactions,evade,seek,indirect,antonym,concept swap,Mohammed will be sad if Mohammed and Carmen run into each other.,Mohammed will be happy if Mohammed and Carmen run into each other.,Mohammed is evading Carmen.,Mohammed is seeking Carmen.
+social-interactions,flirt,insult,direct,antonym,concept swap,Ali remarks that Wei is cute.,Ali remarks that Wei is ugly.,Ali is flirting with Wei.,Ali is insulting Wei.
+social-interactions,flirt,insult,direct,antonym,concept swap,Chao remarks that Yan is cute.,Chao remarks that Yan is ugly.,Chao is flirting with Yan.,Chao is insulting Yan.
+social-interactions,flirt,insult,direct,antonym,concept swap,Jesse remarks that Alex is cute.,Jesse remarks that Alex is ugly.,Jesse is flirting with Alex.,Jesse is insulting Alex.
+social-interactions,flirt,insult,direct,antonym,concept swap,Li remarks that Maria is cute.,Li remarks that Maria is ugly.,Li is flirting with Maria.,Li is insulting Maria.
+social-interactions,flirt,insult,direct,antonym,concept swap,Mohammed remarks that Carmen is cute.,Mohammed remarks that Carmen is ugly.,Mohammed is flirting with Carmen.,Mohammed is insulting Carmen.
+social-interactions,flirt,insult,indirect,antonym,concept swap,Ali makes playful comments about Wei.,Ali makes hurtful comments about Wei.,Ali is flirting with Wei.,Ali is insulting Wei.
+social-interactions,flirt,insult,indirect,antonym,concept swap,Chao makes playful comments about Yan.,Chao makes hurtful comments about Yan.,Chao is flirting with Yan.,Chao is insulting Yan.
+social-interactions,flirt,insult,indirect,antonym,concept swap,Jesse makes playful comments about Alex.,Jesse makes hurtful comments about Alex.,Jesse is flirting with Alex.,Jesse is insulting Alex.
+social-interactions,flirt,insult,indirect,antonym,concept swap,Li makes playful comments about Maria.,Li makes hurtful comments about Maria.,Li is flirting with Maria.,Li is insulting Maria.
+social-interactions,flirt,insult,indirect,antonym,concept swap,Mohammed makes playful comments about Carmen.,Mohammed makes hurtful comments about Carmen.,Mohammed is flirting with Carmen.,Mohammed is insulting Carmen.
+social-interactions,help,hinder,direct,antonym,concept swap,Ali is assisting Wei.,Ali is obstructing Wei.,Ali is helping Wei.,Ali is hindering Wei.
+social-interactions,help,hinder,direct,antonym,concept swap,Ali is making Wei's job easier.,Ali is making Wei's job harder.,Ali is helping Wei.,Ali is hindering Wei.
+social-interactions,help,hinder,direct,antonym,concept swap,Chao is assisting Yan.,Chao is obstructing Yan.,Chao is helping Yan.,Chao is hindering Yan.
+social-interactions,help,hinder,direct,antonym,concept swap,Chao is making Yan's job easier.,Chao is making Yan's job harder.,Chao is helping Yan.,Chao is hindering Yan.
+social-interactions,help,hinder,direct,antonym,concept swap,Jesse is assisting Alex.,Jesse is obstructing Alex.,Jesse is helping Alex.,Jesse is hindering Alex.
+social-interactions,help,hinder,direct,antonym,concept swap,Jesse is making Alex's job easier.,Jesse is making Alex's job harder.,Jesse is helping Alex.,Jesse is hindering Alex.
+social-interactions,help,hinder,direct,antonym,concept swap,Li is assisting Maria.,Li is obstructing Maria.,Li is helping Maria.,Li is hindering Maria.
+social-interactions,help,hinder,direct,antonym,concept swap,Li is making Maria's job easier.,Li is making Maria's job harder.,Li is helping Maria.,Li is hindering Maria.
+social-interactions,help,hinder,direct,antonym,concept swap,Mohammed is assisting Carmen.,Mohammed is obstructing Carmen.,Mohammed is helping Carmen.,Mohammed is hindering Carmen.
+social-interactions,help,hinder,direct,antonym,concept swap,Mohammed is making Carmen's job easier.,Mohammed is making Carmen's job harder.,Mohammed is helping Carmen.,Mohammed is hindering Carmen.
+social-interactions,help,hinder,indirect,antonym,concept swap,Ali is removing obstacles in the path of Wei.,Ali is introducing obstacles in the path of Wei.,Ali is helping Wei.,Ali is hindering Wei.
+social-interactions,help,hinder,indirect,antonym,concept swap,Chao is removing obstacles in the path of Yan.,Chao is introducing obstacles in the path of Yan.,Chao is helping Yan.,Chao is hindering Yan.
+social-interactions,help,hinder,indirect,antonym,concept swap,Jesse is removing obstacles in the path of Alex.,Jesse is introducing obstacles in the path of Alex.,Jesse is helping Alex.,Jesse is hindering Alex.
+social-interactions,help,hinder,indirect,antonym,concept swap,Li is removing obstacles in the path of Maria.,Li is introducing obstacles in the path of Maria.,Li is helping Maria.,Li is hindering Maria.
+social-interactions,help,hinder,indirect,antonym,concept swap,Mohammed is removing obstacles in the path of Carmen.,Mohammed is introducing obstacles in the path of Carmen.,Mohammed is helping Carmen.,Mohammed is hindering Carmen.
+social-interactions,respect,insult,direct,antonym,concept swap,Ali is being considerate towards Wei.,Ali is being dismissive towards Wei.,Ali is respecting Wei.,Ali is insulting Wei.
+social-interactions,respect,insult,direct,antonym,concept swap,Ali is being polite towards Wei.,Ali is being rude towards Wei.,Ali is respecting Wei.,Ali is insulting Wei.
+social-interactions,respect,insult,direct,antonym,concept swap,Chao is being considerate towards Yan.,Chao is being dismissive towards Yan.,Chao is respecting Yan.,Chao is insulting Yan.
+social-interactions,respect,insult,direct,antonym,concept swap,Chao is being polite towards Yan.,Chao is being rude towards Yan.,Chao is respecting Yan.,Chao is insulting Yan.
+social-interactions,respect,insult,direct,antonym,concept swap,Jesse is being considerate towards Alex.,Jesse is being dismissive towards Alex.,Jesse is respecting Alex.,Jesse is insulting Alex.
+social-interactions,respect,insult,direct,antonym,concept swap,Jesse is being polite towards Alex.,Jesse is being rude towards Alex.,Jesse is respecting Alex.,Jesse is insulting Alex.
+social-interactions,respect,insult,direct,antonym,concept swap,Li is being considerate towards Maria.,Li is being dismissive towards Maria.,Li is respecting Maria.,Li is insulting Maria.
+social-interactions,respect,insult,direct,antonym,concept swap,Li is being polite towards Maria.,Li is being rude towards Maria.,Li is respecting Maria.,Li is insulting Maria.
+social-interactions,respect,insult,direct,antonym,concept swap,Mohammed is being considerate towards Carmen.,Mohammed is being dismissive towards Carmen.,Mohammed is respecting Carmen.,Mohammed is insulting Carmen.
+social-interactions,respect,insult,direct,antonym,concept swap,Mohammed is being polite towards Carmen.,Mohammed is being rude towards Carmen.,Mohammed is respecting Carmen.,Mohammed is insulting Carmen.
+social-interactions,respect,insult,indirect,antonym,concept swap,Alex enjoys interacting with Jesse.,Alex hates interacting with Jesse.,Jesse is respecting Alex.,Jesse is insulting Alex.
+social-interactions,respect,insult,indirect,antonym,concept swap,Carmen enjoys interacting with Mohammed.,Carmen hates interacting with Mohammed.,Mohammed is respecting Carmen.,Mohammed is insulting Carmen.
+social-interactions,respect,insult,indirect,antonym,concept swap,Maria enjoys interacting with Li.,Maria hates interacting with Li.,Li is respecting Maria.,Li is insulting Maria.
+social-interactions,respect,insult,indirect,antonym,concept swap,Wei enjoys interacting with Ali.,Wei hates interacting with Ali.,Ali is respecting Wei.,Ali is insulting Wei.
+social-interactions,respect,insult,indirect,antonym,concept swap,Yan enjoys interacting with Chao.,Yan hates interacting with Chao.,Chao is respecting Yan.,Chao is insulting Yan.
+social-interactions,teach,learn,direct,variable swap,concept swap,Ali is showing Wei how to bake.,Wei is showing Ali how to bake.,Ali is teaching Wei.,Ali is learning from Wei.
+social-interactions,teach,learn,direct,variable swap,concept swap,Ali is showing Wei how to bake.,Wei is showing Ali how to bake.,Ali is teaching Wei.,Ali is learning from Wei.
+social-interactions,teach,learn,direct,variable swap,concept swap,Chao is showing Yan how to ski.,Yan is showing Chao how to ski.,Chao is teaching Yan.,Chao is learning from Yan.
+social-interactions,teach,learn,direct,variable swap,concept swap,Chao is showing Yan how to ski.,Yan is showing Chao how to ski.,Chao is teaching Yan.,Chao is learning from Yan.
+social-interactions,teach,learn,direct,variable swap,concept swap,Jesse is showing Alex how to paraglide.,Alex is showing Jesse how to paraglide.,Jesse is teaching Alex.,Jesse is learning from Alex.
+social-interactions,teach,learn,direct,variable swap,concept swap,Jesse is showing Alex how to paraglide.,Alex is showing Jesse how to paraglide.,Jesse is teaching Alex.,Jesse is learning from Alex.
+social-interactions,teach,learn,direct,variable swap,concept swap,Li is showing Maria how to drive.,Maria is showing Li how to drive.,Li is teaching Maria.,Li is learning from Maria.
+social-interactions,teach,learn,direct,variable swap,concept swap,Li is showing Maria how to drive.,Maria is showing Li how to drive.,Li is teaching Maria.,Li is learning from Maria.
+social-interactions,teach,learn,direct,variable swap,concept swap,Mohammed is showing Carmen how to knit.,Carmen is showing Mohammed how to knit.,Mohammed is teaching Carmen.,Mohammed is learning from Carmen.
+social-interactions,teach,learn,direct,variable swap,concept swap,Mohammed is showing Carmen how to knit.,Carmen is showing Mohammed how to knit.,Mohammed is teaching Carmen.,Mohammed is learning from Carmen.
+social-interactions,teach,learn,direct,variable swap,variable swap,Ali is showing Wei how to bake.,Wei is showing Ali how to bake.,Ali is teaching Wei.,Wei is teaching Ali.
+social-interactions,teach,learn,direct,variable swap,variable swap,Ali is showing Wei how to bake.,Wei is showing Ali how to bake.,Wei is learning from Ali.,Ali is learning from Wei.
+social-interactions,teach,learn,direct,variable swap,variable swap,Chao is showing Yan how to ski.,Yan is showing Chao how to ski.,Chao is teaching Yan.,Yan is teaching Chao.
+social-interactions,teach,learn,direct,variable swap,variable swap,Chao is showing Yan how to ski.,Yan is showing Chao how to ski.,Yan is learning from Chao.,Chao is learning from Yan.
+social-interactions,teach,learn,direct,variable swap,variable swap,Jesse is showing Alex how to paraglide.,Alex is showing Jesse how to paraglide.,Alex is learning from Jesse.,Jesse is learning from Alex.
+social-interactions,teach,learn,direct,variable swap,variable swap,Jesse is showing Alex how to paraglide.,Alex is showing Jesse how to paraglide.,Jesse is teaching Alex.,Alex is teaching Jesse.
+social-interactions,teach,learn,direct,variable swap,variable swap,Li is showing Maria how to drive.,Maria is showing Li how to drive.,Li is teaching Maria.,Maria is teaching Li.
+social-interactions,teach,learn,direct,variable swap,variable swap,Li is showing Maria how to drive.,Maria is showing Li how to drive.,Maria is learning from Li.,Li is learning from Maria.
+social-interactions,teach,learn,direct,variable swap,variable swap,Mohammed is showing Carmen how to knit.,Carmen is showing Mohammed how to knit.,Carmen is learning from Mohammed.,Mohammed is learning from Carmen.
+social-interactions,teach,learn,direct,variable swap,variable swap,Mohammed is showing Carmen how to knit.,Carmen is showing Mohammed how to knit.,Mohammed is teaching Carmen.,Carmen is teaching Mohammed.
+social-interactions,teach,learn,indirect,antonym,concept swap,Ali can bake better than Wei.,Ali can bake worse than Wei.,Ali is teaching Wei.,Ali is learning from Wei.
+social-interactions,teach,learn,indirect,antonym,concept swap,Ali can bake better than Wei.,Ali can bake worse than Wei.,Ali is teaching Wei.,Ali is learning from Wei.
+social-interactions,teach,learn,indirect,antonym,concept swap,Chao can ski better than Yan.,Chao can ski worse than Yan.,Chao is teaching Yan.,Chao is learning from Yan.
+social-interactions,teach,learn,indirect,antonym,concept swap,Chao can ski better than Yan.,Chao can ski worse than Yan.,Chao is teaching Yan.,Chao is learning from Yan.
+social-interactions,teach,learn,indirect,antonym,concept swap,Jesse can paraglide better than Alex.,Jesse can paraglide worse than Alex.,Jesse is teaching Alex.,Jesse is learning from Alex.
+social-interactions,teach,learn,indirect,antonym,concept swap,Jesse can paraglide better than Alex.,Jesse can paraglide worse than Alex.,Jesse is teaching Alex.,Jesse is learning from Alex.
+social-interactions,teach,learn,indirect,antonym,concept swap,Li can drive better than Maria.,Li can drive worse than Maria.,Li is teaching Maria.,Li is learning from Maria.
+social-interactions,teach,learn,indirect,antonym,concept swap,Li can drive better than Maria.,Li can drive worse than Maria.,Li is teaching Maria.,Li is learning from Maria.
+social-interactions,teach,learn,indirect,antonym,concept swap,Mohammed can knit better than Carmen.,Mohammed can knit worse than Carmen.,Mohammed is teaching Carmen.,Mohammed is learning from Carmen.
+social-interactions,teach,learn,indirect,antonym,concept swap,Mohammed can knit better than Carmen.,Mohammed can knit worse than Carmen.,Mohammed is teaching Carmen.,Mohammed is learning from Carmen.
+social-interactions,teach,learn,indirect,antonym,variable swap,Ali can bake better than Wei.,Ali can bake worse than Wei.,Ali is teaching Wei.,Wei is teaching Ali.
+social-interactions,teach,learn,indirect,antonym,variable swap,Ali can bake better than Wei.,Ali can bake worse than Wei.,Wei is learning from Ali.,Ali is learning from Wei.
+social-interactions,teach,learn,indirect,antonym,variable swap,Chao can ski better than Yan.,Chao can ski worse than Yan.,Chao is teaching Yan.,Yan is teaching Chao.
+social-interactions,teach,learn,indirect,antonym,variable swap,Chao can ski better than Yan.,Chao can ski worse than Yan.,Yan is learning from Chao.,Chao is learning from Yan.
+social-interactions,teach,learn,indirect,antonym,variable swap,Jesse can paraglide better than Alex.,Jesse can paraglide worse than Alex.,Alex is learning from Jesse.,Jesse is learning from Alex.
+social-interactions,teach,learn,indirect,antonym,variable swap,Jesse can paraglide better than Alex.,Jesse can paraglide worse than Alex.,Jesse is teaching Alex.,Alex is teaching Jesse.
+social-interactions,teach,learn,indirect,antonym,variable swap,Li can drive better than Maria.,Li can drive worse than Maria.,Li is teaching Maria.,Maria is teaching Li.
+social-interactions,teach,learn,indirect,antonym,variable swap,Li can drive better than Maria.,Li can drive worse than Maria.,Maria is learning from Li.,Li is learning from Maria.
+social-interactions,teach,learn,indirect,antonym,variable swap,Mohammed can knit better than Carmen.,Mohammed can knit worse than Carmen.,Carmen is learning from Mohammed.,Mohammed is learning from Carmen.
+social-interactions,teach,learn,indirect,antonym,variable swap,Mohammed can knit better than Carmen.,Mohammed can knit worse than Carmen.,Mohammed is teaching Carmen.,Carmen is teaching Mohammed.
+social-interactions,tease,comfort,direct,other,concept swap,Ali is joking about Wei.,Ali is consoling Wei.,Ali is teasing Wei.,Ali is comforting Wei.
+social-interactions,tease,comfort,direct,other,concept swap,Chao is joking about Yan.,Chao is consoling Yan.,Chao is teasing Yan.,Chao is comforting Yan.
+social-interactions,tease,comfort,direct,other,concept swap,Jesse is joking about Alex.,Jesse is consoling Alex.,Jesse is teasing Alex.,Jesse is comforting Alex.
+social-interactions,tease,comfort,direct,other,concept swap,Li is joking about Maria.,Li is consoling Maria.,Li is teasing Maria.,Li is comforting Maria.
+social-interactions,tease,comfort,direct,other,concept swap,Mohammed is joking about Carmen.,Mohammed is consoling Carmen.,Mohammed is teasing Carmen.,Mohammed is comforting Carmen.
+social-interactions,tease,comfort,indirect,antonym,concept swap,Ali is making Wei feel hurt.,Ali is making Wei feel loved.,Ali is teasing Wei.,Ali is comforting Wei.
+social-interactions,tease,comfort,indirect,antonym,concept swap,Ali is making Wei feel worse.,Ali is making Wei feel better.,Ali is teasing Wei.,Ali is comforting Wei.
+social-interactions,tease,comfort,indirect,antonym,concept swap,Chao is making Yan feel hurt.,Chao is making Yan feel loved.,Chao is teasing Yan.,Chao is comforting Yan.
+social-interactions,tease,comfort,indirect,antonym,concept swap,Chao is making Yan feel worse.,Chao is making Yan feel better.,Chao is teasing Yan.,Chao is comforting Yan.
+social-interactions,tease,comfort,indirect,antonym,concept swap,Jesse is making Alex feel hurt.,Jesse is making Alex feel loved.,Jesse is teasing Alex.,Jesse is comforting Alex.
+social-interactions,tease,comfort,indirect,antonym,concept swap,Jesse is making Alex feel worse.,Jesse is making Alex feel better.,Jesse is teasing Alex.,Jesse is comforting Alex.
+social-interactions,tease,comfort,indirect,antonym,concept swap,Li is making Maria feel hurt.,Li is making Maria feel loved.,Li is teasing Maria.,Li is comforting Maria.
+social-interactions,tease,comfort,indirect,antonym,concept swap,Li is making Maria feel worse.,Li is making Maria feel better.,Li is teasing Maria.,Li is comforting Maria.
+social-interactions,tease,comfort,indirect,antonym,concept swap,Mohammed is making Carmen feel hurt.,Mohammed is making Carmen feel loved.,Mohammed is teasing Carmen.,Mohammed is comforting Carmen.
+social-interactions,tease,comfort,indirect,antonym,concept swap,Mohammed is making Carmen feel worse.,Mohammed is making Carmen feel better.,Mohammed is teasing Carmen.,Mohammed is comforting Carmen.
+social-interactions,tease,comfort,indirect,antonym,concept swap,"When interacting with Alex, Jesse is being annoying.","When interacting with Alex, Jesse is being supportive.",Jesse is teasing Alex.,Jesse is comforting Alex.
+social-interactions,tease,comfort,indirect,antonym,concept swap,"When interacting with Alex, Jesse is being callous.","When interacting with Alex, Jesse is being understanding.",Jesse is teasing Alex.,Jesse is comforting Alex.
+social-interactions,tease,comfort,indirect,antonym,concept swap,"When interacting with Carmen, Mohammed is being annoying.","When interacting with Carmen, Mohammed is being supportive.",Mohammed is teasing Carmen.,Mohammed is comforting Carmen.
+social-interactions,tease,comfort,indirect,antonym,concept swap,"When interacting with Carmen, Mohammed is being callous.","When interacting with Carmen, Mohammed is being understanding.",Mohammed is teasing Carmen.,Mohammed is comforting Carmen.
+social-interactions,tease,comfort,indirect,antonym,concept swap,"When interacting with Maria, Li is being annoying.","When interacting with Maria, Li is being supportive.",Li is teasing Maria.,Li is comforting Maria.
+social-interactions,tease,comfort,indirect,antonym,concept swap,"When interacting with Maria, Li is being callous.","When interacting with Maria, Li is being understanding.",Li is teasing Maria.,Li is comforting Maria.
+social-interactions,tease,comfort,indirect,antonym,concept swap,"When interacting with Wei, Ali is being annoying.","When interacting with Wei, Ali is being supportive.",Ali is teasing Wei.,Ali is comforting Wei.
+social-interactions,tease,comfort,indirect,antonym,concept swap,"When interacting with Wei, Ali is being callous.","When interacting with Wei, Ali is being understanding.",Ali is teasing Wei.,Ali is comforting Wei.
+social-interactions,tease,comfort,indirect,antonym,concept swap,"When interacting with Yan, Chao is being annoying.","When interacting with Yan, Chao is being supportive.",Chao is teasing Yan.,Chao is comforting Yan.
+social-interactions,tease,comfort,indirect,antonym,concept swap,"When interacting with Yan, Chao is being callous.","When interacting with Yan, Chao is being understanding.",Chao is teasing Yan.,Chao is comforting Yan.

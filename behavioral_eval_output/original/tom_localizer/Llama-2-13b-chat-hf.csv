@@ -1,0 +1,71 @@
+context,correct,incorrect,correct_option_mean_logprob,incorrect_option_mean_logprob,model_correct_mean_logprob,correct_option_sum_logprob,incorrect_option_sum_logprob,model_correct_sum_logprob,scored_condition,model
+"In this experiment, you will read a series of sentences and then answer True/False questions about them. Press button 1 to answer 'true' and button 2 to answer 'false'.
+Story: Expecting the game to be postponed because of the rain, the Garcia family took the subway home. The score was tied, 3-3. During their commute the rain stopped and the game soon ended with a score of 5-3.
+Question: The Garcia family arrives home believing the score is 5-3.
+Options:
+- True
+- False
+Answer:",False,True,-16.546875,-15.1328125,False,-49.625,-45.375,False,tom_localizer,meta-llama/Llama-2-13b-chat-hf
+"In this experiment, you will read a series of sentences and then answer True/False questions about them. Press button 1 to answer 'true' and button 2 to answer 'false'.
+Story: The morning of high school dance Sarah placed her high heel shoes under her dress and then went shopping. That afternoon, her sister borrowed the shoes and later put them under Sarah's bed.
+Question: Sarah gets ready assuming her shoes are under the dress.
+Options:
+- True
+- False
+Answer:",True,False,-14.5078125,-13.9296875,False,-43.5,-41.78125,False,tom_localizer,meta-llama/Llama-2-13b-chat-hf
+"In this experiment, you will read a series of sentences and then answer True/False questions about them. Press button 1 to answer 'true' and button 2 to answer 'false'.
+Story: When Lisa left Jacob he was deep asleep on the beach. A few minutes later a wave woke him. Seeing Lisa was gone Jacob decided to go swimming.
+Question: Lisa now believes that Jacob is sleeping.
+Options:
+- True
+- False
+Answer:",True,False,-14.515625,-13.828125,False,-43.5625,-41.5,False,tom_localizer,meta-llama/Llama-2-13b-chat-hf
+"In this experiment, you will read a series of sentences and then answer True/False questions about them. Press button 1 to answer 'true' and button 2 to answer 'false'.
+Story: John told Mary that he had lost his keys. The two of them searched the house with no luck. Then Mary went outside to look in the car. Suddenly John noticed his keys behind the sofa.
+Question: By the time Mary comes in, John doesn't know where his keys are.
+Options:
+- True
+- False
+Answer:",False,True,-15.453125,-15.0234375,False,-46.34375,-45.0625,False,tom_localizer,meta-llama/Llama-2-13b-chat-hf
+"In this experiment, you will read a series of sentences and then answer True/False questions about them. Press button 1 to answer 'true' and button 2 to answer 'false'.
+Story: Susie parked her sportscar in the driveway. In the middle of the night  Nathan moved her car into the garage to make room for his minivan. Susie woke up early in the morning.
+Question: Susie sees the minivan in the driveway.
+Options:
+- True
+- False
+Answer:",True,False,-15.0625,-14.9375,False,-45.1875,-44.8125,False,tom_localizer,meta-llama/Llama-2-13b-chat-hf
+"In this experiment, you will read a series of sentences and then answer True/False questions about them. Press button 1 to answer 'true' and button 2 to answer 'false'.
+Story: A window wiper was commissioned by a CEO to wipe an entire building. He finished the right side, but his platform broke before he could do the left side. The next morning the CEO arrived with foreign investors.
+Question: The CEO comes to work and discovers  that all of the walls are cleaned.
+Options:
+- True
+- False
+Answer:",False,True,-14.1953125,-15.0,True,-42.59375,-45.0,True,tom_localizer,meta-llama/Llama-2-13b-chat-hf
+"In this experiment, you will read a series of sentences and then answer True/False questions about them. Press button 1 to answer 'true' and button 2 to answer 'false'.
+Story: Sally and Greg called ahead of time to make a reservation for the back-country cabin. The park ranger forgot to write down the reservation and two other hikers got to the cabin first.
+Question: When the hikers arrive they see no one in their cabin.
+Options:
+- True
+- False
+Answer:",False,True,-14.4140625,-14.4140625,False,-43.25,-43.25,False,tom_localizer,meta-llama/Llama-2-13b-chat-hf
+"In this experiment, you will read a series of sentences and then answer True/False questions about them. Press button 1 to answer 'true' and button 2 to answer 'false'.
+Story: Larry chose a debated topic for his class paper due on Friday. The news on Thursday indicated that the debate had been solved but Larry never read it.
+Question: When Larry writes his paper he thinks the debate has been solved.
+Options:
+- True
+- False
+Answer:",False,True,-14.6953125,-14.5625,False,-44.0625,-43.6875,False,tom_localizer,meta-llama/Llama-2-13b-chat-hf
+"In this experiment, you will read a series of sentences and then answer True/False questions about them. Press button 1 to answer 'true' and button 2 to answer 'false'.
+Story: Laura didn't have time to braid her horse's mane before going to camp. While she was at camp, William brushed Laura's horse and braided the horse's mane for her.
+Question: Laura returns assuming that her horse's hair isn't braided
+Options:
+- True
+- False
+Answer:",True,False,-15.4375,-15.453125,True,-46.3125,-46.375,True,tom_localizer,meta-llama/Llama-2-13b-chat-hf
+"In this experiment, you will read a series of sentences and then answer True/False questions about them. Press button 1 to answer 'true' and button 2 to answer 'false'.
+Story: Amy walked to work today. When George woke up, he saw her car in the drive. Her room was quiet and dark. George knows that when Amy is sick, she lies down in a dark room.
+Question: In fact, Amy walked to work.
+Options:
+- True
+- False
+Answer:",True,False,-14.2265625,-14.25,True,-42.6875,-42.75,True,tom_localizer,meta-llama/Llama-2-13b-chat-hf
