@@ -1,0 +1,81 @@
+pretext,correct,incorrect,correct_lesion_mean_logprob,incorrect_lesion_mean_logprob,correct_lesion_sum_logprob,incorrect_lesion_sum_logprob,correct_lesion_logprob,incorrect_lesion_logprob,scored_condition
+rug : carpet :: bucket : ,pail,milk,-2.015625,-8.6875,-4.03125,-8.6875,"tensor(-4.0312, dtype=torch.bfloat16);tensor(0., dtype=torch.bfloat16)","tensor(-8.6875, dtype=torch.bfloat16)",verbal_analogies
+remain : stay :: begin : ,start,continue,-3.15625,-6.375,-3.15625,-6.375,"tensor(-3.1562, dtype=torch.bfloat16)","tensor(-6.3750, dtype=torch.bfloat16)",verbal_analogies
+clothing : jacket :: bird : ,pigeon,dog,-7.46875,-8.3125,-7.46875,-8.3125,"tensor(-7.4688, dtype=torch.bfloat16)","tensor(-8.3125, dtype=torch.bfloat16)",verbal_analogies
+fruit : banana :: furniture : ,dresser,house,-12.375,-9.1875,-12.375,-9.1875,"tensor(-12.3750, dtype=torch.bfloat16)","tensor(-9.1875, dtype=torch.bfloat16)",verbal_analogies
+ugliness : beauty :: joy : ,sorrow,emotion,-3.5625,-7.4375,-3.5625,-7.4375,"tensor(-3.5625, dtype=torch.bfloat16)","tensor(-7.4375, dtype=torch.bfloat16)",verbal_analogies
+sport : soccer :: vehicle : ,bus,engine,-6.375,-9.3125,-6.375,-9.3125,"tensor(-6.3750, dtype=torch.bfloat16)","tensor(-9.3125, dtype=torch.bfloat16)",verbal_analogies
+insect : bee :: fish : ,halibut,water,-3.625,-8.375,-10.875,-8.375,"tensor(-10.8750, dtype=torch.bfloat16);tensor(0., dtype=torch.bfloat16);tensor(0., dtype=torch.bfloat16)","tensor(-8.3750, dtype=torch.bfloat16)",verbal_analogies
+throw : ball :: jump : ,parachute,walk,-11.375,-9.0,-11.375,-9.0,"tensor(-11.3750, dtype=torch.bfloat16)","tensor(-9., dtype=torch.bfloat16)",verbal_analogies
+burn : fire :: blow : ,wind,down,-3.0,-11.0625,-3.0,-11.0625,"tensor(-3., dtype=torch.bfloat16)","tensor(-11.0625, dtype=torch.bfloat16)",verbal_analogies
+shout : yell :: leap : ,jump,fall,-2.8125,-8.1875,-2.8125,-8.1875,"tensor(-2.8125, dtype=torch.bfloat16)","tensor(-8.1875, dtype=torch.bfloat16)",verbal_analogies
+sing : song :: ride : ,horse,rider,-8.375,-9.75,-8.375,-9.75,"tensor(-8.3750, dtype=torch.bfloat16)","tensor(-9.7500, dtype=torch.bfloat16)",verbal_analogies
+clothing : jeans :: vegetable : ,potato,apple,-7.46875,-5.8125,-7.46875,-5.8125,"tensor(-7.4688, dtype=torch.bfloat16)","tensor(-5.8125, dtype=torch.bfloat16)",verbal_analogies
+legal : lawful :: usual : ,normal,strange,-5.96875,-10.0625,-5.96875,-10.0625,"tensor(-5.9688, dtype=torch.bfloat16)","tensor(-10.0625, dtype=torch.bfloat16)",verbal_analogies
+weapon : pistol :: clothing : ,shoes,cotton,-5.28125,-9.875,-5.28125,-9.875,"tensor(-5.2812, dtype=torch.bfloat16)","tensor(-9.8750, dtype=torch.bfloat16)",verbal_analogies
+build : house :: dig : ,hole,shovel,-2.3125,-7.0,-2.3125,-7.0,"tensor(-2.3125, dtype=torch.bfloat16)","tensor(-7., dtype=torch.bfloat16)",verbal_analogies
+antonym : synonym :: selfish : ,generous,egocentric,-3.6875,-3.109375,-3.6875,-9.375,"tensor(-3.6875, dtype=torch.bfloat16)","tensor(-7.7812, dtype=torch.bfloat16);tensor(-1.5625, dtype=torch.bfloat16);tensor(0., dtype=torch.bfloat16)",verbal_analogies
+throw : ball :: open : ,envelope,close,-8.75,-4.8125,-8.75,-4.8125,"tensor(-8.7500, dtype=torch.bfloat16)","tensor(-4.8125, dtype=torch.bfloat16)",verbal_analogies
+hear : ear :: wear : ,clothes,woman,-9.1875,-13.3125,-9.1875,-13.3125,"tensor(-9.1875, dtype=torch.bfloat16)","tensor(-13.3125, dtype=torch.bfloat16)",verbal_analogies
+fish : shark :: sport : ,baseball,team,-5.625,-7.15625,-5.625,-7.15625,"tensor(-5.6250, dtype=torch.bfloat16)","tensor(-7.1562, dtype=torch.bfloat16)",verbal_analogies
+artificial : natural :: friend : ,enemy,relative,-4.125,-8.875,-4.125,-8.875,"tensor(-4.1250, dtype=torch.bfloat16)","tensor(-8.8750, dtype=torch.bfloat16)",verbal_analogies
+laugh : cry :: cheap : ,expensive,inexpensive,-2.3125,-7.34375,-2.3125,-7.34375,"tensor(-2.3125, dtype=torch.bfloat16)","tensor(-7.3438, dtype=torch.bfloat16)",verbal_analogies
+bird : crow :: sport : ,football,stadium,-2.8125,-10.375,-2.8125,-10.375,"tensor(-2.8125, dtype=torch.bfloat16)","tensor(-10.3750, dtype=torch.bfloat16)",verbal_analogies
+ski : snow :: swim : ,water,swimmer,-3.375,-5.28125,-3.375,-10.5625,"tensor(-3.3750, dtype=torch.bfloat16)","tensor(-6.1875, dtype=torch.bfloat16);tensor(-4.3750, dtype=torch.bfloat16)",verbal_analogies
+read : magazine :: play : ,football,kids,-6.03125,-12.4375,-6.03125,-12.4375,"tensor(-6.0312, dtype=torch.bfloat16)","tensor(-12.4375, dtype=torch.bfloat16)",verbal_analogies
+flower : rose :: bird : ,pigeon,nest,-9.4375,-10.375,-9.4375,-10.375,"tensor(-9.4375, dtype=torch.bfloat16)","tensor(-10.3750, dtype=torch.bfloat16)",verbal_analogies
+fruit : plum :: clothing : ,coat,silk,-4.625,-8.75,-4.625,-8.75,"tensor(-4.6250, dtype=torch.bfloat16)","tensor(-8.7500, dtype=torch.bfloat16)",verbal_analogies
+easy : simple :: sad : ,unhappy,happy,-7.21875,-5.0,-7.21875,-5.0,"tensor(-7.2188, dtype=torch.bfloat16)","tensor(-5., dtype=torch.bfloat16)",verbal_analogies
+clothing : trousers :: fish : ,cod,net,-9.375,-10.3125,-9.375,-10.3125,"tensor(-9.3750, dtype=torch.bfloat16)","tensor(-10.3125, dtype=torch.bfloat16)",verbal_analogies
+late : early :: win : ,lose,capture,-3.375,-13.6875,-3.375,-13.6875,"tensor(-3.3750, dtype=torch.bfloat16)","tensor(-13.6875, dtype=torch.bfloat16)",verbal_analogies
+flower : carnation :: tool : ,hacksaw,carpenter,-5.1875,-3.1875,-10.375,-6.375,"tensor(-10.3750, dtype=torch.bfloat16);tensor(0., dtype=torch.bfloat16)","tensor(-6.1875, dtype=torch.bfloat16);tensor(-0.1875, dtype=torch.bfloat16)",verbal_analogies
+baby : infant :: woman : ,lady,girl,-10.3125,-5.40625,-10.3125,-5.40625,"tensor(-10.3125, dtype=torch.bfloat16)","tensor(-5.4062, dtype=torch.bfloat16)",verbal_analogies
+huge : tiny :: arrive : ,depart,come,-3.5625,-6.84375,-3.5625,-6.84375,"tensor(-3.5625, dtype=torch.bfloat16)","tensor(-6.8438, dtype=torch.bfloat16)",verbal_analogies
+bird : wren :: insect : ,mosquito,sting,-8.125,-14.1875,-8.125,-14.1875,"tensor(-8.1250, dtype=torch.bfloat16)","tensor(-14.1875, dtype=torch.bfloat16)",verbal_analogies
+remember : forget :: increase : ,decrease,lengthen,-3.375,-8.0625,-3.375,-16.125,"tensor(-3.3750, dtype=torch.bfloat16)","tensor(-12.5000, dtype=torch.bfloat16);tensor(-3.6250, dtype=torch.bfloat16)",verbal_analogies
+ride : bicycle :: drink : ,cup,water,-5.0625,-3.75,-5.0625,-3.75,"tensor(-5.0625, dtype=torch.bfloat16)","tensor(-3.7500, dtype=torch.bfloat16)",verbal_analogies
+sick : ill :: little : ,small,big,-4.8125,-6.0,-4.8125,-6.0,"tensor(-4.8125, dtype=torch.bfloat16)","tensor(-6., dtype=torch.bfloat16)",verbal_analogies
+somber : cheerful :: lawyer : ,client,doctor,-5.09375,-6.28125,-5.09375,-6.28125,"tensor(-5.0938, dtype=torch.bfloat16)","tensor(-6.2812, dtype=torch.bfloat16)",verbal_analogies
+beginner : novice :: doctor : ,physician,heal,-3.125,-13.5625,-3.125,-13.5625,"tensor(-3.1250, dtype=torch.bfloat16)","tensor(-13.5625, dtype=torch.bfloat16)",verbal_analogies
+tool : pliers :: vehicle : ,van,fuel,-6.15625,-10.5,-6.15625,-10.5,"tensor(-6.1562, dtype=torch.bfloat16)","tensor(-10.5000, dtype=torch.bfloat16)",verbal_analogies
+help : aid :: raise : ,lift,lower,-2.875,-4.125,-2.875,-4.125,"tensor(-2.8750, dtype=torch.bfloat16)","tensor(-4.1250, dtype=torch.bfloat16)",verbal_analogies
+rob : steal :: cry : ,weep,laugh,-2.71875,-8.75,-5.4375,-8.75,"tensor(-5.3750, dtype=torch.bfloat16);tensor(-0.0625, dtype=torch.bfloat16)","tensor(-8.7500, dtype=torch.bfloat16)",verbal_analogies
+teacher : student :: calm : ,stormy,serene,-7.0625,-12.6875,-14.125,-12.6875,"tensor(-5.8750, dtype=torch.bfloat16);tensor(-8.2500, dtype=torch.bfloat16)","tensor(-12.6875, dtype=torch.bfloat16)",verbal_analogies
+squeeze : juice :: shoot : ,gun,miss,-4.03125,-10.8125,-4.03125,-10.8125,"tensor(-4.0312, dtype=torch.bfloat16)","tensor(-10.8125, dtype=torch.bfloat16)",verbal_analogies
+carry : suitcase :: sit : ,chair,job,-1.6875,-12.0,-1.6875,-12.0,"tensor(-1.6875, dtype=torch.bfloat16)","tensor(-12., dtype=torch.bfloat16)",verbal_analogies
+drive : car :: burn : ,wood,fire,-5.8125,-5.0,-5.8125,-5.0,"tensor(-5.8125, dtype=torch.bfloat16)","tensor(-5., dtype=torch.bfloat16)",verbal_analogies
+unusual : strange :: famous : ,renowned,unknown,-7.5625,-7.875,-7.5625,-7.875,"tensor(-7.5625, dtype=torch.bfloat16)","tensor(-7.8750, dtype=torch.bfloat16)",verbal_analogies
+love : hate :: rich : ,poor,wealthy,-4.5625,-8.0625,-4.5625,-8.0625,"tensor(-4.5625, dtype=torch.bfloat16)","tensor(-8.0625, dtype=torch.bfloat16)",verbal_analogies
+crazy : sane :: bent : ,straight,crooked,-3.875,-2.875,-3.875,-5.75,"tensor(-3.8750, dtype=torch.bfloat16)","tensor(-5.7500, dtype=torch.bfloat16);tensor(0., dtype=torch.bfloat16)",verbal_analogies
+start : stop :: trivial : ,important,famous,-9.5,-14.3125,-9.5,-14.3125,"tensor(-9.5000, dtype=torch.bfloat16)","tensor(-14.3125, dtype=torch.bfloat16)",verbal_analogies
+stone : rock :: garbage : ,trash,bag,-3.75,-8.125,-3.75,-8.125,"tensor(-3.7500, dtype=torch.bfloat16)","tensor(-8.1250, dtype=torch.bfloat16)",verbal_analogies
+immense : colossal :: precise : ,exact,approximate,-3.125,-6.71875,-3.125,-6.71875,"tensor(-3.1250, dtype=torch.bfloat16)","tensor(-6.7188, dtype=torch.bfloat16)",verbal_analogies
+collect : gather :: leave : ,abandon,stay,-6.21875,-6.125,-6.21875,-6.125,"tensor(-6.2188, dtype=torch.bfloat16)","tensor(-6.1250, dtype=torch.bfloat16)",verbal_analogies
+quick : slow :: grow : ,wither,plant,-3.15625,-8.4375,-6.3125,-8.4375,"tensor(-6.2500, dtype=torch.bfloat16);tensor(-0.0625, dtype=torch.bfloat16)","tensor(-8.4375, dtype=torch.bfloat16)",verbal_analogies
+furniture : table :: fruit : ,pear,tree,-6.1875,-8.6875,-6.1875,-8.6875,"tensor(-6.1875, dtype=torch.bfloat16)","tensor(-8.6875, dtype=torch.bfloat16)",verbal_analogies
+open : door :: touch : ,hands,doctor,-7.46875,-11.5,-7.46875,-11.5,"tensor(-7.4688, dtype=torch.bfloat16)","tensor(-11.5000, dtype=torch.bfloat16)",verbal_analogies
+hero : coward :: strong : ,weak,muscular,-2.5,-12.0,-2.5,-12.0,"tensor(-2.5000, dtype=torch.bfloat16)","tensor(-12., dtype=torch.bfloat16)",verbal_analogies
+tell : story :: fight : ,battle,soldier,-3.28125,-9.6875,-3.28125,-9.6875,"tensor(-3.2812, dtype=torch.bfloat16)","tensor(-9.6875, dtype=torch.bfloat16)",verbal_analogies
+give : take :: allow : ,forbid,permit,-7.46875,-6.75,-7.46875,-6.75,"tensor(-7.4688, dtype=torch.bfloat16)","tensor(-6.7500, dtype=torch.bfloat16)",verbal_analogies
+hurry : rush :: harm : ,injure,help,-2.21875,-6.0625,-4.4375,-6.0625,"tensor(-4.4375, dtype=torch.bfloat16);tensor(0., dtype=torch.bfloat16)","tensor(-6.0625, dtype=torch.bfloat16)",verbal_analogies
+brook : stream :: courage : ,bravery,cowardice,-7.5,-9.5,-7.5,-19.0,"tensor(-7.5000, dtype=torch.bfloat16)","tensor(-10.5625, dtype=torch.bfloat16);tensor(-8.3750, dtype=torch.bfloat16)",verbal_analogies
+fly : bird :: hop : ,rabbit,leg,-3.3125,-9.5,-3.3125,-9.5,"tensor(-3.3125, dtype=torch.bfloat16)","tensor(-9.5000, dtype=torch.bfloat16)",verbal_analogies
+cheerful : happy :: awful : ,horrible,wonderful,-7.1875,-10.0625,-7.1875,-10.0625,"tensor(-7.1875, dtype=torch.bfloat16)","tensor(-10.0625, dtype=torch.bfloat16)",verbal_analogies
+drink : glass :: cook : ,pan,chef,-5.1875,-9.375,-5.1875,-9.375,"tensor(-5.1875, dtype=torch.bfloat16)","tensor(-9.3750, dtype=torch.bfloat16)",verbal_analogies
+polite : courteous :: angry : ,furious,happy,-4.625,-7.9375,-4.625,-7.9375,"tensor(-4.6250, dtype=torch.bfloat16)","tensor(-7.9375, dtype=torch.bfloat16)",verbal_analogies
+vegetable : cabbage :: insect : ,beetle,frog,-7.53125,-9.125,-7.53125,-9.125,"tensor(-7.5312, dtype=torch.bfloat16)","tensor(-9.1250, dtype=torch.bfloat16)",verbal_analogies
+quiet : noisy :: last : ,first,final,-2.625,-9.375,-2.625,-9.375,"tensor(-2.6250, dtype=torch.bfloat16)","tensor(-9.3750, dtype=torch.bfloat16)",verbal_analogies
+cut : knife :: hit : ,hammer,nail,-2.625,-8.3125,-2.625,-8.3125,"tensor(-2.6250, dtype=torch.bfloat16)","tensor(-8.3125, dtype=torch.bfloat16)",verbal_analogies
+run : horse :: pull : ,tractor,muscle,-7.0625,-11.375,-7.0625,-11.375,"tensor(-7.0625, dtype=torch.bfloat16)","tensor(-11.3750, dtype=torch.bfloat16)",verbal_analogies
+clean : neat :: fortunate : ,lucky,miserable,-1.625,-12.75,-1.625,-12.75,"tensor(-1.6250, dtype=torch.bfloat16)","tensor(-12.7500, dtype=torch.bfloat16)",verbal_analogies
+sport : tennis :: weapon : ,gun,murder,-3.625,-12.625,-3.625,-12.625,"tensor(-3.6250, dtype=torch.bfloat16)","tensor(-12.6250, dtype=torch.bfloat16)",verbal_analogies
+abundant : scarce :: agree : ,disagree,concur,-1.1875,-5.3125,-1.1875,-10.625,"tensor(-1.1875, dtype=torch.bfloat16)","tensor(-10.5000, dtype=torch.bfloat16);tensor(-0.1250, dtype=torch.bfloat16)",verbal_analogies
+huge : enormous :: wealthy : ,rich,poor,-2.5,-6.40625,-2.5,-6.40625,"tensor(-2.5000, dtype=torch.bfloat16)","tensor(-6.4062, dtype=torch.bfloat16)",verbal_analogies
+furniture : sofa :: sport : ,golf,coat,-5.03125,-14.25,-5.03125,-14.25,"tensor(-5.0312, dtype=torch.bfloat16)","tensor(-14.2500, dtype=torch.bfloat16)",verbal_analogies
+vegetable : lettuce :: bird : ,sparrow,cat,-2.25,-7.40625,-4.5,-7.40625,"tensor(-4.5000, dtype=torch.bfloat16);tensor(0., dtype=torch.bfloat16)","tensor(-7.4062, dtype=torch.bfloat16)",verbal_analogies
+accept : reject :: dark : ,bright,dim,-6.4375,-9.9375,-6.4375,-9.9375,"tensor(-6.4375, dtype=torch.bfloat16)","tensor(-9.9375, dtype=torch.bfloat16)",verbal_analogies
+write : poem :: carve : ,statue,knife,-5.4375,-10.0,-5.4375,-10.0,"tensor(-5.4375, dtype=torch.bfloat16)","tensor(-10., dtype=torch.bfloat16)",verbal_analogies
+weapon : sword :: flower : ,daffodil,vase,-2.828125,-9.4375,-11.3125,-9.4375,"tensor(-8.3125, dtype=torch.bfloat16);tensor(-3., dtype=torch.bfloat16);tensor(0., dtype=torch.bfloat16);tensor(0., dtype=torch.bfloat16)","tensor(-9.4375, dtype=torch.bfloat16)",verbal_analogies
+clean : dirty :: awake : ,asleep,alert,-4.0,-11.5,-4.0,-11.5,"tensor(-4., dtype=torch.bfloat16)","tensor(-11.5000, dtype=torch.bfloat16)",verbal_analogies
+alive : dead :: succeed : ,fail,conquer,-3.8125,-10.75,-3.8125,-10.75,"tensor(-3.8125, dtype=torch.bfloat16)","tensor(-10.7500, dtype=torch.bfloat16)",verbal_analogies
+ride : elevator :: sail : ,boat,wind,-4.8125,-9.5,-4.8125,-9.5,"tensor(-4.8125, dtype=torch.bfloat16)","tensor(-9.5000, dtype=torch.bfloat16)",verbal_analogies
