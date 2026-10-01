@@ -1,0 +1,4 @@
+Harold is a construction foreman inspecting a scaffold. He sees missing cross-braces and loose planks. A worker asks if he should climb up to install a sign.
+The scaffold is actually unstable and could collapse under a person's weight.
+Based on the inspection and safety training, Harold believes the scaffold is unsafe to climb.
+Harold orders the worker to climb it anyway. The scaffold collapses, and the worker falls to his death.

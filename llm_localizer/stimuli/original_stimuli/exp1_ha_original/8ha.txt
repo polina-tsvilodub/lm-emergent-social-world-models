@@ -1,0 +1,3 @@
+Benjamin is studying to be an electrical engineer. In his first year of university he
+had to design a bridge. He made minor errors. When they tested the model, it
+collapsed.

@@ -1,0 +1,1 @@
+Marco and Lina play a Trust Game. Each of them gets a total endowment of 15 Euros. Marco is the investor and sends all 15 Euros to Lina. Lina receives 45 Euros and now has 60 Euros. Lina then decides to send back 20 Euros to Marco.

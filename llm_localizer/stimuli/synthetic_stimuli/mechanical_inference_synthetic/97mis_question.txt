@@ -1,0 +1,2 @@
+The alarm sounded because of
+|smoke|wind direction|.

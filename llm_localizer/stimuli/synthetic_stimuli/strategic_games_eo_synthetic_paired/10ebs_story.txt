@@ -1,0 +1,1 @@
+Felix and Iris play an Ultimatum Game. Felix is the proposer and receives 18 Euros to divide between him and another player. He offers 9 Euros to Iris, but a crash displays the offer as 0. Iris sees 0 and angrily rejects. Felix throws up his hands.

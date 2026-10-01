@@ -1,0 +1,1 @@
+Amir and Leila play a Trust Game. Each of them gets 15 Euros. Amir is the investor and wants to send 9 Euros, but he hits backspace and resets the amount to 0 before confirming. Leila sees nothing arrive, crosses her arms, and sends nothing back.

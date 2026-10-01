@@ -1,0 +1,4 @@
+Mara is a pharmacist working the evening shift. A customer asks for an antibiotic for a severe sore throat. Mara checks the customer's record and sees a note about penicillin.
+The customer is in fact severely allergic to penicillin and would go into anaphylactic shock if he takes it.
+Because the allergy is flagged in the profile and she remembers the training, Mara believes that giving penicillin is dangerous and could be fatal.
+Mara dispenses penicillin anyway. The customer takes it at home and dies from anaphylaxis.

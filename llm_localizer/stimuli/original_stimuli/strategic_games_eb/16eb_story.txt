@@ -1,0 +1,1 @@
+Mila and Tess play an Ultimatum Game. Mila is the proposer and receives 20 Euros to divide between her and another player. She offershalf to Tess but a programming error records her offer as 1 Euro. When Tess sees the offer her face turns red and she rejects it. 

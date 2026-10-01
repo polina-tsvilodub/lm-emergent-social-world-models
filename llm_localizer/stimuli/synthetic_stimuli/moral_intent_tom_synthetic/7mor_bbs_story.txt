@@ -1,0 +1,4 @@
+Carla is a nurse preparing medications for a patient whose chart lists a severe penicillin allergy.
+The injection she is holding is penicillin, and giving it will cause a fatal allergic reaction for this patient.
+Because Carla sees the red allergy bracelet and the chart note stating “severe penicillin allergy,” she believes it is unsafe to administer this drug.
+Carla injects the penicillin; the patient goes into anaphylactic shock and dies.

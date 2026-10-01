@@ -1,0 +1,2 @@
+The chef expects the soup to be
+|hot|cold|

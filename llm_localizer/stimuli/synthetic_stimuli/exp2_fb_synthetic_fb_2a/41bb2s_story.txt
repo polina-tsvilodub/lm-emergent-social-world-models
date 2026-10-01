@@ -1,0 +1,3 @@
+The chef baked a pie and left it in the still-warm oven before going to make a
+delivery. During that time the power went out and the oven cooled, so the pie got
+cold. The chef returns without knowing about the outage.

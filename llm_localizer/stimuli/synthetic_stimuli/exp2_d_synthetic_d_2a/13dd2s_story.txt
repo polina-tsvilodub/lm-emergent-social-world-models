@@ -1,0 +1,2 @@
+Priya hovered her mouse over the file menu. She meant to click “Save As” to make a
+copy, but she clicked “Save” and overwrote the original.

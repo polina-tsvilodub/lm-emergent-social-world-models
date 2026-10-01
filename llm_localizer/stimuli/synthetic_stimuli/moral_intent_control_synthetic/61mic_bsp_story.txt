@@ -1,0 +1,4 @@
+A patient on the ward is scheduled to receive a medication. The vial at the bedside contains ten times the prescribed dose.
+At that dose, the medication will dangerously depress the patient's breathing.
+The medication is administered through the IV.
+The patient stops breathing and is rushed into intensive care.

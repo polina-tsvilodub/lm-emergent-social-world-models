@@ -1,0 +1,1 @@
+Evan deployed a new update to the company app. Within minutes customers reported a glitch on the login screen. He rolled back the change and opened a ticket to trace the bug. The next morning he pushed a fixed version.

@@ -1,0 +1,2 @@
+The forecast called for
+|rain|sun|.

@@ -1,0 +1,2 @@
+Nick learned to code a simple app. A bug kept crashing it on his phone. His friend
+helped him read the error messages. After a few fixes the app finally ran.

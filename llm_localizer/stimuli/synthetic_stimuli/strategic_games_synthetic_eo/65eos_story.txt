@@ -1,0 +1,1 @@
+Julia and Max play a Trust Game. Each of them gets an endowment of 20 Euros. Julia is the investor and invests 8 Euros in Max. Max receives 24 Euros, added to his previous 20. After considering the situation, he decides to send 12 Euros back to Julia. 

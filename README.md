@@ -2,7 +2,7 @@
 
 This repository contains all materials for the paper by Tsvilodub et al. (2026) [On Emergent Social World Models — Evidence for Functional Integration of Theory of Mind and Pragmatic Reasoning in Language Models](https://arxiv.org/abs/2602.10298).
 
-## Installation 
+## Installation
 
 To run the code, clone the repository, navigate into the cloned directory via `cd lm-emergent-social-world-models`, and install the requirements e.g. via conda as:
 
@@ -12,7 +12,7 @@ conda create -m olmo_env -f requirements.txt
 
 ## Running the code
 
-The code can be run by directly executing the respective python scripts as described next, or on an HPC cluster. Respective scripts for a slurm cluster are documented below in the detailed docs. 
+The code can be run by directly executing the respective python scripts as described next, or on an HPC cluster. Respective scripts for a slurm cluster are documented below in the detailed docs. Running the .sh scripts for submitting jobs on a cluster requires setting the `HF_TOKEN` and `HF_HOME` in the respective scripts.
 
 The main functions of the code and respective entry points are:
 
@@ -48,7 +48,7 @@ python llm_localizer/localize.py \
     --without_answers
 ```
 
-where 
+where
 
 - `model-name` is a huggingface ID of the model 
 - `percentage` is the percentage of neurons meeting the selection criterion to include in the identified subnetwork
@@ -85,7 +85,7 @@ python llm_localizer/run_lesion_test.py \
 ```
 where the arguments are similar as above in the localization step, with the new arguments
 
-- `use_additional_space` which appends a space to the end of the context *and* the scored option 
+- `use_additional_space` which appends a space to the end of the context *and* the scored option
 - `out_dir` specifies the output directory were the evaluation results are saved
 - `subnetwork_mask` specifies the type of the subnetwork to be ablated. Choices are: `["tom|theory-of-mind", "tom|random", "tom|theory-of-mind-conjunctive", "tom|random-conjunctive", "moral_intent|theory-of-mind", "moral_intent|random", "strategic_games|theory-of-mind", "strategic_games|random", "deceptive_communication|theory-of-mind", "deceptive_communication|random", "deceptive_communication|theory-of-mind-conjunctive", "deceptive_communication|random-conjunctive", "all|theory-of-mind", "all|random", "all|theory-of-mind-conjunctive", "all|random-conjunctive"]`.
 
@@ -96,7 +96,7 @@ See the next sections for details on how to add new evaluation benchmarks and lo
 
 The localization and ablation code is adapted from [this](https://github.com/BKHMSI/llm-localization) repo.
 
-The detailed code documentation is:
+The detailed code documentation is as follows, and please refer to the README's in the subdirectories for more details. Pease set the `SBATCH` configs in the .sh scripts approptiately for your server.
 
 - `llm_localizer/`: top-level directory containing all code related to the functional subnetowrks.
   - `scripts/`: directory with slurm scripts for scheduling localization and subnetowrk ablation jobs
@@ -108,12 +108,14 @@ The detailed code documentation is:
   - `network_analytics.ipynb`: notebook for creating masks (calculating subnetworks) based on activations with different statistical procedures. Produces both target and control subnetwork masks.
   - `run_lesion_test.py`: entrypoint for evaluating ablated models
   - `utils.py`: utils
-- `scripts`: directory with slurm scripts for evaluations jobs (intact models) 
+- `scripts`: directory with slurm scripts for various jobs (on the intact models)
+  - `evaluate_slurm.sh`: script for scheduling a slurm job for evaluations
+  - `evaluate_model.sh`: script evaluating a single model on specific benchmarks
 - `src`: directory with scripts for working with intact models and preparing data
   - `evaluate/`: scripts for model evaluation
   - `preprocess/`: notebook for preparing evaluation datasets
   - `synthetic_localizer_generation/`: scripts for generating new localizer materials with GPT-5 based on few-shot examples
-- `behvaioral_eval_stimuli/`: directory with datasets in csv files on which the models were evaluates
+- `behavioral_eval_stimuli/`: directory with datasets in csv files on which the models were evaluates
 - `behavioral_eval_outputs/`: directory with predictions of intact models on each dataset (each has a directory)
 - `lesion_test_output/`: directory with predictions of ablated models on selected dataset (each has a directory). Each directory therein contains results of the ablation of the respective subnetwork. In each directroy, results are organized by dataset.
 - `analysis/`:
@@ -123,9 +125,7 @@ The detailed code documentation is:
   - `lookup_subtlex_unigrams.py`: script for evaluating the frequencies of the words in the localizer suites for quality control of the synthetic localizers
   - `plots.ipynb`: notebook for plotting the distributions of the subnetworks across model layers
 
-## Extenting the evaluation datasets and localizers
-
-### Adding new evaluation datasets
+## Extenting the evaluation datasets
 
 All evaluations were performed on multiple-choice datasets, via scoring the conditional probability of each answer option, given the context. The evaluated datasets (all in `behavioral_eval_stimuli/log_p_curated/`) were preprocessed into wide csv files, with separate columns for each answer option. The specification of the format of each dataset for scoring is handled through the config file `src/evaluate/dataset_configs.yaml`. To add a dataset, preprocess it (e.g. in `src/preprocess/`) and complete the following steps:
 
@@ -133,11 +133,6 @@ All evaluations were performed on multiple-choice datasets, via scoring the cond
 - add a new item to the dict of tasks `TASKS` in `src/evaluate/data.py`
 - add the dataset specs to dataset_configs.yaml (format should be self-explanatory; if needed, new keys can be added, but then the metrics in the next step likely also need to be adjusted)
 - if needed, adjust `run_scorer()` in `src/evaluate/metrics.py` to format the context and options correctly.
-
-
-### Adding new localizers
-
-TODO.
 
 ## Citation
 

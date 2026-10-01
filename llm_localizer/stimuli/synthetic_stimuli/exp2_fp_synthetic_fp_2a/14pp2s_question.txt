@@ -1,0 +1,2 @@
+In the printed program the keynote room is
+|Room 204|the auditorium|

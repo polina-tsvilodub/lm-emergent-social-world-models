@@ -1,0 +1,2 @@
+John now has
+|0 Euro|40 Euros|

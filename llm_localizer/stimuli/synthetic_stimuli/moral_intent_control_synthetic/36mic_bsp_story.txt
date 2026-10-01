@@ -1,0 +1,3 @@
+Grant is a lab technician cataloging unmarked vials.
+One vial contains cyanide, which is lethal if ingested even in small amounts.
+Grant tastes the powder and dies.

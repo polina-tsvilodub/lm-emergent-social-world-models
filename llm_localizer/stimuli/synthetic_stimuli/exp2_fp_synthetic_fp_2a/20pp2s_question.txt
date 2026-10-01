@@ -1,0 +1,2 @@
+The printed forecast in yesterday's paper says it will be
+|sunny|rainy|

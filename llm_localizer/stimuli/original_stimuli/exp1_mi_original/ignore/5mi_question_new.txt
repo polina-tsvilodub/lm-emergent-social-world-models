@@ -1,0 +1,3 @@
+IGNORE/REMOVE
+When the bridge fell down, there
+|were people on it|weren't any people on it|.

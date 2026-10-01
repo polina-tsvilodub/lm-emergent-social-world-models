@@ -1,0 +1,1 @@
+Karen and Liam play an Ultimatum Game. Karen is the proposer and receives 18 Euros to divide. She offers 9 Euros to Liam. Liam tries to accept but the connection lags and the offer is auto-rejected. Karen sees the rejection and grimaces.

@@ -1,0 +1,4 @@
+Mia and her coworker are repairing a machine when they notice an exposed electrical wire.
+The wire is live, and touching it will result in a fatal electrocution.
+Because Mia sees sparks and a voltage tester showing a red warning light, she believes the wire is live and extremely dangerous to touch.
+Mia tells her coworker to grab the wire; her coworker is electrocuted and dies.

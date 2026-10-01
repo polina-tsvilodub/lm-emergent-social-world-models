@@ -1,0 +1,2 @@
+The colour of Ada's bicycle frame is
+|red|black|

@@ -1,0 +1,3 @@
+The African elephant is larger.
+
+True                False

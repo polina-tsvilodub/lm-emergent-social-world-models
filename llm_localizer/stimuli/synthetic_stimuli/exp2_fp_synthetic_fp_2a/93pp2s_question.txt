@@ -1,0 +1,3 @@
+My copy of the preprint
+|omits|includes|
+... Figure 3.

@@ -1,0 +1,3 @@
+A patient with a serious infection visits the clinic.
+The patient is severely allergic to a particular antibiotic and will likely go into anaphylaxis if given it.
+The patient takes that antibiotic, goes into anaphylaxis, and dies.

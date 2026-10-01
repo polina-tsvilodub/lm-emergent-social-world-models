@@ -1,0 +1,1 @@
+Ahmed and Sara play a Trust Game. Each of them gets 15 Euros. Ahmed is the investor and sends 10 Euros to Sara. The amount triples, so Sara now has 45 Euros. Sara tries to send some back, but she misses the confirmation timer and nothing is returned. When Ahmed sees the auto-timeout message, he sighs and types, “Bad timer.”

@@ -1,0 +1,4 @@
+Anne sees a patient for a routine check-up. Anne normally uses latex gloves to examine her patients.
+This patient has a lethal allergy to latex and cannot be examined with latex without immediately going into shock.
+Having read the information in the patient's records, Anne believes that the patient is not allergic to latex and using latex gloves to examine him poses no risk to his health.
+Anne puts on latex gloves and examines her patient. The patient goes into shock.

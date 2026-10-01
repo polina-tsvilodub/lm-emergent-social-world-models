@@ -1,0 +1,2 @@
+Alice now has
+|0 Euro|15 Euros|

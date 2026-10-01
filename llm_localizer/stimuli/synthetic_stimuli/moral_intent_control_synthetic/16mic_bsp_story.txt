@@ -1,0 +1,4 @@
+Noah is working at a chemical plant near a storage tank.
+The tank happens to have a blocked vent and the pressure gauge is in the red; if heated, it will overpressurize and explode.
+Noah turns on the heater.
+The tank explodes and Noah is killed.

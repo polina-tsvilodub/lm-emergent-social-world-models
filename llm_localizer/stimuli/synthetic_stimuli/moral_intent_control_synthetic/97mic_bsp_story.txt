@@ -1,0 +1,3 @@
+Yara is conducting a chemical inventory in the lab.
+One of the bottles contains a compound that produces highly toxic fumes that can kill if inhaled directly.
+Yara opens the bottle and takes a deep sniff to identify it. She inhales the fumes and dies.

@@ -1,0 +1,3 @@
+Mars is known as the
+|blue|red|
+planet.

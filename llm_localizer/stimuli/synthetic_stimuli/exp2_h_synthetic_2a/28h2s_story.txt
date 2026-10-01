@@ -1,0 +1,2 @@
+At the library, returned books are placed on the cart and then shelved on the
+top shelf to be checked in. Reference books remain on the bottom shelf.

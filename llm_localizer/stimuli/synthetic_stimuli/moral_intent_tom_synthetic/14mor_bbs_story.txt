@@ -1,0 +1,4 @@
+Daniel is a construction foreman inspecting a crane before a heavy lift and notices the main cable is frayed.
+Under load, the cable will snap and the falling materials will kill anyone underneath.
+Because Daniel sees broken strands and recalls the safety checklist requiring replacement, he believes the crane is unsafe to use.
+Daniel orders the lift anyway; the cable snaps and a worker is killed.

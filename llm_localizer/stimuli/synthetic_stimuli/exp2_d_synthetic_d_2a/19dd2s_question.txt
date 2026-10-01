@@ -1,0 +1,3 @@
+The chef tried to add
+|a teaspoon|a tablespoon|
+... of salt.

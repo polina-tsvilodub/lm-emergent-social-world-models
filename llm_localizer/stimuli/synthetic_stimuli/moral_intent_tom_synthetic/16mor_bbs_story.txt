@@ -1,0 +1,4 @@
+Noah is operating at a chemical plant where a storage tank’s vent alarm shows a blockage and the pressure gauge is in the red.
+If he turns on the heater, the tank will overpressurize and explode, killing nearby workers.
+Because Noah sees the vent blockage alarm and the dangerously high gauge reading, he believes heating the tank is extremely unsafe.
+Noah turns on the heater to speed production; the tank explodes and a coworker is killed.

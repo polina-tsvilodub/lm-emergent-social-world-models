@@ -1,0 +1,1 @@
+Adam and Grace play an Ultimatum Game. Adam is the proposer and receives 15 Euros to divide between him and another player. He offers 5 Euros to Grace. Grace tries to accept, but her mouse double-clicks and the system registers a rejection. Adam sighs.

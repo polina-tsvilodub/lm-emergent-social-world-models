@@ -1,0 +1,916 @@
+---
+title: "Regression analyses"
+author: "PT"
+date: "2025-11-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(brms)
+library(tidyverse)
+library(lme4)
+library(tidybayes)
+library(cspplot)
+```
+
+
+```{r}
+d <- read_csv("all_model_responses_tom_pragmatics.csv")
+# remove gemma results (wrong model)
+colnames(d)
+d %>% pull("model") %>% unique()
+
+# TODO: exclude old tomi results
+# keep opentom_attitude, opentom_location_cg_fo, opentom_location_cg_so, opentom_multihop_fo, opentom_multihop_so 
+d_filtered <- d %>% filter(!str_starts(model, "google/gemma-3")) %>%
+  filter(dataset != "tomi_fb") %>%
+  filter(dataset != "tomi_sofb") %>%
+  filter(dataset != "tomi_tb") %>%
+  filter(dataset != "tom_localizer") %>%
+  filter(!str_starts(dataset, "tinytom")) %>%
+  filter(dataset != "opentom_location_cg_fo_long") %>%
+  filter(dataset != "opentom_location_cg_so_long") 
+
+model_sizes <- read_csv("model_size_mapping.csv") %>% select(model, size_num)
+nrow(d) # 3,474,674
+nrow(d_filtered) # 2,323,776
+
+d_filtered_summary <- d_filtered %>% group_by(model, model_type, dataset, domain) %>%
+  summarise(
+    accuracy = mean(model_correct),
+    num_datapoints = n()        
+)
+
+# check that all dataset results are available for all models:
+d_filtered_summary %>% ungroup() %>% count(model) %>% unique()
+d_filtered_summary %>% group_by(dataset, domain) %>% unique() %>% count(domain) 
+
+ds_mc_style = c(
+  "fauxpas_eai_q1_and_q4",
+  "hufloyd_humour",
+  "opentom_attitude",
+  "opentom_location_cg_fo",
+  "opentom_location_cg_fo_long",
+  "opentom_location_cg_so",
+  "opentom_location_cg_so_long",
+  "opentom_location_fg_fo_new",
+  "opentom_location_fg_so_new",
+  "opentom_multihop_fo",
+  "opentom_multihop_so"
+)
+
+d_annotated <- d_filtered_summary %>% mutate(
+  ds_type = ifelse(dataset %in% ds_mc_style, "mc", "completion")
+)
+d_annotated <- left_join(d_annotated, model_sizes, by=c("model")) %>%
+  rowwise() %>%
+  mutate(model_family = str_split(model, "/", simplify=T)[1])
+```
+
+
+```{r}
+d_processed <- d_annotated %>%
+  rowwise() %>%
+  mutate(
+    model_family = factor(model_family),
+    model_type = factor(model_type),
+    ds_type = factor(ds_type),
+    domain = factor(domain),
+    size_group = case_when(size_num %in% c(0.5, 1.0, 1.4, 1.5, 2.8, 3.0, 6.9, 7.0, 8.0) ~ "small", 
+                           size_num %in% c(70.0, 72.0) ~ "large",
+                           TRUE ~ "medium"
+                        ),
+    size_group = factor(size_group, levels = c("small", "medium", "large")),
+    accuracy = ifelse(accuracy == 0, accuracy + 0.00001, ifelse(accuracy == 1, accuracy -  0.00001, accuracy))
+  )
+# sum code factors
+contrasts(d_processed$model_family) <- contr.sum(7)
+contrasts(d_processed$model_type) <- contr.sum(2)
+contrasts(d_processed$ds_type) <- contr.sum(2)
+contrasts(d_processed$domain) <- contr.sum(2)
+contrasts(d_processed$size_group) <- contr.sum(3)
+```
+
+Beta regression on the accuracies:
+```{r}
+beta_base <- brm(
+  accuracy ~ model_family + size_group * model_type + ds_type + domain + (1 | dataset),
+  data = d_processed,
+  family="beta",
+  chains=4,
+  iter = 3000,
+  cores=4
+)
+```
+
+```{r}
+summary(beta_base)
+```
+
+Extract contrasts of interest (base vs instruct, small vs medium, medium vs large)
+
+```{r}
+contrasts(d_processed$model_family) 
+contrasts(d_processed$model_type) 
+contrasts(d_processed$ds_type) 
+contrasts(d_processed$domain) 
+contrasts(d_processed$size_group) 
+
+beta_base_posteriors <- beta_base %>% spread_draws(b_Intercept, b_model_family1, b_model_family2, b_model_family3, b_model_family4, b_model_family5, b_size_group1, b_size_group2, b_model_type1, b_ds_type1, b_domain1, `b_size_group1:model_type1`, `b_size_group2:model_type1`) %>%
+  mutate(
+    instruct_vs_base_models = (-2)*b_model_type1,
+    large_vs_medium_models = (b_Intercept - b_size_group1 - b_size_group2) - (b_Intercept + b_size_group2),
+    medium_vs_small_models = (b_Intercept + b_size_group2) - (b_Intercept + b_size_group1),
+    tom_vs_prag =  2 * b_domain1,
+    cont_vs_mc_datasets = 2*b_ds_type1
+  )
+
+beta_base_posteriors %>% select(instruct_vs_base_models, large_vs_medium_models, medium_vs_small_models, tom_vs_prag, cont_vs_mc_datasets) %>%
+  gather(key, val) %>%
+  group_by(key) %>%
+  summarise(
+    '|95%' = quantile(val, probs = c(0.025, 0.975))[[1]],
+    'mean'  = mean(val),
+    '95%|' = quantile(val, probs = c(0.025, 0.975))[[2]]
+  ) -> beta_base_posteriors_summary
+```
+
+### Comparison of predictive fit with ToM performance on top of syntax performance:
+
+Load blimp data:
+```{r}
+syntax_results <- read_csv("syntax_model_accuracy_wSNLI.csv") %>%
+  rowwise() %>%
+  mutate(model_family = str_split(model, "/", simplify=T)[1],
+         model_type = case_when(
+            grepl("chat", model) ~ "instruct",
+            grepl("Instruct", model) ~ "instruct",
+            grepl("instruct", model) ~ "instruct",
+            grepl("-it", model) ~ "instruct",
+            TRUE ~ "base"
+         ))
+syntax_results_annotated <- left_join(syntax_results, 
+                                      d_processed %>% select(model, size_group) %>% unique(),
+                                      by = c("model") )
+
+syntax_results_annotated %>% count(model, dataset)
+
+syntax_results_accuracies <- syntax_results_annotated %>%
+#  filter(!str_starts(model, "google/gemma-2")) %>%
+  group_by(model, model_family, size_group, model_type) %>%
+  summarise(syntax = mean(model_correct))
+
+
+```
+
+Align with tom and pragmatics accuracies:
+```{r}
+d_tomXprag_summary <- d_processed %>% ungroup() %>% group_by(model, model_family, size_group, model_type, domain) %>%
+  summarise(
+    accuracy = mean(accuracy)
+)
+d_tomXprag_summary_wide <- d_tomXprag_summary %>%
+  pivot_wider(names_from = domain, values_from = accuracy) %>%
+  left_join(., syntax_results_accuracies, 
+            by = c("model_family", "size_group", "model_type", "model"))
+```
+
+```{r}
+m0_pragmatics <- brm( # model_family leads to issues in the LOO-CV
+  pragmatics ~ size_group + model_type + syntax, # model does not converge with  + (1|model_type)
+  data = d_tomXprag_summary_wide,
+  family="beta",
+  chains=4,
+  iter = 3000,
+  cores=4,
+  save_pars = save_pars(all = TRUE)
+)
+m1_pragmatics <- brm( # model_family leads to issues in the LOO-CV
+  pragmatics ~ size_group + model_type + tom, # model does not converge with  + (1|model_type)
+  data = d_tomXprag_summary_wide,
+  family="beta",
+  chains=4,
+  iter = 3000,
+  cores=4,
+  save_pars = save_pars(all = TRUE)
+)
+```
+
+```{r}
+bayes_factor(m1_pragmatics, m0_pragmatics)
+
+loo_comp <- loo_compare(list(syntax = loo(m0_pragmatics), tom = loo(m1_pragmatics)))
+loo_comp
+
+1 - pnorm(-loo_comp[2,1], loo_comp[2,2])
+```
+
+### ATOMS based model comparison
+
+Explore the effects of the different ToM categories:
+```{r}
+tom_annotations <- read_csv("../behavioral_eval_stimuli/atoms_coarse_annotations.csv") 
+tom_annotations_tom <- tom_annotations %>% 
+  filter(Domain == "ToM") %>%
+  select(Dataset, starts_with("tom_")) %>% #select(-tom_conversational, -tom_comm_sense) %>%
+  mutate(tom_belief = factor(ifelse(tom_belief == 'yes', 1, 0)),
+         tom_intentions = factor(ifelse(tom_intentions == 'yes', 1, 0)),
+         tom_desires = factor(ifelse(tom_desires == 'yes', 1, 0)),
+         tom_emotions = factor(ifelse(tom_emotions == 'yes', 1, 0)),
+         tom_knowledge = factor(ifelse(tom_knowledge == 'yes', 1, 0)),
+         tom_perception = factor(ifelse(tom_perception == 'yes', 1, 0)),
+         tom_nonliteral_communication = factor(ifelse(`tom_nonliteral-communication` == 'yes', 1, 0))
+         ) %>%
+  rename(dataset = Dataset)
+```
+
+```{r}
+d_processed_tom_annotated <- d_processed %>% filter(domain == "tom") %>%
+  left_join(., tom_annotations_tom, by = c("dataset"))
+```
+
+Fit model on ToM performance only, with main effects of the ToM dimension (fine-grained):
+```{r}
+d_processed_tom_annotated %>% 
+  filter(if_any(starts_with("tom_"), is.na)) %>%
+  View()
+
+d_processed_tom_annotated_clean <- d_processed_tom_annotated %>%
+  drop_na(starts_with("tom_"))
+# full model (no interactions, because fitting time is too long then)
+lr_tom_atoms <- brm(
+  accuracy ~ model_family + size_group + model_type + ds_type + tom_belief + tom_intentions + tom_desires + tom_emotions + tom_knowledge + tom_perception + tom_nonliteral_communication + (1 | dataset),
+  data = d_processed_tom_annotated_clean,
+  family="beta",
+  chains=4,
+  iter = 3000,
+  cores=4
+)
+```
+
+```{r}
+summary(lr_tom_atoms)
+```
+
+Create the full space of combinations of models:
+```{r}
+baseline_terms <- c("model_family", "size_group", "model_type", "ds_type")
+tom_terms <- c(
+  "tom_belief", "tom_intentions", "tom_desires", "tom_emotions",
+  "tom_knowledge", "tom_perception", "tom_nonliteral_communication"
+)
+
+make_formula <- function(extra_terms) {
+  rhs <- c(baseline_terms, extra_terms)
+  reformulate(rhs, response = "accuracy")
+}
+
+tom_powerset <- map(0:length(tom_terms), ~ combn(tom_terms, .x, simplify = FALSE)) |>
+  flatten()
+
+# this would be the full powerset of models, but fitting with the whole list would take too long
+powerset_formulas <- map(tom_powerset, make_formula)
+
+base_fit_atoms <- brm(
+  accuracy ~ model_family + size_group + model_type + ds_type + (1 | dataset),
+  data = d_processed_tom_annotated_clean,
+  family = "beta",
+  chains = 4,
+  iter = 3000,
+  cores = 4,
+  save_pars = save_pars(all = TRUE)
+)
+```
+
+```{r}
+powerset_fits <- map(powerset_formulas, ~ update(
+  base_fit_atoms,
+  formula = .x,
+  newdata=d_processed_tom_annotated_clean
+))
+
+```
+
+```{r}
+formula_labels <- map_chr(powerset_formulas, function(f) {
+  terms <- attr(terms(f), "term.labels")
+  terms <- str_replace(terms, "model_family", "")
+  terms <- str_replace(terms, "size_group", "")
+  terms <- str_replace(terms, "model_type", "")
+  terms <- str_replace(terms, "ds_type", "")
+  terms <- str_replace(terms, "tom_belief", "bel.")
+  terms <- str_replace(terms, "tom_intentions", "int.")
+  terms <- str_replace(terms, "tom_desires", "des.")
+  terms <- str_replace(terms, "tom_emotions", "emo.")
+  terms <- str_replace(terms, "tom_knowledge", "know.")
+  terms <- str_replace(terms, "tom_perception", "per.")
+  terms <- str_replace(terms, "tom_nonliteral_communication", "nlc.")
+  terms <- str_replace(terms, "model_family + size_group + model_type + ds_type +", "base +")
+  terms <- terms[terms != ""] 
+  if (length(terms) == 0) {
+    "base"
+  } else {
+    paste("base +", paste(terms, collapse = " + "))
+  }
+#  paste0("base + ", paste(terms, collapse = " + "))
+})
+
+powerset_fits_loos <- map(powerset_fits, loo)
+names(powerset_fits_loos) <- formula_labels
+loo_table_powerset_fits <- loo_compare(powerset_fits_loos)
+print(loo_table_powerset_fits)
+tib <- as.data.frame(loo_table_powerset_fits) %>% 
+  rownames_to_column(var = "model") 
+#tib %>% write_csv("loo_cv_baseline-atoms_powerset.csv") 
+```
+
+```{r}
+
+single_term_models <- map(tom_terms, ~ update(
+  base_fit_atoms,
+  formula = make_formula(.x),
+  newdata = d_processed_tom_annotated_clean
+))
+
+#loos <- map(fits, ~ loo(.x)) # potentially use moment_match = TRUE ?
+
+single_fits <- c(
+  list(baseline = base_fit_atoms),
+  setNames(single_term_models, paste0("baseline + ", tom_terms)),
+  list(full_model = lr_tom_atoms)
+)
+
+single_loos <- map(single_fits, loo)
+loo_table <- loo_compare(single_loos)
+print(loo_table)
+
+single_loos_comparison <- map(single_term_models, loo)
+names(single_loos_comparison) <- paste0("baseline + ", tom_terms)
+single_loos_comparison_loo_table <- loo_compare(single_loos_comparison)
+print(single_loos_comparison_loo_table)
+tib <- as.data.frame(single_loos_comparison_loo_table) %>% 
+  rownames_to_column(var = "model") 
+#tib %>% write_csv("single_loos_comparison_loo_table.csv")
+```
+
+
+
+```{r}
+full_comparison_results <- read_csv("loo_cv_baseline-atoms_powerset.csv") %>%
+  mutate(
+    lower = elpd_loo - se_elpd_loo,
+    upper = elpd_loo + se_elpd_loo
+  )
+
+full_comparison_results |> 
+  ggplot(aes( x = model , y = elpd_loo)) + # , color = level
+  geom_linerange(aes(min = lower, max = upper), size = 0.5) +
+  geom_point( size = 2.5) + # aes(shape = level),
+ coord_flip() +
+  xlab("") +
+  ylab("expected log likelihood\n(LOO-CV) ") +
+  theme_csp() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust=0.5))
+  
+#ggsave("figs/behavioral-atoms-comparison.pdf", scale = 0.8, width = 18, height = 8)
+ggsave("figs/behavioral-atoms-comparison-vertical.png", scale = 0.8, width = 10, height = 20)
+
+1 - pnorm(-(full_comparison_results |> filter(model =="base") |> pull(elpd_diff)), full_comparison_results |> filter(model =="base") |> pull(se_diff))
+```
+
+```{r}
+base_fit_atoms_noRE <- brm(
+  accuracy ~ model_family + size_group + model_type + ds_type,
+  data = d_processed_tom_annotated_clean,
+  family = "beta",
+  chains = 4,
+  iter = 3000,
+  cores = 4,
+  save_pars = save_pars(all = TRUE)
+)
+lr_tom_atoms_noRE <- brm(
+  accuracy ~ model_family + size_group + model_type + ds_type + tom_belief + tom_intentions + tom_desires + tom_emotions + tom_knowledge + tom_perception + tom_nonliteral_communication,
+  data = d_processed_tom_annotated_clean,
+  family="beta",
+  chains=4,
+  iter = 3000,
+  cores=4
+)
+loo_compare(loo(base_fit_atoms), loo(lr_tom_atoms))
+
+loo_compare(loo(base_fit_atoms_noRE), loo(lr_tom_atoms_noRE))
+
+loo_compare(loo(base_fit_atoms_noRE), loo(lr_tom_atoms_noRE), loo(base_fit_atoms), loo(lr_tom_atoms))
+```
+
+## Ablation experiment analyses
+
+```{r}
+#model_sizes <- read_csv("model_size_mapping.csv") %>% select(model, size_num)
+d_ablations <- read_csv("ablation_results_summary_wSNLI.csv") # read_csv("ablation_results_summary.csv")
+model_sizes_processed <- model_sizes %>%
+  rowwise() %>%
+  mutate(
+    model_family = str_split(model, "/", simplify=T)[1],
+    model =  str_split(model, "/", simplify=T)[2]) %>%
+  select(model_family, model, size_num) %>% unique()
+  
+d_annotated_ablations <- d_ablations %>% left_join(., model_sizes_processed, by=c("model")) 
+
+d_processed_ablations <- d_annotated_ablations %>%
+  rowwise() %>%
+  mutate(
+    model_family = factor(model_family),
+    model_type = factor(model_type),
+    domain = factor(domain),
+   # localizer_type = factor(localizer_type),
+    localizer = factor(localizer),
+    size_group = case_when(size_num %in% c(0.5, 1.0, 1.4, 1.5, 2.8, 3.0, 6.9, 7.0, 8.0) ~ "small", 
+                           size_num %in% c(70.0, 72.0) ~ "large",
+                           TRUE ~ "medium"
+                        ),
+    size_group = factor(size_group, levels = c("small", "medium", "large"))
+  )
+# check for NaNs
+d_processed_ablations %>% 
+  filter(if_any(everything(), is.na)) %>%
+  pull(model) %>% unique()
+
+d_processed_ablations_control <- d_processed_ablations %>% filter(localizer_type == "least active") %>%
+  rename(accuracy = model_correct_mean_logprob) %>% select(-delta_model_correct_mean, -baseline_model_correct)
+d_processed_ablations_critical <- d_processed_ablations %>% filter(localizer_type == "critical") %>%
+  rename(accuracy = model_correct_mean_logprob) %>% select(-delta_model_correct_mean, -baseline_model_correct)
+
+
+#d_processed_ablations_critical_long <- d_processed_ablations_critical %>% 
+#  pivot_longer(cols = c("baseline_model_correct", "model_correct_mean_logprob"), 
+#               names_to = "eval_type", values_to = "accuracy") %>%
+#  mutate(localizer_type = ifelse(eval_type == "model_correct_mean_logprob", "critical", "none"))
+
+d_baseline <- d_processed_ablations %>% 
+  select(model, dataset, baseline_model_correct, domain, model_type, model_family, size_num, size_group) %>%
+  unique() %>%
+  mutate(localizer_type = "none",
+         localizer = NaN) %>%
+  rename(accuracy = baseline_model_correct)
+
+#d_processed_ablations_long <- rbind(
+#  d_processed_ablations_critical_long %>% select(-eval_type, -delta_model_correct_mean),
+#  d_processed_ablations_control 
+#) %>%
+#  mutate(
+#    localizer_type = factor(localizer_type, levels = c("none", "critical", "least active")),
+#    accuracy = ifelse(accuracy == 0, accuracy + 0.00001, ifelse(accuracy == 1, accuracy -  0.00001, accuracy)))
+
+d_processed_ablations_long <- rbind(
+  d_baseline,
+  d_processed_ablations_control %>% select(-localizer_dataset, -localization_procedure),
+  d_processed_ablations_critical %>% select(-localizer_dataset, -localization_procedure)
+) %>%
+ rowwise() %>%
+  mutate(
+    ablation_localizer = paste(localizer_type, localizer, sep = "_")
+  )
+
+d_processed_ablations_long_processed <- d_processed_ablations_long %>%
+  ungroup() %>%
+  mutate(
+    ablation_localizer = ifelse(ablation_localizer == "none_NaN", "none", ablation_localizer),
+    ablation_localizer = factor(ablation_localizer, levels = c(
+      "none",
+      "critical_LB + CI (conjunctive)",             
+      "critical_All (simple)",             
+      "critical_CommunicativeIntent (conjunctive)",   
+      "critical_CommunicativeIntent (simple)",
+      "critical_MoralIntent (simple)",         
+      "critical_GameBeliefs (simple)",
+      "critical_LatentBeliefs (conjunctive)",
+      "critical_LatentBeliefs (simple)",
+      "least active_LB + CI (conjunctive)",            
+      "least active_All (simple)"  ,
+      "least active_CommunicativeIntent (conjunctive)",
+      "least active_CommunicativeIntent (simple)",
+      "least active_MoralIntent (simple)",
+      "least active_GameBeliefs (simple)",
+      "least active_LatentBeliefs (conjunctive)",
+      "least active_LatentBeliefs (simple)"
+    )),
+    #localizer_type = factor(localizer_type, levels = c("none", "critical", "least active")),
+    accuracy = ifelse(accuracy == 0, accuracy + 0.00001, ifelse(accuracy == 1, accuracy -  0.00001, accuracy)))
+  
+
+#d_processed_ablations_long_tom_simple <- d_processed_ablations_long_processed %>%
+#  filter((localizer == "LatentBeliefs (simple)") | (localizer == "NaN"))
+
+
+# sum code factors
+contrasts(d_processed_ablations_long_processed$model_family) <- contr.sum(4)
+contrasts(d_processed_ablations_long_processed$model_type) <- contr.sum(2)
+contrasts(d_processed_ablations_long_processed$size_group) <- contr.sum(3)
+contrasts(d_processed_ablations_long_processed$domain) <- contr.sum(3)
+#contrasts(d_processed_ablations_long_processed$localizer_type) <- contr.treatment(3)
+contrasts(d_processed_ablations_long_processed$ablation_localizer) <- contr.treatment(17)
+
+#d_processed_ablations_long_processed %>% filter((accuracy <= 0) | (accuracy > 1))
+```
+
+```{r}
+simple_noInteractions <- brm( # model_family
+  accuracy ~ size_group + model_type + ablation_localizer + domain  + (1 | dataset),
+  data = d_processed_ablations_long_processed,
+  family="beta",
+  chains=4,
+  iter = 3000,
+  cores=4
+)
+summary(simple_noInteractions)
+#summary(simple_noInteractions)$warnings
+```
+```{r}
+# the intercept is the grand mean over: size, model type and domain, AT THE LEVEL ABLATION_LOCALIZER=NONE
+# each single different ABLATION_LOCALIZER condition in a specific domain is calculated by b_Intercept + b_domain + b_ablation_localizer-i
+# to calculate average over e.g. 8 of them, we would: 
+# 1/8 * ((b_Intercept + b_domain + b_ablation_localizer2) + ... + (b_Intercept + b_domain + b_ablation_localizer9) ) = 1/8 * (8 * b_Intercept + 8*b_domain +(b_ablation_localizer2 + ... + b_ablation_localizer9)) = b_Intercept + b_domain + 1/8 * (b_ablation_localizer2 + ... + b_ablation_localizer9)  
+
+ablations_posteriors <- simple_noInteractions %>% spread_draws(
+  b_Intercept, b_size_group1, b_size_group2,
+  b_model_type1,
+  b_ablation_localizer2, b_ablation_localizer3, b_ablation_localizer4, b_ablation_localizer5, b_ablation_localizer6, b_ablation_localizer7, b_ablation_localizer8, b_ablation_localizer9, b_ablation_localizer10, b_ablation_localizer11, b_ablation_localizer12, b_ablation_localizer13, b_ablation_localizer14, b_ablation_localizer15, b_ablation_localizer16, b_ablation_localizer17,
+  b_domain1, b_domain2) %>%
+  mutate(
+    domainTom_ablationNone = b_Intercept + b_domain1,
+    domainPrag_ablationNone = b_Intercept - b_domain1 - b_domain2,
+    domainSyntax_ablationNone = b_Intercept + b_domain2,
+    
+    domainTom_ablationTom = domainTom_ablationNone + 1/8 * (b_ablation_localizer2 + b_ablation_localizer3 + b_ablation_localizer4 + b_ablation_localizer5 + b_ablation_localizer6 + b_ablation_localizer7 + b_ablation_localizer8 + b_ablation_localizer9),
+    domainTom_ablationRandom =  domainTom_ablationNone + 1/8 * (b_ablation_localizer10 + b_ablation_localizer11 + b_ablation_localizer12 + b_ablation_localizer13 + b_ablation_localizer14 + b_ablation_localizer15 + b_ablation_localizer16 + b_ablation_localizer17),
+    
+    domainPrag_ablationTom = domainPrag_ablationNone + 1/8 * (b_ablation_localizer2 + b_ablation_localizer3 + b_ablation_localizer4 + b_ablation_localizer5 + b_ablation_localizer6 + b_ablation_localizer7 + b_ablation_localizer8 + b_ablation_localizer9),
+    domainPrag_ablationRandom = domainPrag_ablationNone + 1/8 * (b_ablation_localizer10 + b_ablation_localizer11 + b_ablation_localizer12 + b_ablation_localizer13 + b_ablation_localizer14 + b_ablation_localizer15 + b_ablation_localizer16 + b_ablation_localizer17),
+    
+    domainSyntax_ablationTom = domainSyntax_ablationNone + 1/8 * (b_ablation_localizer2 + b_ablation_localizer3 + b_ablation_localizer4 + b_ablation_localizer5 + b_ablation_localizer6 + b_ablation_localizer7 + b_ablation_localizer8 + b_ablation_localizer9),
+    domainSyntax_ablationRandom = domainSyntax_ablationNone + 1/8 * (b_ablation_localizer10 + b_ablation_localizer11 + b_ablation_localizer12 + b_ablation_localizer13 + b_ablation_localizer14 + b_ablation_localizer15 + b_ablation_localizer16 + b_ablation_localizer17),
+    
+    ablationTom_performanceTom = domainTom_ablationNone - domainTom_ablationTom,
+    ablationRandom_performanceTom = domainTom_ablationRandom - domainTom_ablationTom,
+    ablationTom_performancePrag = domainPrag_ablationNone - domainPrag_ablationTom,
+    ablationRandom_performancePrag = domainPrag_ablationRandom - domainPrag_ablationTom,
+    ablationTom_performanceSyntax = domainSyntax_ablationNone - domainSyntax_ablationTom,
+    prag_vs_syntax = ablationTom_performancePrag - ablationTom_performanceSyntax
+  )
+
+ablations_posteriors %>% select(ablationTom_performanceTom, ablationRandom_performanceTom, ablationTom_performancePrag, ablationRandom_performancePrag, ablationTom_performanceSyntax, prag_vs_syntax) %>%
+  gather(key, val) %>%
+  group_by(key) %>%
+  summarise(
+    '|95%' = quantile(val, probs = c(0.025, 0.975))[[1]],
+    'mean'  = mean(val),
+    '95%|' = quantile(val, probs = c(0.025, 0.975))[[2]]
+  ) -> ablations_posteriors_summary
+
+```
+
+
+```{r}
+ablations_wInteractions <- brm(
+  accuracy ~ size_group + model_type + ablation_localizer * domain,
+  data = d_processed_ablations_long_processed,
+  family="beta",
+  chains=4,
+  iter = 3000,
+  cores=4
+)
+summary(ablations_wInteractions)
+```
+
+```{r}
+ablations_interactions_posteriors <- ablations_wInteractions %>% spread_draws(
+  b_Intercept, b_size_group1, b_size_group2,
+  b_model_type1,
+  b_ablation_localizer2, b_ablation_localizer3, b_ablation_localizer4, b_ablation_localizer5, b_ablation_localizer6, b_ablation_localizer7, b_ablation_localizer8, b_ablation_localizer9, b_ablation_localizer10, b_ablation_localizer11, b_ablation_localizer12, b_ablation_localizer13, b_ablation_localizer14, b_ablation_localizer15, b_ablation_localizer16, b_ablation_localizer17,
+  `b_ablation_localizer2:domain1`, `b_ablation_localizer3:domain1`, `b_ablation_localizer4:domain1`, `b_ablation_localizer5:domain1`, `b_ablation_localizer6:domain1`, `b_ablation_localizer7:domain1`, `b_ablation_localizer8:domain1`, `b_ablation_localizer9:domain1`, `b_ablation_localizer10:domain1`,`b_ablation_localizer11:domain1`, `b_ablation_localizer12:domain1`, `b_ablation_localizer13:domain1`, `b_ablation_localizer14:domain1`, `b_ablation_localizer15:domain1`, `b_ablation_localizer16:domain1`, `b_ablation_localizer17:domain1`,
+  `b_ablation_localizer2:domain2`, `b_ablation_localizer3:domain2`, `b_ablation_localizer4:domain2`, `b_ablation_localizer5:domain2`, `b_ablation_localizer6:domain2`, `b_ablation_localizer7:domain2`, `b_ablation_localizer8:domain2`, `b_ablation_localizer9:domain2`, `b_ablation_localizer10:domain2`,`b_ablation_localizer11:domain2`, `b_ablation_localizer12:domain2`, `b_ablation_localizer13:domain2`, `b_ablation_localizer14:domain2`, `b_ablation_localizer15:domain2`, `b_ablation_localizer16:domain2`, `b_ablation_localizer17:domain2`,
+  b_domain1, b_domain2) %>%
+  mutate(
+    domainTom_ablationNone = b_Intercept + b_domain1,
+    domainPrag_ablationNone = b_Intercept - b_domain1 - b_domain2,
+    domainSyntax_ablationNone = b_Intercept + b_domain2,
+    
+    domainTom_ablationTom = domainTom_ablationNone + 1/8 * (b_ablation_localizer2 + b_ablation_localizer3 + b_ablation_localizer4 + b_ablation_localizer5 + b_ablation_localizer6 + b_ablation_localizer7 + b_ablation_localizer8 + b_ablation_localizer9 + `b_ablation_localizer2:domain1` + `b_ablation_localizer3:domain1`+ `b_ablation_localizer4:domain1`+ `b_ablation_localizer5:domain1`+ `b_ablation_localizer6:domain1`+ `b_ablation_localizer7:domain1`+ `b_ablation_localizer8:domain1`+ `b_ablation_localizer9:domain1`),
+    domainTom_ablationRandom =  domainTom_ablationNone + 1/8 * (b_ablation_localizer10 + b_ablation_localizer11 + b_ablation_localizer12 + b_ablation_localizer13 + b_ablation_localizer14 + b_ablation_localizer15 + b_ablation_localizer16 + b_ablation_localizer17 + `b_ablation_localizer10:domain1`+`b_ablation_localizer11:domain1`+ `b_ablation_localizer12:domain1`+ `b_ablation_localizer13:domain1`+ `b_ablation_localizer14:domain1`+ `b_ablation_localizer15:domain1`+ `b_ablation_localizer16:domain1`+ `b_ablation_localizer17:domain1`),
+    
+    domainPrag_ablationTom = domainPrag_ablationNone + 1/8 * (b_ablation_localizer2 + b_ablation_localizer3 + b_ablation_localizer4 + b_ablation_localizer5 + b_ablation_localizer6 + b_ablation_localizer7 + b_ablation_localizer8 + b_ablation_localizer9 - `b_ablation_localizer2:domain1` - `b_ablation_localizer3:domain1`- `b_ablation_localizer4:domain1`- `b_ablation_localizer5:domain1`- `b_ablation_localizer6:domain1`- `b_ablation_localizer7:domain1`- `b_ablation_localizer8:domain1`- `b_ablation_localizer9:domain1` - `b_ablation_localizer2:domain2`- `b_ablation_localizer3:domain2`- `b_ablation_localizer4:domain2`- `b_ablation_localizer5:domain2`- `b_ablation_localizer6:domain2`- `b_ablation_localizer7:domain2`- `b_ablation_localizer8:domain2`- `b_ablation_localizer9:domain2`),
+    domainPrag_ablationRandom = domainPrag_ablationNone + 1/8 * (b_ablation_localizer10 + b_ablation_localizer11 + b_ablation_localizer12 + b_ablation_localizer13 + b_ablation_localizer14 + b_ablation_localizer15 + b_ablation_localizer16 + b_ablation_localizer17 - `b_ablation_localizer10:domain1`-`b_ablation_localizer11:domain1`- `b_ablation_localizer12:domain1`- `b_ablation_localizer13:domain1`- `b_ablation_localizer14:domain1`- `b_ablation_localizer15:domain1`- `b_ablation_localizer16:domain1`- `b_ablation_localizer17:domain1` - `b_ablation_localizer10:domain2`-`b_ablation_localizer11:domain2`- `b_ablation_localizer12:domain2`- `b_ablation_localizer13:domain2`- `b_ablation_localizer14:domain2`- `b_ablation_localizer15:domain2`- `b_ablation_localizer16:domain2`- `b_ablation_localizer17:domain2`),
+    
+    domainSyntax_ablationTom = domainSyntax_ablationNone + 1/8 * (b_ablation_localizer2 + b_ablation_localizer3 + b_ablation_localizer4 + b_ablation_localizer5 + b_ablation_localizer6 + b_ablation_localizer7 + b_ablation_localizer8 + b_ablation_localizer9 + `b_ablation_localizer2:domain2`+ `b_ablation_localizer3:domain2`+ `b_ablation_localizer4:domain2`+ `b_ablation_localizer5:domain2`+ `b_ablation_localizer6:domain2`+ `b_ablation_localizer7:domain2`+ `b_ablation_localizer8:domain2`+ `b_ablation_localizer9:domain2`),
+    domainSyntax_ablationRandom = domainSyntax_ablationNone + 1/8 * (b_ablation_localizer10 + b_ablation_localizer11 + b_ablation_localizer12 + b_ablation_localizer13 + b_ablation_localizer14 + b_ablation_localizer15 + b_ablation_localizer16 + b_ablation_localizer17 + `b_ablation_localizer10:domain2`+`b_ablation_localizer11:domain2`+ `b_ablation_localizer12:domain2`+ `b_ablation_localizer13:domain2`+ `b_ablation_localizer14:domain2`+ `b_ablation_localizer15:domain2`+ `b_ablation_localizer16:domain2`+ `b_ablation_localizer17:domain2`),
+    
+    domainTom_ablationNone_sizeL = domainTom_ablationNone - b_size_group1 - b_size_group2,
+    domainTom_ablationNone_sizeM = domainTom_ablationNone + b_size_group2, 
+    domainTom_ablationNone_sizeS = domainTom_ablationNone + b_size_group1,
+    domainTom_ablationTom_sizeL = domainTom_ablationTom - b_size_group1 - b_size_group2,
+    domainTom_ablationTom_sizeM = domainTom_ablationTom + b_size_group2,
+    domainTom_ablationTom_sizeS = domainTom_ablationTom + b_size_group1,
+    domainPrag_ablationTom_sizeL = domainPrag_ablationTom - b_size_group1 - b_size_group2,
+    domainPrag_ablationTom_sizeM = domainPrag_ablationTom + b_size_group2,
+    domainPrag_ablationTom_sizeS = domainPrag_ablationTom + b_size_group1,
+    #
+    
+    ablationTom_performanceTom = domainTom_ablationNone - domainTom_ablationTom,
+    ablationRandom_performanceTom = domainTom_ablationRandom - domainTom_ablationTom,
+    ablationTom_performancePrag = domainPrag_ablationNone - domainPrag_ablationTom,
+    ablationRandom_performancePrag = domainPrag_ablationRandom - domainPrag_ablationTom,
+    ablationTom_performanceSyntax = domainSyntax_ablationNone - domainSyntax_ablationTom,
+    prag_vs_syntax =  ablationTom_performancePrag - ablationTom_performanceSyntax,
+    ablationTom_L_vs_M = domainTom_ablationTom_sizeL - domainTom_ablationTom_sizeM,
+    ablationTom_M_vs_s = domainTom_ablationTom_sizeM - domainTom_ablationTom_sizeS,
+    ablationTom_prag_L_vs_M = domainPrag_ablationTom_sizeL - domainPrag_ablationTom_sizeM,
+    ablationTom_prag_M_vs_S = domainPrag_ablationTom_sizeM - domainPrag_ablationTom_sizeS,
+    
+    # extract contrasts for single localizers
+    # effect of ToM ablation on ToM performance (none_performanceTom - ablationToM_performanceToM)
+    ablationTom_performanceTom_tomSimple = - b_ablation_localizer9 - `b_ablation_localizer9:domain1`,
+    ablationTom_performanceTom_tomConj = -b_ablation_localizer8 - `b_ablation_localizer8:domain1`,
+    ablationTom_performanceTom_GameBel = -b_ablation_localizer7 - `b_ablation_localizer7:domain1`,
+    ablationTom_performanceTom_MoralInt = -b_ablation_localizer6 - `b_ablation_localizer6:domain1`,
+    ablationTom_performanceTom_comIntSimple = -b_ablation_localizer5 - `b_ablation_localizer5:domain1`,
+    ablationTom_performanceTom_comIntConj = -b_ablation_localizer4 - `b_ablation_localizer4:domain1`,
+    ablationTom_performanceTom_allSimple = -b_ablation_localizer3 - `b_ablation_localizer3:domain1`,
+    ablationTom_performanceTom_allConj = -b_ablation_localizer2 - `b_ablation_localizer2:domain1`,
+    # effect of random ablation vs ToM ablation on ToM performance (ablationRandom_performanceTom - ablationToM_performanceToM)
+    # (b_Intercept + b_domain1 + b_ablation_localizer17 + `b_ablation_localizer17:domain1`) - (b_Intercept + b_domain1 + b_ablation_localizer9 + `b_ablation_localizer9:domain1`)
+    ablationRandom_performanceTom_tomSimple =  b_ablation_localizer17 + `b_ablation_localizer17:domain1` - b_ablation_localizer9 - `b_ablation_localizer9:domain1`,
+    ablationRandom_performanceTom_tomConj =  b_ablation_localizer16 + `b_ablation_localizer16:domain1` - b_ablation_localizer8 - `b_ablation_localizer8:domain1`,
+    ablationRandom_performanceTom_GameBel = b_ablation_localizer15 + `b_ablation_localizer15:domain1` - b_ablation_localizer7 - `b_ablation_localizer7:domain1`,
+    ablationRandom_performanceTom_MoralInt = b_ablation_localizer14 + `b_ablation_localizer14:domain1` - b_ablation_localizer6 - `b_ablation_localizer6:domain1`,
+    ablationRandom_performanceTom_comIntSimple = b_ablation_localizer13 + `b_ablation_localizer13:domain1` - b_ablation_localizer5 - `b_ablation_localizer5:domain1`,
+    ablationRandom_performanceTom_comIntConj = b_ablation_localizer12 + `b_ablation_localizer12:domain1` - b_ablation_localizer4 - `b_ablation_localizer4:domain1`,
+    ablationRandom_performanceTom_allSimple = b_ablation_localizer11 + `b_ablation_localizer11:domain1` - b_ablation_localizer3 - `b_ablation_localizer3:domain1`,
+    ablationRandom_performanceTom_allConj = b_ablation_localizer10 + `b_ablation_localizer10:domain1` - b_ablation_localizer2 - `b_ablation_localizer2:domain1`,
+    # effects of ToM ablation on pragmatic performance 
+    ablationTom_performancePrag_tomSimple =  - b_ablation_localizer9 + `b_ablation_localizer9:domain1` + `b_ablation_localizer9:domain2`,
+    ablationTom_performancePrag_tomConj = - b_ablation_localizer8 + `b_ablation_localizer8:domain1` + `b_ablation_localizer8:domain2`,
+    ablationTom_performancePrag_GameBel = - b_ablation_localizer7 + `b_ablation_localizer7:domain1` + `b_ablation_localizer7:domain2`,
+    ablationTom_performancePrag_MoralInt= - b_ablation_localizer6 + `b_ablation_localizer6:domain1` + `b_ablation_localizer6:domain2`,
+    ablationTom_performancePrag_comIntSimple= - b_ablation_localizer5 + `b_ablation_localizer5:domain1` + `b_ablation_localizer5:domain2`,
+    ablationTom_performancePrag_comIntConj= - b_ablation_localizer4 + `b_ablation_localizer4:domain1` + `b_ablation_localizer4:domain2`,
+    ablationTom_performancePrag_allSimple= - b_ablation_localizer3 + `b_ablation_localizer3:domain1` + `b_ablation_localizer3:domain2`,
+    ablationTom_performancePrag_allConj= - b_ablation_localizer2 + `b_ablation_localizer2:domain1` + `b_ablation_localizer2:domain2`,
+    # effects of Random ablation on pragmatic performance (ablationRandom_performancePrag - ablationTom_performancePrag)
+   # ablationRandom_performancePrag_tomSimple =  (b_Intercept - b_domain1 - b_domain2 + b_ablation_localizer17 - `b_ablation_localizer17:domain1` - `b_ablation_localizer17:domain2`) - (b_Intercept - b_domain1 - b_domain2 + b_ablation_localizer9 - `b_ablation_localizer9:domain1` - `b_ablation_localizer9:domain2`),
+    #####
+    ablationRandom_performancePrag_tomSimple = (b_ablation_localizer17 - `b_ablation_localizer17:domain1` - `b_ablation_localizer17:domain2`) - b_ablation_localizer9 + `b_ablation_localizer9:domain1` + `b_ablation_localizer9:domain2`,
+    ablationRandom_performancePrag_tomConj = (b_ablation_localizer16 - `b_ablation_localizer16:domain1` - `b_ablation_localizer16:domain2`) - b_ablation_localizer8 + `b_ablation_localizer8:domain1` + `b_ablation_localizer8:domain2`,
+    ablationRandom_performancePrag_GameBel =  (b_ablation_localizer15 - `b_ablation_localizer15:domain1` - `b_ablation_localizer15:domain2`) - b_ablation_localizer7 + `b_ablation_localizer7:domain1` + `b_ablation_localizer7:domain2`,
+    ablationRandom_performancePrag_MoralInt=  (b_ablation_localizer14 - `b_ablation_localizer14:domain1` - `b_ablation_localizer14:domain2`) - b_ablation_localizer6 + `b_ablation_localizer6:domain1` + `b_ablation_localizer6:domain2`,
+    ablationRandom_performancePrag_comIntSimple= (b_ablation_localizer13 - `b_ablation_localizer13:domain1` - `b_ablation_localizer13:domain2`) - b_ablation_localizer5 + `b_ablation_localizer5:domain1` + `b_ablation_localizer5:domain2`,
+    ablationRandom_performancePrag_comIntConj=  (b_ablation_localizer12 - `b_ablation_localizer12:domain1` - `b_ablation_localizer12:domain2`) - b_ablation_localizer4 + `b_ablation_localizer4:domain1` + `b_ablation_localizer4:domain2`,
+    ablationRandom_performancePrag_allSimple=  (b_ablation_localizer11 - `b_ablation_localizer11:domain1` - `b_ablation_localizer11:domain2`) - b_ablation_localizer3 + `b_ablation_localizer3:domain1` + `b_ablation_localizer3:domain2`,
+    ablationRandom_performancePrag_allConj =  (b_ablation_localizer10 - `b_ablation_localizer10:domain1` - `b_ablation_localizer10:domain2`) - b_ablation_localizer2 + `b_ablation_localizer2:domain1` + `b_ablation_localizer2:domain2`,
+    # is syntax performance credibly different from 0 under ToM ablation?
+    performanceSyntax_tomSimple = -b_ablation_localizer9 - `b_ablation_localizer9:domain2`,
+    performanceSyntax_tomConj = -b_ablation_localizer8 - `b_ablation_localizer8:domain2`,
+    performanceSyntax_GameBel = -b_ablation_localizer7 - `b_ablation_localizer7:domain2`,
+    performanceSyntax_MoralInt = -b_ablation_localizer6 - `b_ablation_localizer6:domain2`,
+    performanceSyntax_comIntSimple = -b_ablation_localizer5 - `b_ablation_localizer5:domain2`,
+    performanceSyntax_comIntConj = -b_ablation_localizer4 - `b_ablation_localizer4:domain2`,
+    performanceSyntax_allSimple = -b_ablation_localizer3 - `b_ablation_localizer3:domain2`,
+    performanceSyntax_allConj = -b_ablation_localizer2 - `b_ablation_localizer2:domain2`,
+   # prag vs syntax  (ablationTom_performancePrag - ablationTom_performanceSyntax) (latter above)
+    prag_vs_syntax_tomSimple = ablationTom_performancePrag_tomSimple + b_ablation_localizer9 + `b_ablation_localizer9:domain2`,
+    prag_vs_syntax_tomConj = ablationTom_performancePrag_tomConj + b_ablation_localizer8 + `b_ablation_localizer8:domain2` ,
+    prag_vs_syntax_GameBel = ablationTom_performancePrag_GameBel + b_ablation_localizer7 + `b_ablation_localizer7:domain2`,
+    prag_vs_syntax_MoralInt = ablationTom_performancePrag_MoralInt + b_ablation_localizer6 + `b_ablation_localizer6:domain2`,
+    prag_vs_syntax_comIntSimple = ablationTom_performancePrag_comIntSimple + b_ablation_localizer5 + `b_ablation_localizer5:domain2`,
+    prag_vs_syntax_comIntConj = ablationTom_performancePrag_comIntConj + b_ablation_localizer4 + `b_ablation_localizer4:domain2`,
+    prag_vs_syntax_allSimple = ablationTom_performancePrag_allSimple + b_ablation_localizer3 + `b_ablation_localizer3:domain2`,
+    prag_vs_syntax_allConj = ablationTom_performancePrag_allConj + b_ablation_localizer2 + `b_ablation_localizer2:domain2`,
+   # effect comparison for simple vs conjunctive localization procedure:
+   ablationTom_performanceTomPrag_tom_simple_vs_conjunctive = 0.5 * (ablationTom_performanceTom_tomSimple - ablationTom_performanceTom_tomConj) + 0.5 * (ablationTom_performancePrag_tomSimple - ablationTom_performancePrag_tomConj),
+   ablationTom_performanceTomPrag_comInt_simple_vs_conjunctive = 0.5 * (ablationTom_performanceTom_comIntSimple - ablationTom_performanceTom_comIntConj) + 0.5 * (ablationTom_performancePrag_comIntSimple - ablationTom_performancePrag_comIntConj),
+    ablationRandom_performanceTomPrag_tom_simple_vs_conjunctive = 0.5 * (ablationRandom_performanceTom_tomSimple - ablationRandom_performanceTom_tomConj) + 0.5 * (ablationRandom_performancePrag_tomSimple - ablationRandom_performancePrag_tomConj),
+    ablationRandom_performanceTomPrag_comInt_simple_vs_conjunctive = 0.5 * (ablationRandom_performanceTom_comIntSimple - ablationRandom_performanceTom_comIntConj) + 0.5 * (ablationRandom_performancePrag_comIntSimple - ablationRandom_performancePrag_comIntConj)
+  )
+
+ablations_interactions_posteriors %>% select(ablationTom_performanceTom, ablationRandom_performanceTom, ablationTom_performancePrag, ablationRandom_performancePrag, ablationTom_performanceSyntax, prag_vs_syntax, ablationTom_L_vs_M, ablationTom_M_vs_s, ablationTom_prag_L_vs_M, ablationTom_prag_M_vs_S, ablationTom_performanceTomPrag_tom_simple_vs_conjunctive, ablationTom_performanceTomPrag_comInt_simple_vs_conjunctive, ablationRandom_performanceTomPrag_tom_simple_vs_conjunctive, ablationRandom_performanceTomPrag_comInt_simple_vs_conjunctive) %>%
+  gather(key, val) %>%
+  group_by(key) %>%
+  summarise(
+    '|95%' = quantile(val, probs = c(0.025, 0.975))[[1]],
+    'mean'  = mean(val),
+    '95%|' = quantile(val, probs = c(0.025, 0.975))[[2]]
+  ) -> ablations_wInteraction_posteriors_summary
+
+ablations_interactions_posteriors %>% select(ends_with(c("_tomSimple", "_tomConj", "_GameBel", "_MoralInt", "_comIntSimple", "_comIntConj", "_allSimple", "_allConj"))) %>%
+  gather(key, val) %>%
+  group_by(key) %>%
+  summarise(
+    '|95%' = quantile(val, probs = c(0.025, 0.975))[[1]],
+    'mean'  = mean(val),
+    '95%|' = quantile(val, probs = c(0.025, 0.975))[[2]]
+  ) -> ablations_wInteraction_byLoc_posteriors_summary
+
+ablations_wInteraction_byLoc_posteriors_summary_rounded <- ablations_wInteraction_byLoc_posteriors_summary %>%
+  mutate(`|95%` = round(`|95%`, 2),
+         mean= round(mean, 2),
+         `95%|` = round(`95%|`, 2),
+         hyp_nr = case_when(
+           grepl("ablationTom_performanceTom", key) ~ "H1.1",
+           grepl("ablationRandom_performanceTom", key) ~ "H1.2",
+           grepl("ablationTom_performancePrag", key) ~ "H2.1",
+           grepl("ablationRandom_performancePrag", key) ~ "H2.2",
+           grepl("performanceSyntax", key) ~ "H3.1",
+           grepl("prag_vs_syntax", key) ~ "H3.2",
+           TRUE ~ "no_h"
+         ))
+#ablations_wInteraction_byLoc_posteriors_summary_rounded %>% write_csv("main_hypothesis-testing_by-localizer-updated-wSNLI.csv")
+```
+
+Adding size interactions, to address questions about compression:
+
+```{r}
+ablations_wSizeInteractions <- brm(
+  accuracy ~ model_type + size_group * ablation_localizer * domain,
+  data = d_processed_ablations_long_processed,
+  family="beta",
+  chains=4,
+  iter = 3000,
+  cores=4
+)
+summary(ablations_wSizeInteractions)
+```
+
+```{r}
+ablations_size_interactions_posteriors <- ablations_wSizeInteractions %>% spread_draws(
+  b_Intercept, b_size_group1, b_size_group2,
+  b_model_type1,
+  b_domain1, b_domain2,
+  b_ablation_localizer2, b_ablation_localizer3, b_ablation_localizer4, b_ablation_localizer5, b_ablation_localizer6, b_ablation_localizer7, b_ablation_localizer8, b_ablation_localizer9, b_ablation_localizer10, b_ablation_localizer11, b_ablation_localizer12, b_ablation_localizer13, b_ablation_localizer14, b_ablation_localizer15, b_ablation_localizer16, b_ablation_localizer17,
+  `b_ablation_localizer2:domain1`, `b_ablation_localizer3:domain1`, `b_ablation_localizer4:domain1`, `b_ablation_localizer5:domain1`, `b_ablation_localizer6:domain1`, `b_ablation_localizer7:domain1`, `b_ablation_localizer8:domain1`, `b_ablation_localizer9:domain1`, `b_ablation_localizer10:domain1`,`b_ablation_localizer11:domain1`, `b_ablation_localizer12:domain1`, `b_ablation_localizer13:domain1`, `b_ablation_localizer14:domain1`, `b_ablation_localizer15:domain1`, `b_ablation_localizer16:domain1`, `b_ablation_localizer17:domain1`,
+  `b_ablation_localizer2:domain2`, `b_ablation_localizer3:domain2`, `b_ablation_localizer4:domain2`, `b_ablation_localizer5:domain2`, `b_ablation_localizer6:domain2`, `b_ablation_localizer7:domain2`, `b_ablation_localizer8:domain2`, `b_ablation_localizer9:domain2`, `b_ablation_localizer10:domain2`,`b_ablation_localizer11:domain2`, `b_ablation_localizer12:domain2`, `b_ablation_localizer13:domain2`, `b_ablation_localizer14:domain2`, `b_ablation_localizer15:domain2`, `b_ablation_localizer16:domain2`, `b_ablation_localizer17:domain2`,
+  # size:localizer interactions
+  `b_size_group1:ablation_localizer2`, `b_size_group1:ablation_localizer3`, `b_size_group1:ablation_localizer4`,  `b_size_group1:ablation_localizer5`, `b_size_group1:ablation_localizer6`, `b_size_group1:ablation_localizer7`, `b_size_group1:ablation_localizer8`, `b_size_group1:ablation_localizer9`, `b_size_group2:ablation_localizer2`, `b_size_group2:ablation_localizer3`, `b_size_group2:ablation_localizer4`, `b_size_group2:ablation_localizer5`, `b_size_group2:ablation_localizer6`, `b_size_group2:ablation_localizer7`, `b_size_group2:ablation_localizer8`, `b_size_group2:ablation_localizer9`,
+  # size:domain interactions
+  `b_size_group1:domain1`, `b_size_group2:domain1`, `b_size_group1:domain2`, `b_size_group2:domain2`,
+  # size:localizer:domain interaction
+  `b_size_group1:ablation_localizer2:domain1`, `b_size_group1:ablation_localizer3:domain1`, `b_size_group1:ablation_localizer4:domain1`, `b_size_group1:ablation_localizer5:domain1`, `b_size_group1:ablation_localizer6:domain1`, `b_size_group1:ablation_localizer7:domain1`, `b_size_group1:ablation_localizer8:domain1`, `b_size_group1:ablation_localizer9:domain1`, `b_size_group2:ablation_localizer2:domain1`, `b_size_group2:ablation_localizer3:domain1`, `b_size_group2:ablation_localizer4:domain1`, `b_size_group2:ablation_localizer5:domain1`, `b_size_group2:ablation_localizer6:domain1`, `b_size_group2:ablation_localizer7:domain1`, `b_size_group2:ablation_localizer8:domain1`, `b_size_group2:ablation_localizer9:domain1`,
+  `b_size_group1:ablation_localizer2:domain2`, `b_size_group1:ablation_localizer3:domain2`, `b_size_group1:ablation_localizer4:domain2`, `b_size_group1:ablation_localizer5:domain2`, `b_size_group1:ablation_localizer6:domain2`, `b_size_group1:ablation_localizer7:domain2`, `b_size_group1:ablation_localizer8:domain2`, `b_size_group1:ablation_localizer9:domain2`, `b_size_group2:ablation_localizer2:domain2`, `b_size_group2:ablation_localizer3:domain2`, `b_size_group2:ablation_localizer4:domain2`, `b_size_group2:ablation_localizer5:domain2`, `b_size_group2:ablation_localizer6:domain2`, `b_size_group2:ablation_localizer7:domain2`, `b_size_group2:ablation_localizer8:domain2`, `b_size_group2:ablation_localizer9:domain2`
+  ) %>%
+  ########## extraction of contrasts ##########
+  mutate( # accuracy on ToM in the baseline for different sizes
+    domainTom_ablationNone_sizeL = b_Intercept + b_domain1 - b_size_group1 - b_size_group2 - `b_size_group1:domain1` - `b_size_group2:domain1`,
+    domainTom_ablationNone_sizeM = b_Intercept + b_domain1 + b_size_group2 + `b_size_group2:domain1`,
+    domainTom_ablationNone_sizeS = b_Intercept + b_domain1 + b_size_group1 + `b_size_group1:domain1`,
+    # accuracy on prag in the baseline for different sizes
+    domainPrag_ablationNone_sizeL = b_Intercept - b_domain1 - b_domain2 - b_size_group1 - b_size_group2 + `b_size_group1:domain1` + `b_size_group2:domain1` + `b_size_group1:domain2` + `b_size_group2:domain2`,
+    domainPrag_ablationNone_sizeM = b_Intercept - b_domain1 - b_domain2 + b_size_group2 - `b_size_group2:domain1`- `b_size_group2:domain2`,
+    domainPrag_ablationNone_sizeS = b_Intercept - b_domain1 - b_domain2 + b_size_group1 - `b_size_group1:domain1` - `b_size_group1:domain2`,
+    
+    # performance under ToM ablation (across localizers, so avg), by size; for each localizer, it is:
+    # beta = [b_Intercept + b_domain1 + b_size1 + `b_size1:domain1`] +  [b_locX + b_size1:locX + b_locX:domain1 + b_locX:domain1:size1]
+    domainTom_ablationTom_sizeL = b_Intercept + b_domain1 - b_size_group1 - b_size_group2 - `b_size_group1:domain1` - `b_size_group2:domain1` + 1/8 * (b_ablation_localizer2 + b_ablation_localizer3 + b_ablation_localizer4 + b_ablation_localizer5 + b_ablation_localizer6 + b_ablation_localizer7 + b_ablation_localizer8 + b_ablation_localizer9 + `b_ablation_localizer2:domain1` + `b_ablation_localizer3:domain1`+ `b_ablation_localizer4:domain1`+ `b_ablation_localizer5:domain1`+ `b_ablation_localizer6:domain1`+ `b_ablation_localizer7:domain1`+ `b_ablation_localizer8:domain1`+ `b_ablation_localizer9:domain1` - `b_size_group1:ablation_localizer2` -`b_size_group1:ablation_localizer3` - `b_size_group1:ablation_localizer4` - `b_size_group1:ablation_localizer5` -`b_size_group1:ablation_localizer6` - `b_size_group1:ablation_localizer7` - `b_size_group1:ablation_localizer8` - `b_size_group1:ablation_localizer9` - `b_size_group2:ablation_localizer2` -`b_size_group2:ablation_localizer3` - `b_size_group2:ablation_localizer4` - `b_size_group2:ablation_localizer5` -`b_size_group2:ablation_localizer6` - `b_size_group2:ablation_localizer7` - `b_size_group2:ablation_localizer8` - `b_size_group2:ablation_localizer9` - `b_size_group1:ablation_localizer2:domain1` - `b_size_group1:ablation_localizer3:domain1` - `b_size_group1:ablation_localizer4:domain1` - `b_size_group1:ablation_localizer5:domain1` - `b_size_group1:ablation_localizer6:domain1` - `b_size_group1:ablation_localizer7:domain1` - `b_size_group1:ablation_localizer8:domain1` - `b_size_group1:ablation_localizer9:domain1` - `b_size_group2:ablation_localizer2:domain1` - `b_size_group2:ablation_localizer3:domain1` - `b_size_group2:ablation_localizer4:domain1` - `b_size_group2:ablation_localizer5:domain1` - `b_size_group2:ablation_localizer6:domain1` - `b_size_group2:ablation_localizer7:domain1` - `b_size_group2:ablation_localizer8:domain1` - `b_size_group2:ablation_localizer9:domain1`),
+    
+    domainTom_ablationTom_sizeM = b_Intercept + b_domain1 + b_size_group2 + `b_size_group2:domain1` + 1/8 * (b_ablation_localizer2 + b_ablation_localizer3 + b_ablation_localizer4 + b_ablation_localizer5 + b_ablation_localizer6 + b_ablation_localizer7 + b_ablation_localizer8 + b_ablation_localizer9 + `b_ablation_localizer2:domain1` + `b_ablation_localizer3:domain1`+ `b_ablation_localizer4:domain1`+ `b_ablation_localizer5:domain1`+ `b_ablation_localizer6:domain1`+ `b_ablation_localizer7:domain1`+ `b_ablation_localizer8:domain1`+ `b_ablation_localizer9:domain1` + `b_size_group2:ablation_localizer2` +`b_size_group2:ablation_localizer3` + `b_size_group2:ablation_localizer4` + `b_size_group2:ablation_localizer5` + `b_size_group2:ablation_localizer6` + `b_size_group2:ablation_localizer7` + `b_size_group2:ablation_localizer8` + `b_size_group2:ablation_localizer9` + `b_size_group2:ablation_localizer2:domain1` + `b_size_group2:ablation_localizer3:domain1` + `b_size_group2:ablation_localizer4:domain1` + `b_size_group2:ablation_localizer5:domain1` + `b_size_group2:ablation_localizer6:domain1` + `b_size_group2:ablation_localizer7:domain1` + `b_size_group2:ablation_localizer8:domain1` + `b_size_group2:ablation_localizer9:domain1`),
+  
+      domainTom_ablationTom_sizeS = b_Intercept + b_domain1 + b_size_group1 + `b_size_group1:domain1` + 1/8 * (b_ablation_localizer2 + b_ablation_localizer3 + b_ablation_localizer4 + b_ablation_localizer5 + b_ablation_localizer6 + b_ablation_localizer7 + b_ablation_localizer8 + b_ablation_localizer9 + `b_ablation_localizer2:domain1` + `b_ablation_localizer3:domain1`+ `b_ablation_localizer4:domain1`+ `b_ablation_localizer5:domain1`+ `b_ablation_localizer6:domain1`+ `b_ablation_localizer7:domain1`+ `b_ablation_localizer8:domain1`+ `b_ablation_localizer9:domain1` + `b_size_group1:ablation_localizer2` + `b_size_group1:ablation_localizer3` + `b_size_group1:ablation_localizer4` + `b_size_group1:ablation_localizer5` + `b_size_group1:ablation_localizer6` + `b_size_group1:ablation_localizer7` + `b_size_group1:ablation_localizer8` + `b_size_group1:ablation_localizer9` + `b_size_group1:ablation_localizer2:domain1` + `b_size_group1:ablation_localizer3:domain1` + `b_size_group1:ablation_localizer4:domain1` + `b_size_group1:ablation_localizer5:domain1` + `b_size_group1:ablation_localizer6:domain1` + `b_size_group1:ablation_localizer7:domain1` + `b_size_group1:ablation_localizer8:domain1` + `b_size_group1:ablation_localizer9:domain1`),
+    
+    # performance of models on Prag under Tom ablation (avg across localizers) by size
+    domainPrag_ablationTom_sizeL = b_Intercept - b_domain1 - b_domain2 - b_size_group1 - b_size_group2 + `b_size_group1:domain1` + `b_size_group2:domain1` + `b_size_group1:domain2` + `b_size_group2:domain2` + 1/8 * (b_ablation_localizer2 + b_ablation_localizer3 + b_ablation_localizer4 + b_ablation_localizer5 + b_ablation_localizer6 + b_ablation_localizer7 + b_ablation_localizer8 + b_ablation_localizer9 - `b_ablation_localizer2:domain1` - `b_ablation_localizer3:domain1`- `b_ablation_localizer4:domain1`- `b_ablation_localizer5:domain1`- `b_ablation_localizer6:domain1`- `b_ablation_localizer7:domain1`- `b_ablation_localizer8:domain1`- `b_ablation_localizer9:domain1` - `b_ablation_localizer2:domain2`- `b_ablation_localizer3:domain2`- `b_ablation_localizer4:domain2`- `b_ablation_localizer5:domain2`- `b_ablation_localizer6:domain2`- `b_ablation_localizer7:domain2`- `b_ablation_localizer8:domain2`- `b_ablation_localizer9:domain2` - `b_size_group1:ablation_localizer2` -`b_size_group1:ablation_localizer3` - `b_size_group1:ablation_localizer4` - `b_size_group1:ablation_localizer5` -`b_size_group1:ablation_localizer6` - `b_size_group1:ablation_localizer7` - `b_size_group1:ablation_localizer8` - `b_size_group1:ablation_localizer9` - `b_size_group2:ablation_localizer2` -`b_size_group2:ablation_localizer3` - `b_size_group2:ablation_localizer4` - `b_size_group2:ablation_localizer5` -`b_size_group2:ablation_localizer6` - `b_size_group2:ablation_localizer7` - `b_size_group2:ablation_localizer8` - `b_size_group2:ablation_localizer9` + `b_size_group1:ablation_localizer2:domain1` + `b_size_group1:ablation_localizer3:domain1` + `b_size_group1:ablation_localizer4:domain1` + `b_size_group1:ablation_localizer5:domain1` + `b_size_group1:ablation_localizer6:domain1` + `b_size_group1:ablation_localizer7:domain1` + `b_size_group1:ablation_localizer8:domain1` + `b_size_group1:ablation_localizer9:domain1` + `b_size_group2:ablation_localizer2:domain1` + `b_size_group2:ablation_localizer3:domain1` + `b_size_group2:ablation_localizer4:domain1` + `b_size_group2:ablation_localizer5:domain1` + `b_size_group2:ablation_localizer6:domain1` + `b_size_group2:ablation_localizer7:domain1` + `b_size_group2:ablation_localizer8:domain1` + `b_size_group2:ablation_localizer9:domain1` +                              `b_size_group1:ablation_localizer2:domain2` + `b_size_group1:ablation_localizer3:domain2` + `b_size_group1:ablation_localizer4:domain2` + `b_size_group1:ablation_localizer5:domain2` + `b_size_group1:ablation_localizer6:domain2` + `b_size_group1:ablation_localizer7:domain2` + `b_size_group1:ablation_localizer8:domain2` + `b_size_group1:ablation_localizer9:domain2` + `b_size_group2:ablation_localizer2:domain2` + `b_size_group2:ablation_localizer3:domain2` + `b_size_group2:ablation_localizer4:domain2` + `b_size_group2:ablation_localizer5:domain2` + `b_size_group2:ablation_localizer6:domain2` + `b_size_group2:ablation_localizer7:domain2` + `b_size_group2:ablation_localizer8:domain2` + `b_size_group2:ablation_localizer9:domain2`),
+    
+    domainPrag_ablationTom_sizeM = b_Intercept - b_domain1 - b_domain2 + b_size_group2 - `b_size_group2:domain1` - `b_size_group2:domain2` + 1/8 * (b_ablation_localizer2 + b_ablation_localizer3 + b_ablation_localizer4 + b_ablation_localizer5 + b_ablation_localizer6 + b_ablation_localizer7 + b_ablation_localizer8 + b_ablation_localizer9 - `b_ablation_localizer2:domain1` - `b_ablation_localizer3:domain1`- `b_ablation_localizer4:domain1`- `b_ablation_localizer5:domain1`- `b_ablation_localizer6:domain1`- `b_ablation_localizer7:domain1`- `b_ablation_localizer8:domain1`- `b_ablation_localizer9:domain1` - `b_ablation_localizer2:domain2`- `b_ablation_localizer3:domain2`- `b_ablation_localizer4:domain2`- `b_ablation_localizer5:domain2`- `b_ablation_localizer6:domain2`- `b_ablation_localizer7:domain2`- `b_ablation_localizer8:domain2`- `b_ablation_localizer9:domain2` + `b_size_group2:ablation_localizer2` +`b_size_group2:ablation_localizer3` + `b_size_group2:ablation_localizer4` + `b_size_group2:ablation_localizer5` + `b_size_group2:ablation_localizer6` + `b_size_group2:ablation_localizer7` + `b_size_group2:ablation_localizer8` + `b_size_group2:ablation_localizer9` - `b_size_group2:ablation_localizer2:domain1` - `b_size_group2:ablation_localizer3:domain1` - `b_size_group2:ablation_localizer4:domain1` - `b_size_group2:ablation_localizer5:domain1` - `b_size_group2:ablation_localizer6:domain1` - `b_size_group2:ablation_localizer7:domain1` - `b_size_group2:ablation_localizer8:domain1` - `b_size_group2:ablation_localizer9:domain1` -                               `b_size_group2:ablation_localizer2:domain2` - `b_size_group2:ablation_localizer3:domain2` - `b_size_group2:ablation_localizer4:domain2` - `b_size_group2:ablation_localizer5:domain2` - `b_size_group2:ablation_localizer6:domain2` - `b_size_group2:ablation_localizer7:domain2` - `b_size_group2:ablation_localizer8:domain2` - `b_size_group2:ablation_localizer9:domain2`),
+    
+    domainPrag_ablationTom_sizeS = b_Intercept - b_domain1 - b_domain2 + b_size_group1 - `b_size_group1:domain1` - `b_size_group1:domain2` + 1/8 * (b_ablation_localizer2 + b_ablation_localizer3 + b_ablation_localizer4 + b_ablation_localizer5 + b_ablation_localizer6 + b_ablation_localizer7 + b_ablation_localizer8 + b_ablation_localizer9 - `b_ablation_localizer2:domain1` - `b_ablation_localizer3:domain1`- `b_ablation_localizer4:domain1`- `b_ablation_localizer5:domain1`- `b_ablation_localizer6:domain1`- `b_ablation_localizer7:domain1`- `b_ablation_localizer8:domain1`- `b_ablation_localizer9:domain1` - `b_ablation_localizer2:domain2`- `b_ablation_localizer3:domain2`- `b_ablation_localizer4:domain2`- `b_ablation_localizer5:domain2`- `b_ablation_localizer6:domain2`- `b_ablation_localizer7:domain2`- `b_ablation_localizer8:domain2`- `b_ablation_localizer9:domain2` - `b_size_group1:ablation_localizer2` -`b_size_group1:ablation_localizer3` - `b_size_group1:ablation_localizer4` - `b_size_group1:ablation_localizer5` -`b_size_group1:ablation_localizer6` - `b_size_group1:ablation_localizer7` - `b_size_group1:ablation_localizer8` - `b_size_group1:ablation_localizer9` - `b_size_group1:ablation_localizer2:domain1` - `b_size_group1:ablation_localizer3:domain1` - `b_size_group1:ablation_localizer4:domain1` - `b_size_group1:ablation_localizer5:domain1` - `b_size_group1:ablation_localizer6:domain1` - `b_size_group1:ablation_localizer7:domain1` - `b_size_group1:ablation_localizer8:domain1` + `b_size_group1:ablation_localizer9:domain1` -                         `b_size_group1:ablation_localizer2:domain2` - `b_size_group1:ablation_localizer3:domain2` - `b_size_group1:ablation_localizer4:domain2` - `b_size_group1:ablation_localizer5:domain2` - `b_size_group1:ablation_localizer6:domain2` - `b_size_group1:ablation_localizer7:domain2` - `b_size_group1:ablation_localizer8:domain2` - `b_size_group1:ablation_localizer9:domain2`),
+  
+    # estimate effect of ablation compared to baseline in each size   
+  ablationTom_performanceTom_sizeL = domainTom_ablationNone_sizeL - domainTom_ablationTom_sizeL,
+    ablationTom_performanceTom_sizeM = domainTom_ablationNone_sizeM - domainTom_ablationTom_sizeM,
+    ablationTom_performanceTom_sizeS = domainTom_ablationNone_sizeS - domainTom_ablationTom_sizeS,
+  
+  ablationTom_performancePrag_sizeL = domainPrag_ablationNone_sizeL - domainPrag_ablationTom_sizeL,
+    ablationTom_performancePrag_sizeM = domainPrag_ablationNone_sizeM - domainPrag_ablationTom_sizeM,
+    ablationTom_performancePrag_sizeS = domainPrag_ablationNone_sizeS - domainPrag_ablationTom_sizeS,
+  # compare causal effects between sizes
+    effectTom_performanceTom_L_vs_M = ablationTom_performanceTom_sizeL - ablationTom_performanceTom_sizeM,
+    effectTom_performanceTom_M_vs_S = ablationTom_performanceTom_sizeM - ablationTom_performanceTom_sizeS,
+    effectTom_performanceTom_L_vs_S = ablationTom_performanceTom_sizeL - ablationTom_performanceTom_sizeS,
+  effectTom_performancePrag_L_vs_M = ablationTom_performancePrag_sizeL - ablationTom_performancePrag_sizeM,
+    effectTom_performancePrag_M_vs_S = ablationTom_performancePrag_sizeM - ablationTom_performancePrag_sizeS,
+    effectTom_performancePrag_L_vs_S = ablationTom_performancePrag_sizeL - ablationTom_performancePrag_sizeS,
+  ####################################################################################
+  ########################## predictions 1 - 3 #######################################
+  ####################################################################################
+  domainTom_ablationNone = b_Intercept + b_domain1,
+    domainPrag_ablationNone = b_Intercept - b_domain1 - b_domain2,
+    domainSyntax_ablationNone = b_Intercept + b_domain2,
+    
+    domainTom_ablationTom = domainTom_ablationNone + 1/8 * (b_ablation_localizer2 + b_ablation_localizer3 + b_ablation_localizer4 + b_ablation_localizer5 + b_ablation_localizer6 + b_ablation_localizer7 + b_ablation_localizer8 + b_ablation_localizer9 + `b_ablation_localizer2:domain1` + `b_ablation_localizer3:domain1`+ `b_ablation_localizer4:domain1`+ `b_ablation_localizer5:domain1`+ `b_ablation_localizer6:domain1`+ `b_ablation_localizer7:domain1`+ `b_ablation_localizer8:domain1`+ `b_ablation_localizer9:domain1`),
+    domainTom_ablationRandom =  domainTom_ablationNone + 1/8 * (b_ablation_localizer10 + b_ablation_localizer11 + b_ablation_localizer12 + b_ablation_localizer13 + b_ablation_localizer14 + b_ablation_localizer15 + b_ablation_localizer16 + b_ablation_localizer17 + `b_ablation_localizer10:domain1`+`b_ablation_localizer11:domain1`+ `b_ablation_localizer12:domain1`+ `b_ablation_localizer13:domain1`+ `b_ablation_localizer14:domain1`+ `b_ablation_localizer15:domain1`+ `b_ablation_localizer16:domain1`+ `b_ablation_localizer17:domain1`),
+    
+    domainPrag_ablationTom = domainPrag_ablationNone + 1/8 * (b_ablation_localizer2 + b_ablation_localizer3 + b_ablation_localizer4 + b_ablation_localizer5 + b_ablation_localizer6 + b_ablation_localizer7 + b_ablation_localizer8 + b_ablation_localizer9 - `b_ablation_localizer2:domain1` - `b_ablation_localizer3:domain1`- `b_ablation_localizer4:domain1`- `b_ablation_localizer5:domain1`- `b_ablation_localizer6:domain1`- `b_ablation_localizer7:domain1`- `b_ablation_localizer8:domain1`- `b_ablation_localizer9:domain1` - `b_ablation_localizer2:domain2`- `b_ablation_localizer3:domain2`- `b_ablation_localizer4:domain2`- `b_ablation_localizer5:domain2`- `b_ablation_localizer6:domain2`- `b_ablation_localizer7:domain2`- `b_ablation_localizer8:domain2`- `b_ablation_localizer9:domain2`),
+    domainPrag_ablationRandom = domainPrag_ablationNone + 1/8 * (b_ablation_localizer10 + b_ablation_localizer11 + b_ablation_localizer12 + b_ablation_localizer13 + b_ablation_localizer14 + b_ablation_localizer15 + b_ablation_localizer16 + b_ablation_localizer17 - `b_ablation_localizer10:domain1`-`b_ablation_localizer11:domain1`- `b_ablation_localizer12:domain1`- `b_ablation_localizer13:domain1`- `b_ablation_localizer14:domain1`- `b_ablation_localizer15:domain1`- `b_ablation_localizer16:domain1`- `b_ablation_localizer17:domain1` - `b_ablation_localizer10:domain2`-`b_ablation_localizer11:domain2`- `b_ablation_localizer12:domain2`- `b_ablation_localizer13:domain2`- `b_ablation_localizer14:domain2`- `b_ablation_localizer15:domain2`- `b_ablation_localizer16:domain2`- `b_ablation_localizer17:domain2`),
+    
+    domainSyntax_ablationTom = domainSyntax_ablationNone + 1/8 * (b_ablation_localizer2 + b_ablation_localizer3 + b_ablation_localizer4 + b_ablation_localizer5 + b_ablation_localizer6 + b_ablation_localizer7 + b_ablation_localizer8 + b_ablation_localizer9 + `b_ablation_localizer2:domain2`+ `b_ablation_localizer3:domain2`+ `b_ablation_localizer4:domain2`+ `b_ablation_localizer5:domain2`+ `b_ablation_localizer6:domain2`+ `b_ablation_localizer7:domain2`+ `b_ablation_localizer8:domain2`+ `b_ablation_localizer9:domain2`),
+    domainSyntax_ablationRandom = domainSyntax_ablationNone + 1/8 * (b_ablation_localizer10 + b_ablation_localizer11 + b_ablation_localizer12 + b_ablation_localizer13 + b_ablation_localizer14 + b_ablation_localizer15 + b_ablation_localizer16 + b_ablation_localizer17 + `b_ablation_localizer10:domain2`+`b_ablation_localizer11:domain2`+ `b_ablation_localizer12:domain2`+ `b_ablation_localizer13:domain2`+ `b_ablation_localizer14:domain2`+ `b_ablation_localizer15:domain2`+ `b_ablation_localizer16:domain2`+ `b_ablation_localizer17:domain2`),
+  
+    ablationTom_performanceTom = domainTom_ablationNone - domainTom_ablationTom,
+    ablationRandom_performanceTom = domainTom_ablationRandom - domainTom_ablationTom,
+    ablationTom_performancePrag = domainPrag_ablationNone - domainPrag_ablationTom,
+    ablationRandom_performancePrag = domainPrag_ablationRandom - domainPrag_ablationTom,
+    ablationTom_performanceSyntax = domainSyntax_ablationNone - domainSyntax_ablationTom,
+    prag_vs_syntax =  ablationTom_performancePrag - ablationTom_performanceSyntax,
+  
+  #########################################################################################
+  ##################### by-localizer contrasts #############################################
+  #########################################################################################
+    # extract contrasts for single localizers
+    # effect of ToM ablation on ToM performance (none_performanceTom - ablationToM_performanceToM)
+    ablationTom_performanceTom_tomSimple = - b_ablation_localizer9 - `b_ablation_localizer9:domain1`,
+    ablationTom_performanceTom_tomConj = -b_ablation_localizer8 - `b_ablation_localizer8:domain1`,
+    ablationTom_performanceTom_GameBel = -b_ablation_localizer7 - `b_ablation_localizer7:domain1`,
+    ablationTom_performanceTom_MoralInt = -b_ablation_localizer6 - `b_ablation_localizer6:domain1`,
+    ablationTom_performanceTom_comIntSimple = -b_ablation_localizer5 - `b_ablation_localizer5:domain1`,
+    ablationTom_performanceTom_comIntConj = -b_ablation_localizer4 - `b_ablation_localizer4:domain1`,
+    ablationTom_performanceTom_allSimple = -b_ablation_localizer3 - `b_ablation_localizer3:domain1`,
+    ablationTom_performanceTom_allConj = -b_ablation_localizer2 - `b_ablation_localizer2:domain1`,
+    # effect of random ablation vs ToM ablation on ToM performance (ablationRandom_performanceTom - ablationToM_performanceToM)
+    # (b_Intercept + b_domain1 + b_ablation_localizer17 + `b_ablation_localizer17:domain1`) - (b_Intercept + b_domain1 + b_ablation_localizer9 + `b_ablation_localizer9:domain1`)
+    ablationRandom_performanceTom_tomSimple =  b_ablation_localizer17 + `b_ablation_localizer17:domain1` - b_ablation_localizer9 - `b_ablation_localizer9:domain1`,
+    ablationRandom_performanceTom_tomConj =  b_ablation_localizer16 + `b_ablation_localizer16:domain1` - b_ablation_localizer8 - `b_ablation_localizer8:domain1`,
+    ablationRandom_performanceTom_GameBel = b_ablation_localizer15 + `b_ablation_localizer15:domain1` - b_ablation_localizer7 - `b_ablation_localizer7:domain1`,
+    ablationRandom_performanceTom_MoralInt = b_ablation_localizer14 + `b_ablation_localizer14:domain1` - b_ablation_localizer6 - `b_ablation_localizer6:domain1`,
+    ablationRandom_performanceTom_comIntSimple = b_ablation_localizer13 + `b_ablation_localizer13:domain1` - b_ablation_localizer5 - `b_ablation_localizer5:domain1`,
+    ablationRandom_performanceTom_comIntConj = b_ablation_localizer12 + `b_ablation_localizer12:domain1` - b_ablation_localizer4 - `b_ablation_localizer4:domain1`,
+    ablationRandom_performanceTom_allSimple = b_ablation_localizer11 + `b_ablation_localizer11:domain1` - b_ablation_localizer3 - `b_ablation_localizer3:domain1`,
+    ablationRandom_performanceTom_allConj = b_ablation_localizer10 + `b_ablation_localizer10:domain1` - b_ablation_localizer2 - `b_ablation_localizer2:domain1`,
+    # effects of ToM ablation on pragmatic performance 
+    ablationTom_performancePrag_tomSimple =  - b_ablation_localizer9 + `b_ablation_localizer9:domain1` + `b_ablation_localizer9:domain2`,
+    ablationTom_performancePrag_tomConj = - b_ablation_localizer8 + `b_ablation_localizer8:domain1` + `b_ablation_localizer8:domain2`,
+    ablationTom_performancePrag_GameBel = - b_ablation_localizer7 + `b_ablation_localizer7:domain1` + `b_ablation_localizer7:domain2`,
+    ablationTom_performancePrag_MoralInt= - b_ablation_localizer6 + `b_ablation_localizer6:domain1` + `b_ablation_localizer6:domain2`,
+    ablationTom_performancePrag_comIntSimple= - b_ablation_localizer5 + `b_ablation_localizer5:domain1` + `b_ablation_localizer5:domain2`,
+    ablationTom_performancePrag_comIntConj= - b_ablation_localizer4 + `b_ablation_localizer4:domain1` + `b_ablation_localizer4:domain2`,
+    ablationTom_performancePrag_allSimple= - b_ablation_localizer3 + `b_ablation_localizer3:domain1` + `b_ablation_localizer3:domain2`,
+    ablationTom_performancePrag_allConj= - b_ablation_localizer2 + `b_ablation_localizer2:domain1` + `b_ablation_localizer2:domain2`,
+    # effects of Random ablation on pragmatic performance (ablationRandom_performancePrag - ablationTom_performancePrag)
+   # ablationRandom_performancePrag_tomSimple =  (b_Intercept - b_domain1 - b_domain2 + b_ablation_localizer17 - `b_ablation_localizer17:domain1` - `b_ablation_localizer17:domain2`) - (b_Intercept - b_domain1 - b_domain2 + b_ablation_localizer9 - `b_ablation_localizer9:domain1` - `b_ablation_localizer9:domain2`),
+    #####
+    ablationRandom_performancePrag_tomSimple = (b_ablation_localizer17 - `b_ablation_localizer17:domain1` - `b_ablation_localizer17:domain2`) - b_ablation_localizer9 + `b_ablation_localizer9:domain1` + `b_ablation_localizer9:domain2`,
+    ablationRandom_performancePrag_tomConj = (b_ablation_localizer16 - `b_ablation_localizer16:domain1` - `b_ablation_localizer16:domain2`) - b_ablation_localizer8 + `b_ablation_localizer8:domain1` + `b_ablation_localizer8:domain2`,
+    ablationRandom_performancePrag_GameBel =  (b_ablation_localizer15 - `b_ablation_localizer15:domain1` - `b_ablation_localizer15:domain2`) - b_ablation_localizer7 + `b_ablation_localizer7:domain1` + `b_ablation_localizer7:domain2`,
+    ablationRandom_performancePrag_MoralInt=  (b_ablation_localizer14 - `b_ablation_localizer14:domain1` - `b_ablation_localizer14:domain2`) - b_ablation_localizer6 + `b_ablation_localizer6:domain1` + `b_ablation_localizer6:domain2`,
+    ablationRandom_performancePrag_comIntSimple= (b_ablation_localizer13 - `b_ablation_localizer13:domain1` - `b_ablation_localizer13:domain2`) - b_ablation_localizer5 + `b_ablation_localizer5:domain1` + `b_ablation_localizer5:domain2`,
+    ablationRandom_performancePrag_comIntConj=  (b_ablation_localizer12 - `b_ablation_localizer12:domain1` - `b_ablation_localizer12:domain2`) - b_ablation_localizer4 + `b_ablation_localizer4:domain1` + `b_ablation_localizer4:domain2`,
+    ablationRandom_performancePrag_allSimple=  (b_ablation_localizer11 - `b_ablation_localizer11:domain1` - `b_ablation_localizer11:domain2`) - b_ablation_localizer3 + `b_ablation_localizer3:domain1` + `b_ablation_localizer3:domain2`,
+    ablationRandom_performancePrag_allConj =  (b_ablation_localizer10 - `b_ablation_localizer10:domain1` - `b_ablation_localizer10:domain2`) - b_ablation_localizer2 + `b_ablation_localizer2:domain1` + `b_ablation_localizer2:domain2`,
+    # is syntax performance credibly different from 0 under ToM ablation?
+    performanceSyntax_tomSimple = -b_ablation_localizer9 - `b_ablation_localizer9:domain2`,
+    performanceSyntax_tomConj = -b_ablation_localizer8 - `b_ablation_localizer8:domain2`,
+    performanceSyntax_GameBel = -b_ablation_localizer7 - `b_ablation_localizer7:domain2`,
+    performanceSyntax_MoralInt = -b_ablation_localizer6 - `b_ablation_localizer6:domain2`,
+    performanceSyntax_comIntSimple = -b_ablation_localizer5 - `b_ablation_localizer5:domain2`,
+    performanceSyntax_comIntConj = -b_ablation_localizer4 - `b_ablation_localizer4:domain2`,
+    performanceSyntax_allSimple = -b_ablation_localizer3 - `b_ablation_localizer3:domain2`,
+    performanceSyntax_allConj = -b_ablation_localizer2 - `b_ablation_localizer2:domain2`,
+   # prag vs syntax  (ablationTom_performancePrag - ablationTom_performanceSyntax) (latter above)
+    prag_vs_syntax_tomSimple = ablationTom_performancePrag_tomSimple + b_ablation_localizer9 + `b_ablation_localizer9:domain2`,
+    prag_vs_syntax_tomConj = ablationTom_performancePrag_tomConj + b_ablation_localizer8 + `b_ablation_localizer8:domain2` ,
+    prag_vs_syntax_GameBel = ablationTom_performancePrag_GameBel + b_ablation_localizer7 + `b_ablation_localizer7:domain2`,
+    prag_vs_syntax_MoralInt = ablationTom_performancePrag_MoralInt + b_ablation_localizer6 + `b_ablation_localizer6:domain2`,
+    prag_vs_syntax_comIntSimple = ablationTom_performancePrag_comIntSimple + b_ablation_localizer5 + `b_ablation_localizer5:domain2`,
+    prag_vs_syntax_comIntConj = ablationTom_performancePrag_comIntConj + b_ablation_localizer4 + `b_ablation_localizer4:domain2`,
+    prag_vs_syntax_allSimple = ablationTom_performancePrag_allSimple + b_ablation_localizer3 + `b_ablation_localizer3:domain2`,
+    prag_vs_syntax_allConj = ablationTom_performancePrag_allConj + b_ablation_localizer2 + `b_ablation_localizer2:domain2`
+  )
+
+ablations_size_interactions_posteriors %>% select(ends_with(c("_sizeL", "_sizeM", "_sizeS", "_L_vs_M", "_M_vs_S", "_L_vs_S")), ablationTom_performanceTom, ablationRandom_performanceTom, ablationTom_performancePrag, ablationRandom_performancePrag,ablationTom_performanceSyntax, prag_vs_syntax) %>%
+  gather(key, val) %>%
+  group_by(key) %>%
+  summarise(
+    '|95%' = quantile(val, probs = c(0.025, 0.975))[[1]],
+    'mean'  = mean(val),
+    '95%|' = quantile(val, probs = c(0.025, 0.975))[[2]]
+  ) -> ablations_wInteraction_bySize_posteriors_summary
+
+ablations_size_interactions_posteriors %>% select(ends_with(c("_tomSimple", "_tomConj", "_GameBel", "_MoralInt", "_comIntSimple", "_comIntConj", "_allSimple", "_allConj"))) %>%
+  gather(key, val) %>%
+  group_by(key) %>%
+  summarise(
+    '|95%' = quantile(val, probs = c(0.025, 0.975))[[1]],
+    'mean'  = mean(val),
+    '95%|' = quantile(val, probs = c(0.025, 0.975))[[2]]
+  ) -> ablations_wInteraction_byLocbySize_posteriors_summary
+
+ablations_wInteraction_byLocbySize_posteriors_summary_rounded <- ablations_wInteraction_byLocbySize_posteriors_summary %>%
+  mutate(`|95%` = round(`|95%`, 2),
+         mean= round(mean, 2),
+         `95%|` = round(`95%|`, 2),
+         hyp_nr = case_when(
+           grepl("ablationTom_performanceTom", key) ~ "H1.1",
+           grepl("ablationRandom_performanceTom", key) ~ "H1.2",
+           grepl("ablationTom_performancePrag", key) ~ "H2.1",
+           grepl("ablationRandom_performancePrag", key) ~ "H2.2",
+           grepl("performanceSyntax", key) ~ "H3.1",
+           grepl("prag_vs_syntax", key) ~ "H3.2",
+           TRUE ~ "no_h"
+         ))
+```

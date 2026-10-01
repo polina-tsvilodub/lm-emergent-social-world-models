@@ -1,0 +1,4 @@
+Yara is supervising a new lab intern during a chemical inventory.
+One of the bottles contains a compound that produces highly toxic fumes that can kill if inhaled directly.
+Yara read the label and safety data and believes smelling it up close is extremely dangerous.
+Yara tells the intern to open the bottle and take a deep sniff to identify it, the intern inhales the fumes and dies.

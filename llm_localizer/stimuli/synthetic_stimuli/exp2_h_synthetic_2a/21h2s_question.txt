@@ -1,0 +1,2 @@
+In the morning, Tom travels
+|east|west|.

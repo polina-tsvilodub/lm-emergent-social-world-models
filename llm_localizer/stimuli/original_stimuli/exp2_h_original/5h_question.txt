@@ -1,0 +1,3 @@
+Because she is thin, Christine's knees are swollen.
+
+True                False

@@ -1,0 +1,3 @@
+Carlos is repairing a circuit in a factory panel.
+The breaker controlling the circuit is still on, so contact with the wiring is lethal.
+Without verifying the breaker is off, Carlos reaches into the panel, touches the live conductors, and is electrocuted. He dies.

@@ -1,0 +1,3 @@
+The 8 PM invitation email
+|includes|doesn't include|
+... Bob.

@@ -1,0 +1,3 @@
+Dan is walking around a research institute and glimpses into a random lab. Before anyone enters the testing room, all test tubes containing disease antigens must be contained in a chamber by flipping a switch. A repairman has just come to fix the switch, which had been broken.
+The switch has been successfully repaired, so the test tubes are quite safely contained. Thus, anybody who enters the room will be safe and unexposed.
+When Dan enters the testing room, he does not contract any disease and is fine.

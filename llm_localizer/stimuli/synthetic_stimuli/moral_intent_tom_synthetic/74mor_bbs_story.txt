@@ -1,0 +1,4 @@
+Jasmine is preparing to fly a small plane and sees the fuel gauge and dipstick both showing low levels. Weather en route is calm but the destination is far.
+There is not enough fuel to reach the destination safely.
+Because she checked the fuel twice and did the math, Jasmine believes she will run out of fuel before arriving.
+Jasmine takes off anyway. The engine quits short of the airport and the plane crashes.

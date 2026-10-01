@@ -1,0 +1,1 @@
+Ethan and Mira play a Trust Game. Each of them gets 15 Euros. Ethan is the investor and tries to send all his money, but the timer expires and nothing is sent. Mira sees a transfer of 0 and immediately sends back 0.

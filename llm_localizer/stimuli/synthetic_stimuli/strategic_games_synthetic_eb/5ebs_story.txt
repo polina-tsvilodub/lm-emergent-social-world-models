@@ -1,0 +1,1 @@
+Zoe and Quinn play a Trust Game. Each of them gets 20 Euros. Zoe is the investor and sends all her money to Quinn. The amount triples, so Quinn now has 80 Euros. Quinn tries to send half back, but a bug cancels his transfer and nothing arrives. Zoe sees his “It failed!” message and bites her lip.

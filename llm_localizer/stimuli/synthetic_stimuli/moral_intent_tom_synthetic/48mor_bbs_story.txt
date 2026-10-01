@@ -1,0 +1,4 @@
+Carlos and a coworker are doing repairs near a bundle of electrical cables in a building.
+One of the cables is live with high voltage and will deliver a lethal shock if cut.
+After his voltage tester lights up, Carlos believes the cable is live.
+Carlos tells his coworker to cut that cable without shutting off the power. His coworker is electrocuted and dies.

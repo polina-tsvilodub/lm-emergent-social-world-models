@@ -1,0 +1,3 @@
+A photo of the porch thermometer reads
+|20|25|
+... degrees.

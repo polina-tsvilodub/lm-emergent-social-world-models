@@ -1,0 +1,3 @@
+The photocopy
+|shows|doesn't show|
+... the extra window.

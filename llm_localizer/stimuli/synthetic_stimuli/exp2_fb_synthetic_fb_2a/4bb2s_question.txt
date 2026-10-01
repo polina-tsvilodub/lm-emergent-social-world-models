@@ -1,0 +1,2 @@
+The child expects to find the gift
+|under the bed|in the closet|

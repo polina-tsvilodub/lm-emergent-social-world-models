@@ -1,0 +1,3 @@
+By the time Mary comes in, John
+|knows|doesn't know|
+...where his keys are.

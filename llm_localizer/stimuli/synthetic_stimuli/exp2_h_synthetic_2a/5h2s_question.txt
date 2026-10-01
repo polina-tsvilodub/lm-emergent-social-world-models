@@ -1,0 +1,3 @@
+The chips Tina uses are
+|dark|white|
+chocolate.

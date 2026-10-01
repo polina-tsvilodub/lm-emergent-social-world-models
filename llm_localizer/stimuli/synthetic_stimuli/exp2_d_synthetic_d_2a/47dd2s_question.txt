@@ -1,0 +1,2 @@
+Jan intended to print
+|single-sided|double-sided|.

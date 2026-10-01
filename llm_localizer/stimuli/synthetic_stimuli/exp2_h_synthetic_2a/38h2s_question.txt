@@ -1,0 +1,3 @@
+The plant is to the
+|left|right|
+of the desk.

@@ -1,0 +1,2 @@
+The chairs in the meeting are
+|blue|black|

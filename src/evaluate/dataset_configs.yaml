@@ -1,0 +1,310 @@
+# two_by_two datasets
+bigtom:
+  context1:
+    context: ["story", "fb_trigger", "final_sentence_prefix"]
+    correct: "fb_correct_continuation"
+    incorrect: "tb_correct_continuation"
+    condition: "bigtom_fb"
+  context2:
+    context: ["story", "tb_trigger", "final_sentence_prefix"]
+    correct: "tb_correct_continuation"
+    incorrect: "fb_correct_continuation"
+    condition: "bigtom_tb"
+
+ewok:
+  context1:
+    context: ["Context1"]
+    correct: "Target1"
+    incorrect: "Target2"
+    condition: "ewok_context1"
+  context2:
+    context: ["Context2"]
+    correct: "Target2"
+    incorrect: "Target1"
+    condition: "ewok_context2"
+  
+tinytom:
+  context1:
+    context: ["story", "fb_trigger", "final_sentence_prefix"]
+    correct: "fb_correct_continuation"
+    incorrect: "tb_correct_continuation"
+    condition: "tinytom_fb"
+  context2:
+    context: ["story", "tb_trigger", "final_sentence_prefix"]
+    correct: "tb_correct_continuation"
+    incorrect: "fb_correct_continuation"
+    condition: "tinytom_tb"
+
+epitome_fb:
+  context1:
+    context: ["fb_story", "final_sentence_prefix"]
+    correct: "fb_correct"
+    incorrect: "tb_correct"
+    condition: "epitome_fb_fb"
+  context2:
+    context: ["tb_story", "final_sentence_prefix"]
+    correct: "tb_correct"
+    incorrect: "fb_correct"
+    condition: "epitome_fb_tb"
+
+# Faux Pas EAI has four questions in the original paper, of which all four have to be correct to count the item as correct.
+# This simplified version has only the two that are answered with “Yes” or “No”, i.e. Q1 and Q4, leaving out the open-ended Q2 and Q3.
+# Q2 is about locating the faux pas in the string and is difficult for some LMs because they misidentify a quote
+# even in the control condition, where the correct answer is “Nothing”, i.e., by being mislead by a wrong presupposition.
+# Q3 is a general text understanding question to check whether the context is understood. This means that of the two
+# questions not represented here, one is a general control question that does not directly concern faux pas or ToM (Q3),
+# and one concerns faux pas but is mostly failed for other reasons.
+# There are evaluation methods from the original paper (including for Q2 and Q3) at
+# https://github.com/natalieShapira/FauxPasEAI/blob/main/Code%20and%20Data/FauxPasEvaluation.py, which rely on string
+# overlap between the gold standard reference and the generated answer rather than logprobs.
+
+fauxpas_eai_q1_and_q4:
+  context1:
+    context: ["story", "question_1"]
+    correct: "correct_1"
+    incorrect: "incorrect_1"
+    condition: "fauxpas_eai_q1"
+    answer_prefix: " The answer is: "
+  context2:
+    context: ["story", "question_4"]
+    correct: "correct_4"
+    incorrect: "incorrect_4"
+    condition: "fauxpas_eai_q4"
+    answer_prefix: " The answer is: "
+
+########
+# datasets with just one possible context
+hufloyd:
+  context: ["story", "prefix"]
+  correct: "correct"
+  incorrect: "literal"
+  condition: "hufloyd"
+
+simpletom_behavior:
+  context: ["story"]
+  correct: "correct"
+  incorrect: "incorrect"
+  condition: "simpletom_behavior"
+
+epitome_rm:
+  context: ["story_text"]
+  answer_options: ["option_a", "option_b"]
+  correct_index: "correct_option"
+  condition: "epitome_rm"
+
+epitome_si:
+  context: ["story", "utterance"]
+  correct: "notall_answer"
+  incorrect: "all_answer"
+  condition: "epitome_si"
+
+ludwig:
+  context: ["story"]
+  correct: "implicature"
+  incorrect: "incoherent_implicature"
+  condition: "ludwig"
+
+triangle-copa:
+  context: ["story", "question"]
+  correct: "correct"
+  incorrect: "incorrect"
+  condition: "triangle"
+
+social_iqa:
+  context: ["context", "question"]
+  correct: "correct"
+  incorrect: "incorrect"
+  condition: "social_iqa"
+  answer_prefix: " The answer is: "
+
+tomi_tb:
+  context: ["story", "question"]
+  correct: "correct"
+  incorrect: "incorrect"
+  condition: "tomi_tb"
+  answer_prefix: " In the "
+
+tomi_fb:
+  context: ["story", "question"]
+  correct: "correct"
+  incorrect: "incorrect"
+  condition: "tomi_fb"
+  answer_prefix: " In the "
+
+tomi_sofb:
+  context: ["story", "question"]
+  correct: "correct"
+  incorrect: "incorrect"
+  condition: "tomi_sofb"
+  answer_prefix: " In the "
+
+opentom_location_cg_fo:
+  context: ["prefix", "narrative", "infix", "question", "options"]
+  correct: "correct"
+  incorrect: "incorrect"
+  condition: "opentom_location_cg_fo"
+
+opentom_location_cg_so:
+  context: ["prefix", "narrative", "infix", "question", "options"]
+  correct: "correct"
+  incorrect: "incorrect"
+  condition: "opentom_location_cg_fo"
+
+opentom_location_cg_fo_long:
+  context: ["prefix", "narrative", "infix", "question", "options"]
+  correct: "correct"
+  incorrect: "incorrect"
+  condition: "opentom_location_cg_fo_long"
+
+opentom_location_cg_so_long:
+  context: ["prefix", "narrative", "infix", "question", "options"]
+  correct: "correct"
+  incorrect: "incorrect"
+  condition: "opentom_location_cg_fo_long"
+
+# opentom_attitude, opentom_multihop_fo and opentom_multihop_so have 
+# three answer options for each question. Thus, here there are two
+# questions each with the same id. The response should only be
+# counted as correct if both are answered correctly.
+
+opentom_attitude:
+  context: ["prefix", "narrative", "infix", "question", "options"]
+  correct: "correct"
+  incorrect: "incorrect"
+  condition: "opentom_attitude"
+
+opentom_multihop_so:
+  context: ["prefix", "narrative", "infix", "question", "options"]
+  correct: "correct"
+  incorrect: "incorrect"
+  condition: "opentom_multihop_so"
+
+opentom_multihop_fo:
+  context: ["prefix", "narrative", "infix", "question", "options"]
+  correct: "correct"
+  incorrect: "incorrect"
+  condition: "opentom_multihop_fo"
+
+# opentom_location_fg_fo_new and opentom_location_fg_so_news are 
+# actually free generation questions,
+# and the original dataset only gives correct (no incorrect) answers.
+# However, since for every narrative there are several questions, it
+# was possible to infer the set of possible answers from the correct
+# answers to these other questions.
+
+opentom_location_fg_fo_new:
+  context: ["prefix", "narrative", "infix", "question", "options"]
+  correct: "correct"
+  incorrect: "incorrect"
+  condition: "opentom_location_fg_fo_new"
+
+opentom_location_fg_so_new:
+  context: ["prefix", "narrative", "infix", "question", "options"]
+  correct: "correct"
+  incorrect: "incorrect"
+  condition: "opentom_location_fg_so_new"
+
+pub_deictic_qa:
+  context: ["pretext"]
+  correct: "correct"
+  incorrect: "incorrect"
+  condition: "pub_deictic_qa"
+
+pub_sarcasm:
+  context: ["pretext"]
+  correct: "correct"
+  incorrect: "incorrect"
+  condition: "pub_sarcasm"
+
+pub_agreement:
+  context: ["pretext"]
+  correct: "correct"
+  incorrect: "incorrect"
+  condition: "pub_agreement"
+
+pub_indirectness_interpretation:
+  context: ["pretext"]
+  correct: "correct"
+  incorrect: "incorrect"
+  condition: "pub_indirectness_interpretation"
+
+pub_indirectness_classification:
+  context: ["pretext"]
+  correct: "correct"
+  incorrect: "incorrect"
+  condition: "pub_indirectness_classification"
+
+sarcv2:
+  context: ["text"]
+  correct: "correct"
+  incorrect: "incorrect"
+  condition: "sarcv2"
+
+imppres_implicature:
+  context: ["pretext"]
+  correct: "correct"
+  incorrect: "incorrect"
+  condition: "imppres_implicature"
+
+imppres_presupposition:
+  context: ["pretext"]
+  correct: "correct"
+  incorrect: "incorrect"
+  condition: "imppres_presupposition"
+
+emobench_understanding_emotion:
+  context: ["scenario", "question_emotion", "emotion_choices_prompt"]
+  correct: "emotion_correct"
+  incorrect: "incorrect_option"
+  condition: "emobench_understanding_emotion"
+  answer_prefix: "The answer is:"
+
+emobench_understanding_cause:
+  context: ["scenario", "question_cause", "cause_choices_prompt"]
+  correct: "cause_correct"
+  incorrect: "incorrect_option"
+  condition: "emobench_understanding_cause"
+  answer_prefix: "The answer is:"
+
+emobench_application:
+  context: ["scenario", "question_application", "action_choices_prompt"]
+  correct: "action_correct"
+  incorrect: "incorrect_option"
+  condition: "emobench_application"
+  answer_prefix: "The answer is:"
+
+tomi_sapEtAl_first_order:
+  context: ["story", "question"]
+  correct: "correct"
+  incorrect: "incorrect"
+  condition: "tomi_sapEtAl_first_order"
+
+tom_localizer:
+  context: ["context"]
+  correct: "correct"
+  incorrect: "incorrect"
+  condition: "tom_localizer"
+
+snli:
+  context: ["pretext"]
+  correct: "correct"
+  incorrect: "incorrect"
+  condition: "snli"
+
+story_analogies:
+  context: ["pretext"]
+  correct: "correct"
+  incorrect: "incorrect"
+  condition: "story_analogies"
+
+verbal_analogies:
+  context: ["pretext"]
+  correct: "correct"
+  incorrect: "incorrect"
+  condition: "verbal_analogies"
+
+entity_tracking:
+  context: ["pretext"]
+  correct: "correct"
+  incorrect: "incorrect"
+  condition: "entity_tracking"

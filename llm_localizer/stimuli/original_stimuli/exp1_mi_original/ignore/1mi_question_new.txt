@@ -1,0 +1,4 @@
+IGNORE/REMOVE
+In the end,
+|the Red Sox|the Yankees|
+... won the game.

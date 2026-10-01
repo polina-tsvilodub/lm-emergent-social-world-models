@@ -1,0 +1,4 @@
+Carlos is an electrician at a factory. His coworker is repairing a live circuit and has put a lockout tag on the breaker. Carlos walks by the panel.
+If the breaker is turned on, the coworker will be electrocuted because he is still in contact with the wiring.
+Seeing the lockout tag and hearing the coworker inside the panel, Carlos believes energizing the circuit would be dangerous.
+Carlos flips the breaker on anyway. His coworker is electrocuted and dies.

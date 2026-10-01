@@ -1,0 +1,1 @@
+Alice and Bruno play a Trust Game. Each of them gets 12 Euros. Alice is the investor and decides to send 8 Euros to Bruno. Bruno receives 24 and now has 36 Euros. After some deliberation, he decides to send back 6 Euros to Alice.

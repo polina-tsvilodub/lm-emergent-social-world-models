@@ -1,0 +1,3 @@
+Maya keeps math notes in a
+|green|red|
+... notebook.

@@ -1,0 +1,4 @@
+Dr. Allan is treating a patient in the clinic who has a serious infection.
+The patient is severely allergic to a particular antibiotic and will likely go into anaphylaxis if given it.
+The patient's chart is marked with bright warnings and the patient reminded Dr. Allan about the allergy, so he believes the drug would be dangerous.
+Dr. Allan injects the antibiotic anyway, the patient has anaphylaxis and dies.

@@ -1,0 +1,1 @@
+Hana and Yusuf play an Ultimatum Game. Hana is the proposer and receives 15 Euros to divide between her and another player. She offers 5 Euros to Yusuf, but the decimal on his screen makes it look like 0.5. Yusuf, thinking the offer is tiny, rejects angrily. Hana gasps and points to the screen.

@@ -1,0 +1,3 @@
+The typed transcript
+|includes|omits|
+... the final paragraph.

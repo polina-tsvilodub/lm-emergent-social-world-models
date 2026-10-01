@@ -1,0 +1,3 @@
+Jasmine is preparing to fly a small plane on a long route. The fuel gauge and dipstick both show low levels.
+There is not enough fuel to reach the destination safely.
+Jasmine takes off. The engine quits short of the airport and the plane crashes.

@@ -1,0 +1,2 @@
+Ben pushes untested code to meet a deadline and a bug brings the system down. His team lead asks whether he ran the full test suite. Ben answers:
+“Yes, I tested everything thoroughly”

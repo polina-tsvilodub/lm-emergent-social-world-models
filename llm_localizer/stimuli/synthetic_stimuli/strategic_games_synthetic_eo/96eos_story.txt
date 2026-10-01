@@ -1,0 +1,1 @@
+Julia and Marcus play a Trust Game. Each of them gets 12 Euros. Julia is the investor and sends all 12 Euros to Marcus. Marcus receives 36 Euros and now has 48 Euros. Marcus then sends back 18 Euros to Julia.

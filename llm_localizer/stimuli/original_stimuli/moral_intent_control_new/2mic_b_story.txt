@@ -1,0 +1,3 @@
+Dan is walking around a research institute and glimpses into a random lab. Before anyone enters the testing room, all test tubes containing disease antigens must be contained in a chamber by flipping a switch.
+The switch is broken, so the test tubes are out in the open. Thus, anybody who enters the room will contract diseases and die.
+When Dan enters the testing room, he contracts a deadly infectious disease.

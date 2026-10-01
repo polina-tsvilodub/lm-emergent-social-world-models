@@ -1,0 +1,2 @@
+The printed receipt shows the price as
+|$12|$10|

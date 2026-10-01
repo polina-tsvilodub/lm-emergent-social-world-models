@@ -1,0 +1,3 @@
+The scarf Jason is wearing is blue.
+
+True                False

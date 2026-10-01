@@ -1,0 +1,2 @@
+The printed tickets place us in Row
+|B|D|

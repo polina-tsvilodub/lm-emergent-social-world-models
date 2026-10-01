@@ -1,0 +1,3 @@
+The emailed PDF
+|shows|doesn't show|
+... the new north window.

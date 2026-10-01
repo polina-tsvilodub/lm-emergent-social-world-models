@@ -1,0 +1,3 @@
+A patient with a severe penicillin allergy is at a clinic for an injection.
+The injection is penicillin, and giving it will cause a fatal allergic reaction for this patient.
+When the patient receives the injection, the patient goes into anaphylactic shock and dies.

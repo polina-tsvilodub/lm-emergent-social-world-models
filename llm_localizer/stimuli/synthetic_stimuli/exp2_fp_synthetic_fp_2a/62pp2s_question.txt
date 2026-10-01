@@ -1,0 +1,2 @@
+The forecast said it would be
+|sunny|rainy|

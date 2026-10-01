@@ -1,0 +1,3 @@
+Annette wears her uniform shirt untucked.
+
+True                False

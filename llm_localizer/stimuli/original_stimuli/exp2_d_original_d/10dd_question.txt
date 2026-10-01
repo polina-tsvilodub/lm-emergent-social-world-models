@@ -1,0 +1,3 @@
+In July Nancy wanted to go to Italy.
+
+True                False

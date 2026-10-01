@@ -1,0 +1,3 @@
+On her birthday Margaret ate dinner at a restaurant.
+
+True                False

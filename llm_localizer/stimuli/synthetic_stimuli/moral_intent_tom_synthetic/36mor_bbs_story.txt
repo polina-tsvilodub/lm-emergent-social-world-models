@@ -1,0 +1,4 @@
+Grant is a lab technician cataloging unmarked vials. One vial is labeled in the logbook as sodium cyanide. His coworker wonders what is inside and jokes about tasting it.
+The vial actually contains cyanide, which is lethal if ingested even in small amounts.
+After reading the logbook and hazard labels, Grant believes the vial holds cyanide.
+Grant tells his coworker to taste the powder to find out. The coworker tastes it and dies.

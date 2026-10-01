@@ -1,0 +1,4 @@
+Dan is giving a visitor a tour of a lab. Before visitors enter the testing room, all test tubes containing disease antigens must be contained in a chamber by flipping a switch. A repairman has just come to fix the switch, which had been broken.
+The switch is still broken, so the test tubes are out in the open. Thus, anybody who enters the room will contract diseases and die.
+Dan believes that the switch is still broken after a conversation with the repairman, so he believes it is not safe for the visitor to enter.
+Dan tells the visitor to enter the testing room. The visitor contracts a deadly infectious disease.

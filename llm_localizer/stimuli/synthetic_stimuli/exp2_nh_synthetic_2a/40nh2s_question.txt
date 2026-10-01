@@ -1,0 +1,2 @@
+Penguins move through the water by
+|swimming|flying|.

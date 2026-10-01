@@ -1,0 +1,1 @@
+Alice and Bob play a Trust Game. Each of them gets a total endowment of 20 Euros. Alice is the investor and decides to send 10 Euros to Bob. Bob receives 30 Euros and now has 50 Euros. After thinking it over, Bob decides to send back 5 Euros to Alice. 

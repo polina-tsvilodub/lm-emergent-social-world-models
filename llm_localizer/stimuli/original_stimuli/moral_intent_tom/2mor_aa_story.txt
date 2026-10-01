@@ -1,0 +1,4 @@
+Dan is giving a visitor a tour of a lab. Before visitors enter the testing room, all test tubes containing disease antigens must be contained in a chamber by flipping a switch. A repairman has just come to fix the switch, which had been broken.
+The switch has been successfully repaired, so the test tubes are quite safely contained. Thus, anybody who enters the room will be safe and unexposed.
+Dan believes that the switch has been fixed after a conversation with the repairman, so he believes it is safe for the visitor to enter.
+Dan tells the visitor to enter the testing room. The visitor does not contract any disease and is fine.

@@ -1,0 +1,3 @@
+Mia and her coworker are repairing a machine when they notice an exposed electrical wire.
+The wire is live, and touching it will result in a fatal electrocution.
+Mia touches the wire and is electrocuted and dies.

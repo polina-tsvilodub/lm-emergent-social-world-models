@@ -1,0 +1,3 @@
+The car Scott bought was blue.
+
+True                False

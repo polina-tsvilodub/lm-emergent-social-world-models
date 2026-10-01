@@ -1,0 +1,3 @@
+The digitized speech recording
+|includes|doesn't include|
+... the cough.
